@@ -1,0 +1,102 @@
+.sd-container {
+    width: 1310px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sd-header h2 {
+    font-size: 22px;
+    margin: 20px 0;
+}
+
+.sd-line {
+    width: 100%;
+    height: 3px;
+    background: #ddd;
+    position: relative;
+    margin: 0 auto 25px auto;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bi-dot {
+    width: 12px;
+    height: 12px;
+    background: #bbb;
+    border-radius: 50%;
+}
+
+.bi-dot.active {
+    background: #2346C5;
+}
+
+.sd-labels {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.sd-labels .label {
+    font-size: 16px;
+    padding: 8px 16px;
+    background: transparent;
+    border-radius: 6px;
+}
+
+.label.active {
+    background: #2346C5;
+    color: white;
+}
+.sd-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.sd-img {
+    width: 150px;
+    border-radius: 8px;
+}
+
+.sd-name {
+    font-weight: bold;
+    color: #222;
+    font-size: 18px;
+}
+
+.sd-weight, .sd-brand {
+    color: #777;
+    font-size: 18px;
+}
+.sd-price {
+    font-weight: bold;
+    color: #222;
+    font-size: 18px;
+}
+.line-between {
+    flex: 1;
+    height: 4px;
+    background: #ddd;
+}
+.line-between.active {
+    background: #2346C5;
+}
+.sd-return{
+    text-align: center;
+    margin: 70px 0;
+}
+.bt-return{
+    padding: 15px;
+    color: white;
+    font-size: 14px;
+    background: #2346C5;
+    border-radius: 6px;
+    border: 1px solid #000000;
+    cursor: pointer;
+}
+.bt-return:hover{
+    background: #18358b;
+}

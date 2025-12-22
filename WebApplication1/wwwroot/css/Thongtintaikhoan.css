@@ -1,0 +1,317 @@
+/* ===================== RESET ====================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #fff;
+    color: #333;
+}
+
+/* ========== HEADER CHUNG ============ */
+.header-top {
+    width: 100%;
+    padding: 12px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #2346C5;
+}
+
+.logo img {
+    height: 45px;
+}
+
+/* ==== THANH TÌM KIẾM ==== */
+.search-bar {
+    display: flex;
+    flex: 1;
+    margin: 0 40px;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    align-items: center;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #2346C5;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+/* ==== PHẦN PHẢI HEADER ==== */
+.right-info {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.icon-item {
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon-item p {
+    font-size: 13px;
+    color: white;
+}
+
+/* = MENU  */
+.menu {
+    width: 100%;
+    background: #ffd54f;
+    padding: 14px 80px;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 45px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 8px 12px;
+    display: block;
+}
+
+/* ====  TÀI KHOẢN  === */
+.account-container {
+    width: 80%;
+    margin: 40px auto;
+    display: flex;
+    gap: 30px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    color: #2063f3;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    flex: 1;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+.content h2 {
+    margin-bottom: 5px;
+}
+
+.content p {
+    color: gray;
+    margin-bottom: 20px;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* ===== HỒ SƠ  ====== */
+.profile-wrapper {
+    margin-top: 20px;
+}
+
+.left-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-label {
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.form-input input {
+    width: 350px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.note {
+    font-size: 13px;
+    color: gray;
+    margin-top: 5px;
+}
+
+.gender-box input {
+    margin-right: 5px;
+    margin-left: 15px;
+}
+
+.save-btn {
+    margin-top: 10px;
+    width: 120px;
+    padding: 9px;
+    background: #2063f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #2063f3;
+}
+
+/* ==== ĐỊA CHỈ === */
+.address-box {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.default-btn {
+    border: 1px solid #2063f3;
+    padding: 5px 12px;
+    color: #2063f3;
+    background: #fff;
+    border-radius: 4px;
+}
+
+/* ====== ĐỔI MẬT KHẨU ===== */
+#password .form-group input {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* ========= ĐƠN HÀNG ======== */
+
+.order-tabs {
+    display: flex;
+    gap: 35px;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.order-tab {
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    color: #333;
+}
+
+.order-tab.active {
+    color: #2063f3;
+    font-weight: bold;
+}
+
+.order-list {
+    margin-top: 20px;
+}
+
+/* === SIDEBAR  =====*/
+
+
+.menu-group {
+    margin-bottom: 12px;
+}
+
+
+.menu-title {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 8px 0;
+}
+
+.menu-list {
+    list-style: none;
+    padding-left: 16px;
+    margin-top: 8px;
+}
+
+.menu-item {
+    padding: 6px 0;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: #333;
+}
+
+.menu-item a.active {
+    color: #2063f3;
+    font-weight: 600;
+}
+
+/* ==== Đăng Xuất ==== */
+.logout-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 18px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+.logout-item {
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.logout-link {
+    text-decoration: none;
+    color:#2063f3;
+    font-weight: 600;
+}
+
+.logout-icon {
+    color: #2063f3;
+}
+.btn-default {
+    border: 1px solid #2063f3;
+    padding: 4px 10px;
+    color: #0d57e4;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -1,0 +1,38 @@
+.np-container{
+    width: 1310px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.np-content{
+    margin: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.np-content i{
+    font-size: 50px;
+    color: green;
+}
+.np-text{
+    font-size: 20px;
+}
+.np-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bt-index{
+    padding: 15px 30px;
+    margin-bottom: 40px;
+    color: white;
+    background: #2346C5;
+    border-radius: 6px;
+    border: 1px solid #000000;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.bt-index:hover{
+    background: #18358b;
+}

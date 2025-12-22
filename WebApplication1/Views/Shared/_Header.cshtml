@@ -1,0 +1,160 @@
+﻿<!-- HEADER TOP -->
+<header class="header-top">
+    <div class="logo">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="~/images/logo.jpg" alt="Paddy.vn" />
+        </a>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Tìm kiếm sản phẩm..." />
+        <button><i class="fa fa-search"></i></button>
+    </div>
+
+    <div class="right-info">
+        <div class="hotline">
+            <p>Hotline</p>
+            <strong>086 767 7891</strong>
+        </div>
+
+        <div class="icons">
+            <a asp-controller="Wishlist" asp-action="Index" class="icon-item">
+                <i class="fa fa-heart"></i>
+                <p>Wishlist</p>
+            </a>
+
+            <a asp-controller="Account" asp-action="Login" class="icon-item">
+                <i class="fa fa-user"></i>
+                <p>Tài Khoản</p>
+            </a>
+
+            <a asp-controller="Cart" asp-action="Index" class="icon-item">
+                <i class="fa fa-cart-arrow-down"></i>
+                <p>Giỏ Hàng</p>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN MENU -->
+<nav class="menu">
+    <ul>
+        <!-- CHÓ -->
+        <li class="has-dropdown">
+            <a asp-controller="Product" asp-action="Collections" asp-route-type="dog">Chó</a>
+
+            <div class="dropdown">
+                <div class="dropdown-container">
+                    <div>
+                        <h4>Thức Ăn Cho Chó</h4>
+                        <p>Thức Ăn Hạt</p>
+                        <p>Thức Ăn Ướt</p>
+                        <p>Thức Ăn Hữu Cơ</p>
+                        <p>Thức Ăn Không Ngũ Cốc</p>
+                    </div>
+
+                    <div>
+                        <h4>Chăm Sóc Vệ Sinh Cún</h4>
+                        <p>Vệ Sinh Răng Miệng</p>
+                        <p>Sữa Tắm & Phụ Kiện</p>
+                        <p>Xịt Khử Mùi</p>
+                    </div>
+
+                    <div>
+                        <h4>Bánh Thưởng</h4>
+                        <p>Bánh Quy</p>
+                        <p>Súp Thưởng</p>
+                        <p>Thịt Sấy Khô</p>
+                    </div>
+
+                    <div>
+                        <h4>Phụ Kiện</h4>
+                        <p>Vòng Cổ & Dây Dắt</p>
+                        <p>Nệm - Chuồng Cho Cún</p>
+                        <p>Tã Lót & Khay Vệ Sinh</p>
+                    </div>
+
+                    <div>
+                        <h4>Chăm Sóc Sức Khoẻ</h4>
+                        <p>Vitamin</p>
+                        <p>Trị Ve Rận</p>
+                        <p>Thực Phẩm Chức Năng</p>
+                    </div>
+
+                    <div>
+                        <h4>Vận Chuyển</h4>
+                        <p>Balo & Túi Vận Chuyển</p>
+                        <p>Lồng Vận Chuyển</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <!-- MÈO -->
+        <li class="has-dropdown">
+            <a asp-controller="Product" asp-action="Collections" asp-route-type="cat">Mèo</a>
+
+            <div class="dropdown">
+                <div class="dropdown-container dropdown-meo">
+                    <div>
+                        <h4>Thức Ăn Cho Mèo</h4>
+                        <p>Thức Ăn Hạt</p>
+                        <p>Thức Ăn Ướt</p>
+                        <p>Thức Ăn Cho Mèo Con</p>
+                        <p>Thức Ăn Cho Mèo Trưởng Thành</p>
+                    </div>
+
+                    <div>
+                        <h4>Chăm Sóc Vệ Sinh Mèo</h4>
+                        <p>Cát Vệ Sinh</p>
+                        <p>Khử Mùi</p>
+                        <p>Sữa Tắm & Dụng Cụ Tắm</p>
+                    </div>
+
+                    <div>
+                        <h4>Phụ Kiện & Đồ Chơi</h4>
+                        <p>Chuồng & Nệm Mèo</p>
+                        <p>Vòng Cổ & Dây Dắt</p>
+                        <p>Đồ Chơi Gãi Móng</p>
+                    </div>
+
+                    <div>
+                        <h4>Chăm Sóc Sức Khỏe</h4>
+                        <p>Vitamin</p>
+                        <p>Xổ Giun & Ve Rận</p>
+                    </div>
+
+                    <div>
+                        <h4>Vận Chuyển</h4>
+                        <p>Balo & Túi Vận Chuyển</p>
+                        <p>Lồng Vận Chuyển</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <!-- THIẾT BỊ THÔNG MINH -->
+        <li class="has-dropdown">
+            <a asp-controller="Product" asp-action="Collections" asp-route-type="smart">Thiết bị thông minh</a>
+            <div class="dropdown-small">
+                <p>Máy Ăn Uống Tự Động</p>
+                <p>Nhà Vệ Sinh Tự Động</p>
+                <p>Đồ Chơi Tương Tác</p>
+            </div>
+        </li>
+
+        <li>
+            <a asp-controller="Product" asp-action="New">Hàng mới về</a>
+        </li>
+
+        <li><a href="#">Thương hiệu</a></li>
+
+        <li>
+            <a asp-controller="Blog" asp-action="Index">Pagazine chăm Boss</a>
+        </li>
+
+        <li><a href="#">News</a></li>
+
+        <li><a href="#">Today's Sale</a></li>
+    </ul>
+</nav>

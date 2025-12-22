@@ -1,0 +1,71 @@
+.ps-container{
+    width: 1310px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ps-header h2{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+.ps-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.ps-table th {
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ps-item td {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.ps-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.ps-img {
+    width: 70px;
+    border-radius: 8px;
+}
+
+.ps-name {
+    font-weight: bold;
+    color: #222;
+    font-size: 15px;
+}
+
+.ps-weight, .ps-brand {
+    color: #777;
+    font-size: 13px;
+}
+.ps-stt-shipping{
+    color: dodgerblue;
+}
+.ps-stt-shipped{
+    color: lawngreen;
+}
+.ps-stt{
+    color: red;
+}
+.ps-button{
+    padding: 8px 15px;
+    color: white;
+    background: #0d57e4;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.ps-button:hover{
+    background: #18358b;
+}

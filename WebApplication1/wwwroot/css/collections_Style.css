@@ -1,0 +1,205 @@
+.cs-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.cs-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    border-right: 1px solid #000000;
+    padding-right: 30px;
+}
+
+.filter-box {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-box h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-box h3 span {
+    color: #999;
+    font-size: 18px;
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-list label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.filter-list input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.cs-main{
+    flex: 1;
+}
+.cs-container{
+    width: 1380px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.cs-header{
+    margin: 10px 0;
+}
+.cs-title-header{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+.cs-title-header h2{
+    font-size: 30px;
+    font-weight: bold;
+}
+.cs-softbox{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+.sb-label{
+    font-weight: bold;
+    font-size: 17px;
+}
+.soft-select{
+    padding: 10px 15px;
+    border: 1px solid #b4b4b4;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+.soft-select:hover{
+    border: 1px solid #000000;
+}
+.cs-slider{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin-bottom: 50px;
+}
+.cs-wrapper{
+    margin: 0 20px;
+}
+.cs-item{
+    display: inline-block;
+    vertical-align: top;
+    width: 310px;
+    padding: 10px;
+    margin-right: 20px;
+    position: relative;
+    transition: 0.3s ease;
+    border-radius: 10px;
+}
+.cs-item img{
+    width: 100%;
+    height: 330px;
+    object-fit: contain;
+}
+.cs-item h4{
+    color: #234BBB;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+.cs-item p{
+    font-size: 14px;
+    min-height: 40px;
+    font-family: sans-serif;
+}
+.cs-item:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.cs-item p:hover{
+    color: #234BBB;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.cs-icon{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    cursor: pointer;
+}
+.cs-icon:hover{
+    color: red;
+}
+.cs-icon .active{
+    color: red;
+}
+.cs-rating{
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.cs-rating i{
+    color: #ffb400;
+}
+.cs-rating span{
+    color: #888888;
+}
+.cs-see-more{
+    text-align: center;
+    margin: 30px 0;
+}
+.sm-span{
+    display: block;
+    font-size: 16px;
+    color: #888888;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.sm-btn{
+    padding: 16px 100px;
+    background-color: #ffa70c;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #ffa70c;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.sm-btn:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.cs-description{
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+.cs-description h3{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 70px;
+}
+.cs-description h2{
+    font-weight: bold;
+}
+.cs-des-container{
+    max-width: 1230px;
+    margin-left: 85px;
+    margin-right: 270px;
+}
+.cs-header a{
+    text-decoration: none;
+    color: inherit;
+}

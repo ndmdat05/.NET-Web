@@ -1,0 +1,66 @@
+.wl-container{
+    width: 1380px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.wl-header{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.wl-header h2{
+    font-size: 30px;
+    font-weight: bold;
+}
+.wl-slider{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin-bottom: 50px;
+}
+.wl-wrapper{
+    margin: 0 20px;
+}
+.wl-item{
+    display: inline-block;
+    vertical-align: top;
+    width: 310px;
+    padding: 10px;
+    margin-right: 20px;
+    position: relative;
+    transition: 0.3s ease;
+    border-radius: 10px;
+}
+.wl-item img{
+    width: 100%;
+    height: 330px;
+    object-fit: contain;
+}
+.wl-item h4{
+    color: #234BBB;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+.wl-item p{
+    font-size: 14px;
+    min-height: 40px;
+    font-family: sans-serif;
+}
+.wl-item:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.wl-item p:hover{
+    color: #234BBB;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.wl-icon{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    color: red;
+    cursor: pointer;
+}

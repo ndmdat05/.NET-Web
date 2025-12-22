@@ -1,0 +1,267 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+header .payment-container{
+    margin: 0 auto;
+    text-align: center;
+}
+.pay-header {
+    background: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.pay-header h2 {
+    color: #2346C5;
+    font-size: 22px;
+}
+
+.fa-bag-shopping{
+    position: absolute;
+    top: 43px;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+}
+
+.bag-shop i{
+    color: #2346C5;
+}
+
+.payment-page {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.payment-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+    background: #fff;
+}
+
+.payment-left {
+    flex: 2;
+}
+
+.payment-left h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.payment-left input[type="text"],
+.payment-left select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.checkbox-group,
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.checkbox-group span,
+.checkbox-row span {
+    font-size: 14px;
+}
+
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: background 0.2s ease;
+}
+
+.radio-item:hover {
+    background: #f1f5ff;
+}
+
+.radio-item input[type="radio"] {
+    margin-right: 10px;
+}
+
+.ship-inf span{
+    font-size: 13px;
+    display: block;
+    color: #000000;
+}
+.shipping-form {
+    margin-top: 15px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.input.half {
+    flex: 1;
+}
+
+.label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.shipping-method {
+    margin-top: 20px;
+}
+
+.shipping-method h4 {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.shipping-method span {
+    font-size: 13px;
+    color: #000000;
+}
+
+.radio-method-shipping .radio-item {
+    justify-content: space-between;
+}
+
+.ship-price {
+    font-weight: bold;
+}
+
+.payment-method {
+    margin-top: 25px;
+}
+
+.payment-method span {
+    font-size: 13px;
+    display: block;
+    color: #000000;
+}
+
+.location-payment {
+    margin-top: 25px;
+}
+.location-payment span {
+    font-size: 13px;
+    display: block;
+    color: #000000;
+}
+
+.payment-right {
+    flex: 1;
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.product-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.product-summary img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.product-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.product-price {
+    color: #666;
+    font-size: 14px;
+}
+
+.discount {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.discount input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.discount button {
+    padding: 8px 12px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: no-drop;
+    transition: background 0.2s;
+    color: #888888;
+}
+
+.discount button:hover {
+    background: #ddd;
+}
+
+.summary {
+    font-size: 14px;
+}
+
+.summary p {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+}
+
+.summary .total {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+.complete-order-btn {
+    display: block;
+    width: 100%;
+    background-color: #2346C5;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 0;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.complete-order-btn:hover {
+    background-color: #18358b;
+}
+.bt-success a{
+    text-decoration: none;
+    color: inherit;
+}
