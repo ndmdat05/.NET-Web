@@ -14,35 +14,37 @@
             </h5>
 
             <div class="email_box">
-                <input type="email" placeholder="Email của bạn..." required />
-                <button type="submit" class="btn_signup">Đăng ký</button>
+                <form asp-controller="Home" asp-action="Subscribe" method="post" style="display:flex; width:100%;">
+                    <input type="email" name="email" placeholder="Email của bạn..." required />
+                    <button type="submit" class="btn_signup">Đăng ký</button>
+                </form>
             </div>
 
             <div class="ft_col">
                 <div class="list_col hover_col">
                     <h4>Shop</h4>
-                    <p>Dành Cho Chó</p>
-                    <p>Dành Cho Mèo</p>
-                    <p>Thương Hiệu</p>
-                    <p>Blogs</p>
-                    <p>Bộ Sưu Tập</p>
+                    <a asp-controller="Product" asp-action="Collections" asp-route-type="dog">Dành Cho Chó</a>
+                    <a asp-controller="Product" asp-action="Collections" asp-route-type="cat">Dành Cho Mèo</a>
+                    <a href="#">Thương Hiệu</a>
+                    <a asp-controller="Home" asp-action="Blog">Blogs</a>
+                    <a href="#">Bộ Sưu Tập</a>
                 </div>
 
                 <div class="list_col hover_col">
                     <h4>Paddy Pet Shop</h4>
-                    <p>Giới Thiệu</p>
-                    <p>Thành Viên Paddier</p>
-                    <p>Điều Khoản Sử Dụng</p>
-                    <p>Tuyển Dụng</p>
+                    <a href="#">Giới Thiệu</a>
+                    <a href="#">Thành Viên Paddier</a>
+                    <a href="#">Điều Khoản Sử Dụng</a>
+                    <a href="#">Tuyển Dụng</a>
                 </div>
 
                 <div class="list_col hover_col">
                     <h4>Hỗ Trợ Khách Hàng</h4>
-                    <p>Chính Sách Đổi Trả Hàng</p>
-                    <p>Phương Thức Vận Chuyển</p>
-                    <p>Chính Sách Bảo Mật</p>
-                    <p>Phương Thức Thanh Toán</p>
-                    <p>Chính Sách Hoàn Tiền</p>
+                    <a href="#">Chính Sách Đổi Trả Hàng</a>
+                    <a href="#">Phương Thức Vận Chuyển</a>
+                    <a href="#">Chính Sách Bảo Mật</a>
+                    <a href="#">Phương Thức Thanh Toán</a>
+                    <a href="#">Chính Sách Hoàn Tiền</a>
                 </div>
 
                 <div class="list_col">

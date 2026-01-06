@@ -1,15 +1,14 @@
-﻿<!-- HEADER TOP -->
-<header class="header-top">
+﻿<header class="header-top">
     <div class="logo">
         <a asp-controller="Home" asp-action="Index">
             <img src="~/images/logo.jpg" alt="Paddy.vn" />
         </a>
     </div>
 
-    <div class="search-bar">
-        <input type="text" placeholder="Tìm kiếm sản phẩm..." />
-        <button><i class="fa fa-search"></i></button>
-    </div>
+    <form asp-controller="Product" asp-action="Search" method="get" class="search-bar">
+        <input type="text" name="query" placeholder="Tìm kiếm sản phẩm..." />
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
 
     <div class="right-info">
         <div class="hotline">
@@ -36,10 +35,8 @@
     </div>
 </header>
 
-<!-- MAIN MENU -->
 <nav class="menu">
     <ul>
-        <!-- CHÓ -->
         <li class="has-dropdown">
             <a asp-controller="Product" asp-action="Collections" asp-route-type="dog">Chó</a>
 
@@ -47,50 +44,49 @@
                 <div class="dropdown-container">
                     <div>
                         <h4>Thức Ăn Cho Chó</h4>
-                        <p>Thức Ăn Hạt</p>
-                        <p>Thức Ăn Ướt</p>
-                        <p>Thức Ăn Hữu Cơ</p>
-                        <p>Thức Ăn Không Ngũ Cốc</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-dry">Thức Ăn Hạt</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-wet">Thức Ăn Ướt</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-organic">Thức Ăn Hữu Cơ</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-grainfree">Thức Ăn Không Ngũ Cốc</a>
                     </div>
 
                     <div>
                         <h4>Chăm Sóc Vệ Sinh Cún</h4>
-                        <p>Vệ Sinh Răng Miệng</p>
-                        <p>Sữa Tắm & Phụ Kiện</p>
-                        <p>Xịt Khử Mùi</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-dental">Vệ Sinh Răng Miệng</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-bath">Sữa Tắm & Phụ Kiện</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-deo">Xịt Khử Mùi</a>
                     </div>
 
                     <div>
                         <h4>Bánh Thưởng</h4>
-                        <p>Bánh Quy</p>
-                        <p>Súp Thưởng</p>
-                        <p>Thịt Sấy Khô</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-cookie">Bánh Quy</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-soup">Súp Thưởng</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-jerky">Thịt Sấy Khô</a>
                     </div>
 
                     <div>
                         <h4>Phụ Kiện</h4>
-                        <p>Vòng Cổ & Dây Dắt</p>
-                        <p>Nệm - Chuồng Cho Cún</p>
-                        <p>Tã Lót & Khay Vệ Sinh</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-collar">Vòng Cổ & Dây Dắt</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-bed">Nệm - Chuồng Cho Cún</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-tray">Tã Lót & Khay Vệ Sinh</a>
                     </div>
 
                     <div>
                         <h4>Chăm Sóc Sức Khoẻ</h4>
-                        <p>Vitamin</p>
-                        <p>Trị Ve Rận</p>
-                        <p>Thực Phẩm Chức Năng</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-vitamin">Vitamin</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-flea">Trị Ve Rận</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-supplement">Thực Phẩm Chức Năng</a>
                     </div>
 
                     <div>
                         <h4>Vận Chuyển</h4>
-                        <p>Balo & Túi Vận Chuyển</p>
-                        <p>Lồng Vận Chuyển</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-bag">Balo & Túi Vận Chuyển</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="dog-cage">Lồng Vận Chuyển</a>
                     </div>
                 </div>
             </div>
         </li>
 
-        <!-- MÈO -->
         <li class="has-dropdown">
             <a asp-controller="Product" asp-action="Collections" asp-route-type="cat">Mèo</a>
 
@@ -98,48 +94,47 @@
                 <div class="dropdown-container dropdown-meo">
                     <div>
                         <h4>Thức Ăn Cho Mèo</h4>
-                        <p>Thức Ăn Hạt</p>
-                        <p>Thức Ăn Ướt</p>
-                        <p>Thức Ăn Cho Mèo Con</p>
-                        <p>Thức Ăn Cho Mèo Trưởng Thành</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-dry">Thức Ăn Hạt</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-wet">Thức Ăn Ướt</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-kitten">Thức Ăn Cho Mèo Con</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-adult">Thức Ăn Cho Mèo Trưởng Thành</a>
                     </div>
 
                     <div>
                         <h4>Chăm Sóc Vệ Sinh Mèo</h4>
-                        <p>Cát Vệ Sinh</p>
-                        <p>Khử Mùi</p>
-                        <p>Sữa Tắm & Dụng Cụ Tắm</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-litter">Cát Vệ Sinh</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-deo">Khử Mùi</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-bath">Sữa Tắm & Dụng Cụ Tắm</a>
                     </div>
 
                     <div>
                         <h4>Phụ Kiện & Đồ Chơi</h4>
-                        <p>Chuồng & Nệm Mèo</p>
-                        <p>Vòng Cổ & Dây Dắt</p>
-                        <p>Đồ Chơi Gãi Móng</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-bed">Chuồng & Nệm Mèo</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-collar">Vòng Cổ & Dây Dắt</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-toy">Đồ Chơi Gãi Móng</a>
                     </div>
 
                     <div>
                         <h4>Chăm Sóc Sức Khỏe</h4>
-                        <p>Vitamin</p>
-                        <p>Xổ Giun & Ve Rận</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-vitamin">Vitamin</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-worm">Xổ Giun & Ve Rận</a>
                     </div>
 
                     <div>
                         <h4>Vận Chuyển</h4>
-                        <p>Balo & Túi Vận Chuyển</p>
-                        <p>Lồng Vận Chuyển</p>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-bag">Balo & Túi Vận Chuyển</a>
+                        <a asp-controller="Product" asp-action="Category" asp-route-id="cat-cage">Lồng Vận Chuyển</a>
                     </div>
                 </div>
             </div>
         </li>
 
-        <!-- THIẾT BỊ THÔNG MINH -->
         <li class="has-dropdown">
             <a asp-controller="Product" asp-action="Collections" asp-route-type="smart">Thiết bị thông minh</a>
             <div class="dropdown-small">
-                <p>Máy Ăn Uống Tự Động</p>
-                <p>Nhà Vệ Sinh Tự Động</p>
-                <p>Đồ Chơi Tương Tác</p>
+                <a asp-controller="Product" asp-action="Category" asp-route-id="smart-feeder">Máy Ăn Uống Tự Động</a>
+                <a asp-controller="Product" asp-action="Category" asp-route-id="smart-litter">Nhà Vệ Sinh Tự Động</a>
+                <a asp-controller="Product" asp-action="Category" asp-route-id="smart-toy">Đồ Chơi Tương Tác</a>
             </div>
         </li>
 
@@ -150,7 +145,7 @@
         <li><a href="#">Thương hiệu</a></li>
 
         <li>
-            <a asp-controller="Blog" asp-action="Index">Pagazine chăm Boss</a>
+            <a asp-controller="Home" asp-action="Blog">Pagazine chăm Boss</a>
         </li>
 
         <li><a href="#">News</a></li>
