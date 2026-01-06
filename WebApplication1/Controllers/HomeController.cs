@@ -1,4 +1,4 @@
-vusing System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
@@ -22,7 +22,14 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-
+        public IActionResult Blog()
+        {
+            return View();
+        }
+        public IActionResult BlogDetail()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
