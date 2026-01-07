@@ -1,0 +1,260 @@
+@{
+    ViewData["Title"] = "Pate cho mèo con";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/collections_Style.css">
+}
+
+<div class="collections-shop">
+    <div class="cs-header">
+        <a asp-controller="Home" asp-action="Index">Paddy Pet Shop</a> >
+        <a href="#">Collections</a> >
+        <span>Pate cho Mèo Con</span>
+    </div>
+
+    <div class="cs-container">
+        <div class="cs-title-header">
+            <h2>Pate cho Mèo Con</h2>
+        </div>
+        <hr>
+
+        <div class="cs-layout">
+
+            <div class="cs-sidebar">
+                <div class="filter-box">
+                    <h3>Loại Sản Phẩm</h3>
+                    <div class="filter-list">
+                        <label>
+                            <input type="checkbox" name="category">
+                            <span>Thức Ăn Ướt (48)</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="category">
+                            <span>Thức Ăn Khô (28)</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="category">
+                            <span>Pate Mèo (35)</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="category">
+                            <span>Pate Chó (2)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cs-main">
+
+                <div class="cs-softbox">
+                    <span class="sb-label">SẮP XẾP THEO</span>
+                    <select class="soft-select">
+                        <option value="alpha-asc">Thứ tự bảng chữ cái (từ A-Z)</option>
+                        <option value="alpha-desc">Thứ tự bảng chữ cái (từ Z-A)</option>
+                        <option value="price-asc">Giá giảm dần </option>
+                        <option value="price-desc">Giá tăng dần</option>
+                    </select>
+                </div>
+
+                <div class="cs-slider">
+                    <div class="cs-wrapper">
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat1.png" alt="The Cat">
+                            <h4>The Cat</h4>
+                            <p>Pate TƯƠI The Pet Cho Chó Mèo Biếng Ăn (1kg) - Ship Now/Grab 2H</p>
+                            <div class="cs-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>(6 đánh giá)</span>
+                            </div>
+                            <span class="price1">120.000₫</span>
+                            <span class="price2">85.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat2.png" alt="Nekko">
+                            <h4>Nekko</h4>
+                            <p>Pate Mèo Dạng Thạch Nekko Jelly 70g</p>
+                            <div class="cs-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>(1 đánh giá)</span>
+                            </div>
+                            <span class="price1">20.000₫</span>
+                            <span class="price2">15.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat3.png" alt="Nekko">
+                            <h4>Nekko</h4>
+                            <p>Pate Mèo Dạng Sốt Nekko Gravy 70g</p>
+                            <span class="price">15.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat4.png" alt="Snappy Tom">
+                            <h4>Snappy Tom</h4>
+                            <p>Pate Mèo Snappy Tom Real Fish - Lon 400g</p>
+                            <div class="cs-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>(4 đánh giá)</span>
+                            </div>
+                            <span class="price1">45.000₫</span>
+                            <span class="price2">27.500₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat5.png" alt="CattyMan">
+                            <h4>CattyMan</h4>
+                            <p>Pate Mèo Joyneco CattyMan Cá Tươi 60g</p>
+                            <div class="cs-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <span>(1 đánh giá)</span>
+                            </div>
+                            <span class="price">11.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat6.png" alt="Wanpy">
+                            <h4>Wanpy</h4>
+                            <p>Pate Mèo Wanpy Súp Thịt Tươi 80g</p>
+                            <span class="price">11.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat7.png" alt="Catchy">
+                            <h4>Catchy</h4>
+                            <p>Pate Mèo Catchy Nhiều Vị Lon 400g</p>
+                            <div class="cs-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <span>(2 đánh giá)</span>
+                            </div>
+                            <span class="price">27.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat8.png" alt="Kings Pet">
+                            <h4>Kings Pet</h4>
+                            <p>Pate Cho Chó Mèo Mọi Lứa Tuổi Thịt Tươi Kings Pet (Lon 380g)</p>
+                            <div class="cs-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>(1 đánh giá)</span>
+                            </div>
+                            <span class="price1">45.000₫</span>
+                            <span class="price2">40.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat9.png" alt="Snappy Tom">
+                            <h4>Snappy Tom</h4>
+                            <p>Pate Mèo Snappy Tom Real Fish Nhiều Vị 85g</p>
+                            <div class="cs-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>(2 đánh giá)</span>
+                            </div>
+                            <span class="price">11.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                        <div class="cs-item">
+                            <img src="~/assets/img/pate_cat10.png" alt="MeoWow">
+                            <h4>MeoWow</h4>
+                            <p>Pate Cho Mèo Meowow Súp Cá Ngừ Trắng Nguyên Miếng Lon 80g</p>
+                            <span class="price">24.000₫</span>
+                            <i class="fa-regular fa-heart cs-icon"></i>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="cs-see-more">
+                    <span class="sm-span">Trang 1/10</span>
+                    <button class="sm-btn">Xem thêm</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="cs-description">
+            <h3>Recently Viewed Products</h3>
+            <div class="cs-des-container">
+                <h2>PATE CHO MÈO CON</h2>
+                <h2>Pate Cho Mèo Con | Wet Food For Kitten</h2>
+                <br>
+                <p>
+                    Pate cho mèo con là thức ăn ướt dành cho mèo con được làm từ thịt, cá, gan xay nhuyễn và kết hợp
+                    với khoáng chất, vitamin cùng các chất cần thiết để bổ sung hàm lượng dinh dưỡng cho mèo.
+                    Pate sẽ có dạng ướt, lỏng, có mùi thơm kích thích vị giác của mèo.
+                    Cùng <strong>Paddy</strong> giới thiệu về các vai trò của pate dành cho mèo con trong quá trình chăm sóc "Hoàng Thượng" nhé
+                </p>
+                <br>
+                <ul>
+                    <li><h2>Tại sao nên sử dụng pate cho mèo?</h2></li>
+                    <br>
+                    <p>
+                        Pate cho mèo cực kỳ phù hợp đối với những bé mèo lười uống nước, vì 70% thành phần trong pate là nước.
+                        Loại thức ăn này có công thức hàm lượng chất dinh dưỡng cân bằng,
+                        giúp bé mèo nhà bạn phát triển toàn diện hơn.
+                    </p>
+                    <br>
+                    <p>
+                        Nếu như hạt khô không thể mang đủ các dưỡng chất cần thiết thì các loại pate cho mèo sẽ hỗ trợ điều đó.
+                        Đặc biệt đối với những chú mèo con, hoặc mèo đang gặp vấn đề về sức khỏe thì kết cấu mềm
+                        của pate sẽ là sự lựa chọn hợp lý, giúp chúng dễ tiêu hóa.
+                    </p>
+                    <br>
+                    <p>
+                        Việc bổ sung hàm lượng dinh dưỡng cần thiết từ pate sẽ giúp các bé tăng được sức đề kháng,
+                        không bị các bệnh vặt và hệ miễn dịch luôn được bảo vệ.
+                    </p>
+                    <br>
+                    <li>
+                        Các Hãng Pate Dành Cho Mèo Con đang Hot trên thị trường
+                        như <strong>Pate Nekko</strong> , <strong>Pate Whiskas</strong>, <strong>Pate Snappy Tom</strong>
+                        hay <strong>Pate Aatas</strong> , <strong>Pate Royal Canin Mother & Babycat</strong> , <strong>Pate Ciao</strong>.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Collections.js"></script>
+}

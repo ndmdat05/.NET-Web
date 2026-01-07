@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Thanh toán thành công";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/NPayment_Style.css">
+}
+
+<div class="notify-payment">
+    <div class="np-container">
+
+        <div class="np-content">
+            <i class="fa-solid fa-circle-check"></i>
+            <div class="np-mail">
+                <span class="np-text">Cảm ơn bạn đã tin tưởng đặt hàng tại cửa hàng của chúng tôi.</span>
+                <br>
+                <span class="np-text">Hãy khám phá thêm các sản phẩm để chăm sóc cho <strong>"bé yêu"</strong> của bạn nhé!</span>
+            </div>
+        </div>
+
+        <div class="np-button">
+            <a asp-controller="Home" asp-action="Index">
+                <button class="bt-index">Quay lại trang chủ</button>
+            </a>
+        </div>
+
+    </div>
+</div>

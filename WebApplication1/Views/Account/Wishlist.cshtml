@@ -1,0 +1,84 @@
+@{
+    ViewData["Title"] = "Danh sách sản phẩm yêu thích";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/wishlist_Style.css">
+}
+
+<div class="wish-list">
+    <div class="wl-container">
+        <div class="wl-header">
+            <h2>Danh sách sản phẩm yêu thích</h2>
+        </div>
+        <div class="wl-slider">
+            <div class="wl-wrapper">
+                <div class="wl-item">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="1">
+                        <img src="~/assets/img/deal1.png" alt="Silver Spoon">
+                    </a>
+                    <h4>Silver Spoon</h4>
+                    <p>Súp Thưởng Cho Mèo Silver Spoon (Túi 8 tuýp*6g)</p>
+                    <span class="price">27.000₫</span>
+                    <i class="fa-solid fa-heart wl-icon" title="Bỏ thích"></i>
+                </div>
+
+                <div class="wl-item">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="2">
+                        <img src="~/assets/img/deal2.png" alt="Silver Spoon">
+                    </a>
+                    <h4>Silver Spoon</h4>
+                    <p>Pate Cho Mèo Silver Spoon Dạng Thạch & Sốt 60g</p>
+                    <span class="price">16.000₫</span>
+                    <i class="fa-solid fa-heart wl-icon"></i>
+                </div>
+
+                <div class="wl-item">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="3">
+                        <img src="~/assets/img/deal3.png" alt="Silver Spoon">
+                    </a>
+                    <h4>Silver Spoon</h4>
+                    <p>Súp Thưởng Cho Mèo Silver Spoon Dạng Thìa 10g</p>
+                    <span class="price">27.000₫</span>
+                    <i class="fa-solid fa-heart wl-icon"></i>
+                </div>
+
+                <div class="wl-item">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="4">
+                        <img src="~/assets/img/deal4.png" alt="Silver Spoon">
+                    </a>
+                    <h4>Silver Spoon</h4>
+                    <p>Thức Ăn Hạt Cho Mèo Trưởng Thành Silver Spoon 1kg</p>
+                    <span class="price1">189.000₫</span>
+                    <span class="price2">150.000₫</span>
+                    <i class="fa-solid fa-heart wl-icon"></i>
+                </div>
+
+                <div class="wl-item">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="5">
+                        <img src="~/assets/img/fav1.webp" alt="Royal Canin">
+                    </a>
+                    <h4>Royal Canin</h4>
+                    <p>Thức Ăn Hạt Cho Mèo Trưởng Thành Nuôi Trong Nhà Royal Canin Indoor 27</p>
+                    <span class="price">132.000₫</span>
+                    <i class="fa-solid fa-heart wl-icon"></i>
+                </div>
+
+                <div class="wl-item">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="6">
+                        <img src="~/assets/img/fav2.webp" alt="Royal Canin">
+                    </a>
+                    <h4>Royal Canin</h4>
+                    <p>Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
+                    <span class="price">135.000₫</span>
+                    <i class="fa-solid fa-heart wl-icon"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/wishlist.js"></script>
+}

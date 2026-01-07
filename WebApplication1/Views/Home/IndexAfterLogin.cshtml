@@ -1,0 +1,221 @@
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+@section Styles {
+}
+
+<div id="slider-container">
+    <div id="slider-cont">
+        <div class="slider">
+            <div class="slider-item">
+                <img src="~/assets/img/banner_web_1880_x_720_px_d0cd69bd-82c2-4d89-ba1f-8fd08f172cc9.webp" alt="Banner Chính">
+                <img src="~/assets/img/pet_1.webp" alt="Pet 1">
+                <img src="~/assets/img/pet_2.webp" alt="Pet 2">
+                <img src="~/assets/img/pet_3.webp" alt="Pet 3">
+            </div>
+            <div class="btns">
+                <button class="btn-left btn"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="btn-right btn"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            <div class="dots">
+                <i class="fa-solid fa-circle"></i>
+                <i class="fa-regular fa-circle"></i>
+                <i class="fa-regular fa-circle"></i>
+                <i class="fa-regular fa-circle"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="policy-section">
+    <div class="policy-container">
+        <div class="policy-item">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <p>Miễn phí <br> Vận chuyển</p>
+        </div>
+        <div class="divider"></div>
+        <div class="policy-item">
+            <i class="fa-solid fa-certificate"></i>
+            <p>Sản phẩm <br>Chính hãng</p>
+        </div>
+        <div class="divider"></div>
+        <div class="policy-item">
+            <i class="fa-solid fa-wallet"></i>
+            <p>Thanh toán <br> Tiện lợi</p>
+        </div>
+        <div class="divider"></div>
+        <div class="policy-item">
+            <i class="fa-solid fa-phone-volume"></i>
+            <p>Hỗ trợ <br> Chuyên nghiệp</p>
+        </div>
+    </div>
+</div>
+
+<div id="banner-content">
+    <div class="header-title">
+        <h2>Mua sắm theo giống thú cưng</h2>
+    </div>
+    <div class="content-item">
+        <a href="#"><img src="~/assets/img/dog_banner.webp" alt="Cún cưng" class="dog-item"></a>
+        <a href="#"><img src="~/assets/img/cat_banner.webp" alt="Mèo cưng" class="cat-item"></a>
+    </div>
+</div>
+
+<div id="collections-content">
+    <div class="collections-header">
+        <h2>Bộ Sưu Tập Cho Mèo Con</h2>
+        <a asp-controller="Collections" asp-action="PateMeoCon" class="see-all">Xem tất cả</a>
+    </div>
+    <div class="collections-item">
+        <div class="item">
+            <img src="~/assets/img/collections_1x.webp" alt="">
+            <p>Pate Mèo Con</p>
+        </div>
+        <div class="item">
+            <img src="~/assets/img/collections2.webp" alt="">
+            <p>Thức Ăn Cho Mèo Con</p>
+        </div>
+        <div class="item">
+            <img src="~/assets/img/collections3.webp" alt="">
+            <p>Cát Vệ Sinh Mèo</p>
+        </div>
+        <div class="item">
+            <img src="~/assets/img/collections4.webp" alt="">
+            <p>Sữa Tắm Cho Mèo Con</p>
+        </div>
+        <div class="item">
+            <img src="~/assets/img/collections5.webp" alt="">
+            <p>Đồ Chơi Cho Mèo Con</p>
+        </div>
+        <div class="item">
+            <img src="~/assets/img/collections6.webp" alt="">
+            <p>Nhà Cho Mèo</p>
+        </div>
+    </div>
+</div>
+
+<div class="discount-product">
+    <div class="dp_container">
+        <div class="dp_header">
+            <h2>Sản phẩm giảm giá</h2>
+            <a asp-controller="Product" asp-action="Index" class="dp_see_all">Xem tất cả</a>
+        </div>
+
+        <div class="dp-slider">
+            <div class="dp-wrapper">
+                <a asp-controller="Product" asp-action="Detail" asp-route-id="1" class="di-link">
+                    <div class="dp-item">
+                        <img src="~/assets/img/discount_item1.png" alt="">
+                        <h4>Nutri Plan</h4>
+                        <p>Pate Cho Mèo Trưởng Thành Nutri Plan Chăm Sóc Sức Khỏe</p>
+                        <span class="price1">25.000₫</span>
+                        <span class="price2">14.000₫</span>
+                        <i class="fa-regular fa-heart dp-icon"></i>
+                    </div>
+                </a>
+
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
+                    <div class="dp-item">
+                        <img src="~/assets/img/discount_item2.png" alt="">
+                        <h4>Natural Core</h4>
+                        <p>Bánh Thưởng Cho Chó Thịt Sấy Cứng Natural Core</p>
+                        <span class="price1">45.000₫</span>
+                        <span class="price2">35.000₫</span>
+                        <i class="fa-regular fa-heart dp-icon"></i>
+                    </div>
+                </a>
+
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
+                    <div class="dp-item">
+                        <img src="~/assets/img/discount_item3.png" alt="">
+                        <h4>Ultimates Indulge</h4>
+                        <p>Pate Mèo Ultimates Indulge Water Nhiều Vị 85g</p>
+                        <span class="price1">27.000₫</span>
+                        <span class="price2">21.000₫</span>
+                        <i class="fa-regular fa-heart dp-icon"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="recommend-items">
+    <div class="deal_container">
+        <div class="deal_header">
+            <h2>Sản phẩm đề xuất</h2>
+            <a href="#" class="deal_see_all">Xem tất cả</a>
+        </div>
+        <div class="deal-slider">
+            <div class="deal-wrapper">
+                <div class="deal-item">
+                    <img src="~/assets/img/deal1.png" alt="">
+                    <h4>Silver Spoon</h4>
+                    <p>Súp Thưởng Cho Mèo Silver Spoon (Túi 8 tuýp*6g)</p>
+                    <span class="price">27.000₫</span>
+                    <i class="fa-regular fa-heart deal-icon"></i>
+                </div>
+                <div class="deal-item">
+                    <img src="~/assets/img/deal2.png" alt="">
+                    <h4>Silver Spoon</h4>
+                    <p>Pate Cho Mèo Silver Spoon Dạng Thạch & Sốt 60g</p>
+                    <span class="price">16.000₫</span>
+                    <i class="fa-regular fa-heart deal-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="trademark_list">
+    <div class="trademark_container">
+        <div class="trademark_header">
+            <h2>Top Thương Hiệu Boss Thích</h2>
+            <p>Xem tất cả</p>
+        </div>
+        <div class="trademark_item">
+            <div class="trade_logo">
+                <div class="trade_img">
+                    <img src="~/assets/img/trademark1.png" alt="">
+                </div>
+                <p>Nutrience</p>
+            </div>
+            <div class="trade_logo">
+                <div class="trade_img">
+                    <img src="~/assets/img/trademark2.png" alt="">
+                </div>
+                <p>Royal Canin</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="list-store">
+    <div class="store-container">
+        <div class="header-line">
+            <hr>
+            <h2 class="title-store">Mua Trực Tiếp Tại Cửa Hàng</h2>
+        </div>
+        <div class="store-item">
+            <div class="store-img">
+                <img src="~/assets/img/cuahang1.webp" alt="Paddy Pet Shop - Trường Sa">
+            </div>
+            <h3>Paddy Pet Shop - Trường Sa</h3>
+            <p>168 Trường Sa, P. Gia Định, Tp. HCM (Phường 1, Q. Bình Thạnh cũ)</p>
+            <button>Chỉ đường</button>
+        </div>
+        <div class="store-item">
+            <div class="store-img">
+                <img src="~/assets/img/cuahang2.webp" alt="Paddy Pet Shop - Nơ Trang Long">
+            </div>
+            <h3>Paddy Pet Shop - Nơ Trang Long</h3>
+            <p>412/3 Nơ Trang Long, P. Bình Lợi Trung, Tp. HCM (Phường 13, Q.Bình Thạnh cũ)</p>
+            <button>Chỉ đường</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/main.js"></script>
+}
