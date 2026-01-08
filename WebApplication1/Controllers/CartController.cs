@@ -11,12 +11,12 @@ namespace WebShop.Controllers
 
         public IActionResult Payment()
         {
-            return View();
+            return View("Payment");
         }
 
         public IActionResult NotifyPayment()
         {
-            return View();
+            return View("NotifyPayment");
         }
     }
 }
