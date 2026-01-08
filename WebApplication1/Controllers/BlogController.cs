@@ -15,7 +15,7 @@ namespace WebApplication1.Controllers
         public IActionResult Detail(int id)
         {
             // Khi vào chi tiết, hiển thị file Blog-detail.cshtml
-            return View("Blog-detail");
+            return View("BlogDetail");
         }
     }
  }
