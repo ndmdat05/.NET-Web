@@ -1,35 +1,106 @@
-body{
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.container{
+﻿/* Container chính (Khớp với class .about-page-container) */
+.about-page-container {
     max-width: 1280px;
-    margin:60px auto;
-    text-align: center;
+    margin: 60px auto;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    padding: 0 20px;
     line-height: 1.8;
-    padding:0 20px;
 }
-.container .title{
+
+/* Phần Breadcrumb (Link điều hướng nhỏ ở trên) */
+.breadcrumb-section {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+    .breadcrumb-section a {
+        text-decoration: none;
+        color: #333;
+    }
+
+/* Flexbox để chia layout (Chữ bên trái, ảnh bên phải) */
+.about-content-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Tự xuống dòng trên mobile */
+    justify-content: space-between;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 40px; /* Khoảng cách giữa chữ và ảnh */
+}
+
+/* Phần chứa nội dung chữ */
+.about-text-section {
+    flex: 1; /* Chiếm 1 phần không gian */
+    min-width: 300px; /* Không co nhỏ quá 300px */
+    text-align: left; /* Căn trái cho dễ đọc (theo chuẩn web hiện đại) */
+}
+
+/* Tiêu đề chính (VỀ PADDY PET SHOP) - Khớp class .main-title */
+.main-title {
     font-size: 28px;
     font-weight: bold;
+    color: #2346C5; /* Màu xanh thương hiệu */
     margin-bottom: 5px;
+    text-transform: uppercase;
 }
-.container .heading{
-    font-size: 34px;
-    margin-bottom: 35px;
+
+/* Tiêu đề phụ (Chào mừng...) - Khớp class .sub-heading */
+.sub-heading {
+    font-size: 20px; /* Giảm xíu cho cân đối */
+    margin-bottom: 20px;
     font-weight: bold;
+    color: #333;
 }
-.container .about-text{
+
+/* Đường gạch trang trí */
+.line-decor {
+    width: 60px;
+    height: 4px;
+    background-color: #ffd54f; /* Màu vàng */
+    margin-bottom: 25px;
+}
+
+/* Đoạn văn bản - Khớp class .content-paragraphs */
+.content-paragraphs {
     font-size: 16px;
     margin-bottom: 35px;
     color: #000000;
-    width: 750px;
-    margin: 0 auto;
 }
-.about-banner img {
-    width: 1380px;
-    display: block;
+
+    .content-paragraphs p {
+        margin-bottom: 15px; /* Khoảng cách giữa các đoạn */
+        text-align: justify; /* Căn đều 2 bên */
+    }
+
+/* Phần hình ảnh - Khớp class .about-image-section */
+.about-image-section {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
     justify-content: center;
-    margin: 0 auto;
-    margin-bottom: 10px;
 }
+
+    .about-image-section img {
+        width: 100%; /* Co giãn theo khung cha */
+        max-width: 600px; /* Không to quá mức */
+        height: auto;
+        border-radius: 10px; /* Bo góc cho đẹp */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Đổ bóng nhẹ */
+        display: block;
+    }
+
+/* Nút CTA */
+.btn-shop-now {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #2346C5;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+    .btn-shop-now:hover {
+        background: #000;
+    }

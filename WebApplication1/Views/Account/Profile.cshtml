@@ -1,0 +1,118 @@
+@{
+    ViewData["Title"] = "Thông tin tài khoản";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Thongtintaikhoan.css">
+}
+
+<div class="account-container">
+
+    <div class="sidebar">
+
+        <details open class="menu-group">
+            <summary class="menu-title">Tài Khoản Của Tôi</summary>
+            <ul class="menu-list">
+                <li class="menu-item"><a href="#profile" class="tab-link active">Hồ Sơ</a></li>
+                <li class="menu-item"><a href="#address" class="tab-link">Địa Chỉ</a></li>
+                <li class="menu-item"><a href="#password" class="tab-link">Đổi Mật Khẩu</a></li>
+            </ul>
+        </details>
+
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a asp-controller="Account" asp-action="ProductStatus" class="tab-link-external">Đơn Hàng</a>
+            </li>
+        </ul>
+
+        <ul class="logout-list">
+            <li class="logout-item">
+                <i class="fa-solid fa-right-from-bracket logout-icon"></i>
+                <a asp-controller="Account" asp-action="Logout" class="logout-link">Đăng Xuất</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="content">
+
+        <div id="profile" class="section active">
+            <h2>Hồ Sơ Của Tôi</h2>
+            <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+
+            <div class="profile-wrapper">
+                <div class="left-form">
+                    <div class="form-group">
+                        <div class="form-label">Tên đăng nhập</div>
+                        <div class="form-input">
+                            <input type="text" readonly value="user123">
+                            <p class="note">Tên đăng nhập chỉ được đổi một lần.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Tên</div>
+                        <div class="form-input"><input type="text" value="Nguyễn Văn A"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Email</div>
+                        <div class="form-input"><input type="text" value="nguyenvana@gmail.com" readonly></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Số điện thoại</div>
+                        <div class="form-input"><input type="text" readonly value="0909******"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Giới tính</div>
+                        <div class="gender-box">
+                            <input type="radio" name="gender" checked> Nam
+                            <input type="radio" name="gender"> Nữ
+                            <input type="radio" name="gender"> Khác
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Ngày sinh</div>
+                        <div class="form-input"><input type="text" readonly value="01/01/2000"></div>
+                    </div>
+                    <button class="save-btn">Lưu</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="address" class="section">
+            <h2>Địa Chỉ</h2>
+            <p><strong>Nguyễn văn a</strong> — 090010097</p>
+            <p>Số 3 Yên Lãng<br>Quận Tây Hồ, Hà Nội</p>
+            <button class="btn-default">Mặc định</button>
+        </div>
+
+        <div id="password" class="section">
+            <h2>Đổi Mật Khẩu</h2>
+            <div class="form-group">
+                <label>Mật khẩu hiện tại</label>
+                <input type="password">
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu mới</label>
+                <input type="password">
+            </div>
+            <div class="form-group">
+                <label>Nhập lại mật khẩu</label>
+                <input type="password">
+            </div>
+            <button class="save-btn">Lưu thay đổi</button>
+        </div>
+
+        <div id="orders" class="section">
+            <h2>Đơn Hàng</h2>
+            <div class="order-empty">
+                <p>Vui lòng bấm vào menu "Đơn Hàng" bên trái để xem chi tiết.</p>
+                <a asp-controller="Account" asp-action="ProductStatus" class="save-btn" style="text-decoration:none; color:white; padding:10px;">Xem đơn hàng</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Thongtintk.js" defer></script>
+}

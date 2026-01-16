@@ -1,24 +1,22 @@
-﻿<!-- HEADER TOP -->
-<header class="header-top">
+﻿<header class="header-top">
     <div class="logo">
         <a asp-controller="Home" asp-action="Index">
             <img src="~/images/logo.jpg" alt="Paddy.vn" />
         </a>
     </div>
 
-    <div class="search-bar">
-        <input type="text" placeholder="Tìm kiếm sản phẩm..." />
-        <button><i class="fa fa-search"></i></button>
-    </div>
+    <form asp-controller="Product" asp-action="SearchResult" method="get" class="search-bar">
+        <input type="text" name="q" placeholder="Tìm kiếm sản phẩm...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
 
     <div class="right-info">
         <div class="hotline">
             <p>Hotline</p>
             <strong>086 767 7891</strong>
         </div>
-
         <div class="icons">
-            <a asp-controller="Wishlist" asp-action="Index" class="icon-item">
+            <a asp-controller="Account" asp-action="Wishlist" class="icon-item">
                 <i class="fa fa-heart"></i>
                 <p>Wishlist</p>
             </a>
@@ -36,125 +34,104 @@
     </div>
 </header>
 
-<!-- MAIN MENU -->
 <nav class="menu">
     <ul>
-        <!-- CHÓ -->
         <li class="has-dropdown">
-            <a asp-controller="Product" asp-action="Collections" asp-route-type="dog">Chó</a>
-
+            <a asp-controller="Collections" asp-action="PateMeoCon" asp-route-category="cho">Chó</a>
             <div class="dropdown">
                 <div class="dropdown-container">
                     <div>
                         <h4>Thức Ăn Cho Chó</h4>
-                        <p>Thức Ăn Hạt</p>
-                        <p>Thức Ăn Ướt</p>
-                        <p>Thức Ăn Hữu Cơ</p>
-                        <p>Thức Ăn Không Ngũ Cốc</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon" asp-route-category="cho-thuc-an-hat">Thức Ăn Hạt</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon" asp-route-category="cho-thuc-an-uot">Thức Ăn Ướt</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon" asp-route-category="cho-huu-co">Thức Ăn Hữu Cơ</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon" asp-route-category="cho-khong-ngu-coc">Thức Ăn Không Ngũ Cốc</a>
                     </div>
-
                     <div>
                         <h4>Chăm Sóc Vệ Sinh Cún</h4>
-                        <p>Vệ Sinh Răng Miệng</p>
-                        <p>Sữa Tắm & Phụ Kiện</p>
-                        <p>Xịt Khử Mùi</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Vệ Sinh Răng Miệng</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Sữa Tắm & Phụ Kiện</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Xịt Khử Mùi</a>
                     </div>
-
                     <div>
                         <h4>Bánh Thưởng</h4>
-                        <p>Bánh Quy</p>
-                        <p>Súp Thưởng</p>
-                        <p>Thịt Sấy Khô</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Bánh Quy</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Súp Thưởng</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Thịt Sấy Khô</a>
                     </div>
-
                     <div>
                         <h4>Phụ Kiện</h4>
-                        <p>Vòng Cổ & Dây Dắt</p>
-                        <p>Nệm - Chuồng Cho Cún</p>
-                        <p>Tã Lót & Khay Vệ Sinh</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Vòng Cổ & Dây Dắt</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Nệm - Chuồng Cho Cún</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Tã Lót & Khay Vệ Sinh</a>
                     </div>
-
                     <div>
                         <h4>Chăm Sóc Sức Khoẻ</h4>
-                        <p>Vitamin</p>
-                        <p>Trị Ve Rận</p>
-                        <p>Thực Phẩm Chức Năng</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Vitamin</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Trị Ve Rận</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Thực Phẩm Chức Năng</a>
                     </div>
-
                     <div>
                         <h4>Vận Chuyển</h4>
-                        <p>Balo & Túi Vận Chuyển</p>
-                        <p>Lồng Vận Chuyển</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Balo & Túi Vận Chuyển</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Lồng Vận Chuyển</a>
                     </div>
                 </div>
             </div>
         </li>
 
-        <!-- MÈO -->
         <li class="has-dropdown">
-            <a asp-controller="Product" asp-action="Collections" asp-route-type="cat">Mèo</a>
-
+            <a asp-controller="Collections" asp-action="PateMeoCon" asp-route-category="meo">Mèo</a>
             <div class="dropdown">
                 <div class="dropdown-container dropdown-meo">
                     <div>
                         <h4>Thức Ăn Cho Mèo</h4>
-                        <p>Thức Ăn Hạt</p>
-                        <p>Thức Ăn Ướt</p>
-                        <p>Thức Ăn Cho Mèo Con</p>
-                        <p>Thức Ăn Cho Mèo Trưởng Thành</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Thức Ăn Hạt</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Thức Ăn Ướt</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Thức Ăn Cho Mèo Con</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Thức Ăn Cho Mèo Trưởng Thành</a>
                     </div>
-
                     <div>
                         <h4>Chăm Sóc Vệ Sinh Mèo</h4>
-                        <p>Cát Vệ Sinh</p>
-                        <p>Khử Mùi</p>
-                        <p>Sữa Tắm & Dụng Cụ Tắm</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Cát Vệ Sinh</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Khử Mùi</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Sữa Tắm & Dụng Cụ Tắm</a>
                     </div>
-
                     <div>
                         <h4>Phụ Kiện & Đồ Chơi</h4>
-                        <p>Chuồng & Nệm Mèo</p>
-                        <p>Vòng Cổ & Dây Dắt</p>
-                        <p>Đồ Chơi Gãi Móng</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Chuồng & Nệm Mèo</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Vòng Cổ & Dây Dắt</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Đồ Chơi Gãi Móng</a>
                     </div>
-
                     <div>
                         <h4>Chăm Sóc Sức Khỏe</h4>
-                        <p>Vitamin</p>
-                        <p>Xổ Giun & Ve Rận</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Vitamin</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Xổ Giun & Ve Rận</a>
                     </div>
-
                     <div>
                         <h4>Vận Chuyển</h4>
-                        <p>Balo & Túi Vận Chuyển</p>
-                        <p>Lồng Vận Chuyển</p>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Balo & Túi Vận Chuyển</a>
+                        <a asp-controller="Collections" asp-action="PateMeoCon">Lồng Vận Chuyển</a>
                     </div>
                 </div>
             </div>
         </li>
 
-        <!-- THIẾT BỊ THÔNG MINH -->
         <li class="has-dropdown">
-            <a asp-controller="Product" asp-action="Collections" asp-route-type="smart">Thiết bị thông minh</a>
+            <a asp-controller="Collections" asp-action="PateMeoCon" asp-route-category="thiet-bi">Thiết bị thông minh</a>
             <div class="dropdown-small">
-                <p>Máy Ăn Uống Tự Động</p>
-                <p>Nhà Vệ Sinh Tự Động</p>
-                <p>Đồ Chơi Tương Tác</p>
+                <a asp-controller="Collections" asp-action="PateMeoCon"><p>Máy Ăn Uống Tự Động</p></a>
+                <a asp-controller="Collections" asp-action="PateMeoCon"><p>Nhà Vệ Sinh Tự Động</p></a>
+                <a asp-controller="Collections" asp-action="PateMeoCon"><p>Đồ Chơi Tương Tác</p></a>
             </div>
         </li>
 
-        <li>
-            <a asp-controller="Product" asp-action="New">Hàng mới về</a>
-        </li>
-
+        <li><a asp-controller="Collections" asp-action="PateMeoCon">Hàng mới về</a></li>
         <li><a href="#">Thương hiệu</a></li>
 
-        <li>
-            <a asp-controller="Blog" asp-action="Index">Pagazine chăm Boss</a>
-        </li>
+        <li><a asp-controller="Blog" asp-action="Index">Pagazine chăm Boss</a></li>
 
         <li><a href="#">News</a></li>
-
         <li><a href="#">Today's Sale</a></li>
     </ul>
 </nav>

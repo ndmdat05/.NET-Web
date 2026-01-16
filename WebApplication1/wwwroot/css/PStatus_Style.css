@@ -58,13 +58,17 @@
 .ps-stt{
     color: red;
 }
-.ps-button{
+.ps-button {
     padding: 8px 15px;
     color: white;
     background: #0d57e4;
     border: 1px solid #333333;
     border-radius: 4px;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
 }
 .ps-button:hover{
     background: #18358b;
