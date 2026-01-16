@@ -1,0 +1,35 @@
+@{
+    Layout = null; // Ngắt bỏ Header/Footer chung
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/DangNhap.css">
+</head>
+<body>
+    <div class="login-box">
+        <h2>Đăng nhập</h2>
+
+        <label for="username">Tên đăng nhập</label>
+        <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+
+        <label for="password">Mật khẩu</label>
+        <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+
+        <a asp-controller="Home" asp-action="Index" class="btn-login" onclick="goToIndex()">Đăng nhập</a>
+
+        <p class="login-link">
+            Chưa có tài khoản?
+            <a asp-controller="Account" asp-action="Register">Đăng ký</a>
+        </p>
+
+        <a asp-controller="Account" asp-action="ForgotPassword">Quên mật khẩu</a>
+    </div>
+
+    <script src="~/js/DangNhap.js"></script>
+</body>
+</html>
