@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Chi tiết trạng thái đơn hàng";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/SDetail_Style.css">
+}
+
+<div class="status-detail">
+    <div class="sd-container">
+        <div class="sd-header">
+            <h2>Chi tiết trạng thái đơn hàng</h2>
+        </div>
+        <div class="sd-content">
+            <div class="sd-info">
+                <img src="~/images/fav4.webp" alt="Royal Canin" class="sd-img">
+                <div class="sd-item">
+                    <p class="sd-name">Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
+                    <p class="sd-weight">400g</p>
+                    <p class="sd-brand">Royal Canin</p>
+                    <p class="sd-price">Giá: <span class="sd-price-detail">135.000đ</span></p>
+                </div>
+            </div>
+
+            <div class="sd-line">
+                <i class="bi bi-dot active"></i>
+                <div class="line-between active"></div>
+
+                <i class="bi bi-dot active"></i>
+                <div class="line-between active"></div>
+
+                <i class="bi bi-dot active"></i>
+                <div class="line-between"></div>
+
+                <i class="bi bi-dot"></i>
+            </div>
+
+            <div class="sd-labels">
+                <span class="label active">Đã đặt hàng</span>
+                <span class="label active">Đang đóng gói</span>
+                <span class="label active">Đang vận chuyển</span>
+                <span class="label">Đã giao</span>
+            </div>
+
+            <div class="sd-return">
+                <a asp-controller="Account"
+                   asp-action="ProductStatus"
+                   class="bt-return">
+                    Trở lại trang "Trạng thái đơn hàng"
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

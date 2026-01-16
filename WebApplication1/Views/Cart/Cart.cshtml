@@ -1,0 +1,87 @@
+@{
+    ViewData["Title"] = "Giỏ Hàng Của Bạn";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Cart_style.css">
+}
+
+<div id="container">
+    <div class="cart-page">
+        <div class="cart-content">
+
+            <div class="cart-left">
+                <h2>GIỎ HÀNG CỦA BẠN</h2>
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>SẢN PHẨM</th>
+                            <th>GIÁ</th>
+                            <th>SỐ LƯỢNG</th>
+                            <th>TỔNG</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="cart-item">
+                            <td class="product-info">
+                                <img src="~/images/fav4.webp" alt="Royal Canin" class="product-img">
+                                <div>
+                                    <p class="product-name">Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
+                                    <p class="product-weight">400g</p>
+                                    <p class="product-brand">Royal Canin</p>
+                                </div>
+                            </td>
+                            <td class="product-price">135.000đ</td>
+                            <td class="product-qty">
+                                <button class="qty-btn decrease">−</button>
+                                <input type="text" value="1" class="qty-input" readonly>
+                                <button class="qty-btn increase">+</button>
+                            </td>
+                            <td class="product-total">135.000đ</td>
+                            <td class="remove-cell">
+                                <i class="fa-solid fa-x remove-item"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <textarea class="note-box" placeholder="Ghi chú giao hàng"></textarea>
+            </div>
+
+            <div class="cart-right">
+                <h2>TỔNG SỐ TIỀN</h2>
+                <div class="cart-summary">
+                    <div class="summary-item">
+                        <p>Tổng số tiền:</p>
+                        <p class="summary-value">135.000đ</p>
+                    </div>
+
+                    <div class="promo-code">
+                        <label for="coupon">Mã khuyến mãi</label>
+                        <input type="text" id="coupon" placeholder="Nhập mã khuyến mãi...">
+                    </div>
+
+                    <div class="summary-item total">
+                        <p>TỔNG</p>
+                        <p class="summary-value">135.000đ</p>
+                    </div>
+
+                    <a asp-controller="Cart" asp-action="Payment">
+                        <button class="checkout-btn">Đi Đến Trang Thanh Toán</button>
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Index">
+                        <button class="continue-btn">Tiếp Tục Mua Sắm</button>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Cart.js"></script>
+}
