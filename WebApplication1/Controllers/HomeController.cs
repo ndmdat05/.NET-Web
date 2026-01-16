@@ -1,4 +1,4 @@
-vusing System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
@@ -19,6 +19,30 @@ namespace WebApplication1.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Blog()
+        {
+            return View();
+        }
+        public IActionResult BlogDetail()
+        {
+            return View();
+        }
+        public IActionResult DangKyTK()
+        {
+            return View();
+        }
+        public IActionResult DangNhap()
+        {
+            return View();
+        }
+        public IActionResult About()
+        {
+            return View();
+        }
+        public IActionResult Profile()
         {
             return View();
         }

@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Về Paddy";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/about.css" />
+}
+<div class="about-page-container">
+
+    <div class="breadcrumb-section">
+        <a asp-controller="Home" asp-action="Index">Trang Chủ</a>
+        <span class="separator">/</span>
+        <span class="current">Giới thiệu về Paddy</span>
+    </div>
+
+    <div class="about-content-wrapper">
+        <div class="about-text-section">
+            <h1 class="main-title">VỀ PADDY PET SHOP</h1>
+            <h2 class="sub-heading">Chào mừng đến với Paddy.vn!</h2>
+            <div class="line-decor"></div>
+
+            <div class="content-paragraphs">
+                <p>
+                    <strong>Paddy.vn</strong> tự hào là nhà bán lẻ hàng đầu chuyên cung cấp các sản phẩm cao cấp cho chó mèo,
+                    từ thức ăn, snack, phụ kiện, thời trang, đến mỹ phẩm chăm sóc và đồ dùng vệ sinh
+                    từ những thương hiệu uy tín trên thế giới.
+                </p>
+
+                <p>
+                    Năm 2020 đánh dấu cột mốc quan trọng khi Paddy.vn chính thức khai trương cửa hàng đầu tiên
+                    và triển khai thành công hệ thống bán hàng đa kênh.
+                    Hiện tại, Paddy đã mở rộng quy mô với <strong>3 cửa hàng tại TP. Hồ Chí Minh</strong>,
+                    mang đến hơn 3.000 sản phẩm chất lượng cao từ các thương hiệu nổi tiếng
+                    như <em>Royal Canin, Nutrience, Taste of the Wild, Natural Core, Zenith...</em>
+                </p>
+
+                <p>
+                    Tại Paddy.vn, chúng tôi không chỉ cam kết cung cấp sản phẩm chất lượng với giá cả hợp lý
+                    mà còn hướng đến việc mang lại trải nghiệm mua sắm thoải mái nhất.
+                    Đội ngũ nhân viên tận tâm, giao hàng nhanh chóng là niềm tự hào của chúng tôi.
+                </p>
+            </div>
+
+            <div class="about-cta">
+                <a asp-controller="Product" asp-action="New" class="btn-shop-now">Khám phá sản phẩm ngay</a>
+            </div>
+        </div>
+
+        <div class="about-image-section">
+            <img src="~/images/about.webp" alt="Về Paddy" class="img-responsive shadow-effect">
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+}

@@ -1,0 +1,104 @@
+@{
+    ViewData["Title"] = "Kiến Thức Chăm Sóc Thú Cưng";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Blog.css" />
+}
+
+<!-- BLOG PAGE CONTENT -->
+<!-- ABC -->
+<div class="blog-container">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-blog">
+        <a asp-controller="Home" asp-action="Index">Trang Chủ</a> >
+        <span>Kiến Thức Chăm Sóc Thú Cưng</span>
+    </div>
+
+    <h1 class="blog-title">KIẾN THỨC CHĂM SÓC THÚ CƯNG</h1>
+
+    <div class="blog-layout">
+
+        <!-- SIDEBAR LEFT -->
+        <aside class="blog-sidebar">
+            <h3>SỰ KIỆN MỚI</h3>
+            <div class="line"></div>
+
+            <div class="sidebar-item">
+                <p class="s-title">Chó nhỏ nên ăn gì? Tiêu chí chọn thức ăn...</p>
+                <span class="s-date">14 November 2025</span>
+            </div>
+
+            <div class="sidebar-item">
+                <p class="s-title">Áo mưa cho chó có thật sự cần? Cách chọn nhanh gọn!</p>
+                <span class="s-date">12 November 2025</span>
+            </div>
+
+            <div class="sidebar-item">
+                <p class="s-title">Thức ăn hạt cho mèo nhạy cảm, ít gây dị ứng</p>
+                <span class="s-date">10 November 2025</span>
+            </div>
+
+            <h4 class="premium-title">PREMIUM PET FOOD</h4>
+            <div class="line"></div>
+        </aside>
+
+        <!-- MAIN BLOG CONTENT -->
+        <div class="blog-posts">
+
+            <!-- Blog Card 1 -->
+            <div class="blog-card">
+                <img src="~/images/blog1.webp" alt="">
+                <h2>Chó Nhỏ Nên Ăn Gì? Tiêu Chí Chọn Thức Ăn...</h2>
+                <div class="meta">Nov 14, 2025 — Lan Nguyen — 0 Bình Luận</div>
+                <p class="excerpt">
+                    Chó nhỏ cần những dưỡng chất gì để phát triển khỏe mạnh?
+                    Lưu ý khi chọn thức ăn cho chó...
+                </p>
+                <a asp-controller="Blog"
+                   asp-action="Detail"
+                   class="read-more">
+                    Đọc Thêm
+                </a>
+            </div>
+
+            <!-- Blog Card 2 -->
+            <div class="blog-card">
+                <img src="~/images/blog2.webp" alt="">
+                <h2>Áo Mưa Cho Chó Có Thật Sự Cần? Cách Chọn Nhanh Gọn!</h2>
+                <div class="meta">Nov 12, 2025 — Lan Nguyen — 0 Bình Luận</div>
+                <p class="excerpt">
+                    Áo mưa cho chó có thật sự cần thiết?
+                    Các loại áo mưa cho chó phổ biến...
+                </p>
+                <a asp-controller="Blog"
+                   asp-action="Detail"
+                   class="read-more">
+                    Đọc Thêm
+                </a>
+            </div>
+
+            <!-- Blog Card 3 -->
+            <div class="blog-card">
+                <img src="~/images/blog1.webp" alt="">
+                <h2>Thức Ăn Hạt Cho Mèo Nhạy Cảm, Ít Gây Dị Ứng</h2>
+                <div class="meta">Nov 10, 2025 — Lan Nguyen — 0 Bình Luận</div>
+                <p class="excerpt">
+                    Dấu hiệu mèo bị dị ứng với thức ăn.
+                    Nguyên nhân mèo bị dị ứng...
+                </p>
+                <a asp-controller="Blog"
+                   asp-action="Detail"
+                   class="read-more">
+                    Đọc Thêm
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/blog.js"></script>
+}

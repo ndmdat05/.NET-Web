@@ -2,15 +2,17 @@
     ViewData["Title"] = "Trang chủ";
 }
 
-<!-- SLIDER -->
 <div id="slider-container">
     <div id="slider-cont">
         <div class="slider">
             <div class="slider-item">
-                <img src="~/images/banner-home.webp" alt="">
-                <img src="~/images/pet_1.webp" alt="">
-                <img src="~/images/pet_2.webp" alt="">
-                <img src="~/images/pet_3.webp" alt="">
+                <a asp-controller="Collections" asp-action="PateMeoCon">
+                    <img src="~/images/banner-home.webp" alt="Banner Chinh">
+                </a>
+                <img src="~/images/pet_1.webp" alt="Pet 1">
+                <img src="~/images/pet_2.webp" alt="Pet 2">
+                <img src="~/images/pet_3.webp" alt="Pet 3">
+                <img src="~/images/pet_4.webp" alt="Pet 3">
             </div>
             <div class="dots">
                 <i class="fa-solid fa-circle"></i>
@@ -22,7 +24,6 @@
     </div>
 </div>
 
-<!-- POLICY -->
 <div id="policy-section">
     <div class="policy-container">
         <div class="policy-item">
@@ -47,306 +48,220 @@
     </div>
 </div>
 
-<!-- DOG / CAT BANNER -->
 <div id="banner-content">
     <div class="header-title">
         <h2>Mua sắm theo giống thú cưng</h2>
     </div>
     <div class="content-item">
-        <img src="~/images/dog_banner.webp" alt="Cún cưng" class="dog-item">
-        <img src="~/images/cat_banner.webp" alt="Mèo cưng" class="cat-item">
+        <a asp-controller="Collections" asp-action="PateMeoCon">
+            <img src="~/images/dog_banner.webp" alt="Cún cưng" class="dog-item">
+        </a>
+        <a asp-controller="Collections" asp-action="PateMeoCon">
+            <img src="~/images/cat_banner.webp" alt="Mèo cưng" class="cat-item">
+        </a>
     </div>
 </div>
 
-<!-- COLLECTIONS -->
 <div id="collections-content">
     <div class="collections-header">
         <h2>Bộ Sưu Tập Cho Mèo Con</h2>
-        <a href="#" class="see-all">Xem tất cả</a>
+        <a asp-controller="Collections" asp-action="PateMeoCon" class="see-all">Xem tất cả</a>
     </div>
     <div class="collections-item">
         <div class="item">
-            <img src="~/images/collections_1x.webp">
-            <p>Pate Mèo Con</p>
+            <a asp-controller="Collections" asp-action="PateMeoCon">
+                <img src="~/images/collections_1x.webp" alt="Pate Mèo Con">
+                <p>Pate Mèo Con</p>
+            </a>
         </div>
         <div class="item">
-            <img src="~/images/collections2.webp">
-            <p>Thức Ăn Cho Mèo Con</p>
+            <a asp-controller="Collections" asp-action="PateMeoCon">
+                <img src="~/images/collections2.webp" alt="Thức Ăn">
+                <p>Thức Ăn Cho Mèo Con</p>
+            </a>
         </div>
         <div class="item">
-            <img src="~/images/collections3.webp">
-            <p>Cát Vệ Sinh Mèo</p>
+            <a asp-controller="Collections" asp-action="PateMeoCon">
+                <img src="~/images/collections3.webp" alt="Cát Vệ Sinh">
+                <p>Cát Vệ Sinh Mèo</p>
+            </a>
         </div>
         <div class="item">
-            <img src="~/images/collections4.webp">
-            <p>Sữa Tắm Cho Mèo Con</p>
+            <a asp-controller="Collections" asp-action="PateMeoCon">
+                <img src="~/images/collections4.webp" alt="Sữa Tắm">
+                <p>Sữa Tắm Cho Mèo Con</p>
+            </a>
         </div>
         <div class="item">
-            <img src="~/images/collections5.webp">
-            <p>Đồ Chơi Cho Mèo Con</p>
+            <a asp-controller="Collections" asp-action="PateMeoCon">
+                <img src="~/images/collections5.webp" alt="Đồ Chơi">
+                <p>Đồ Chơi Cho Mèo Con</p>
+            </a>
         </div>
         <div class="item">
-            <img src="~/images/collections6.webp">
-            <p>Nhà Cho Mèo</p>
+            <a asp-controller="Collections" asp-action="PateMeoCon">
+                <img src="~/images/collections6.webp" alt="Nhà Mèo">
+                <p>Nhà Cho Mèo</p>
+            </a>
         </div>
     </div>
 </div>
 
-<!-- DISCOUNT PRODUCTS (GIỮ NGUYÊN CẤU TRÚC GỐC) -->
 <div class="discount-product">
     <div class="dp_container">
         <div class="dp_header">
             <h2>Sản phẩm giảm giá</h2>
-            <a href="#" class="dp_see_all">Xem tất cả</a>
+            <a asp-controller="Collections" asp-action="PateMeoCon" class="dp_see_all">Xem tất cả</a>
         </div>
 
         <div class="dp-slider">
             <div class="dp-wrapper">
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
+                    <div class="dp-item">
+                        <img src="~/images/discount_item1.png" alt="Nutri Plan">
+                        <h4>Nutri Plan</h4>
+                        <p>Pate Cho Mèo Trưởng Thành Nutri Plan</p>
+                        <span class="price1">25.000₫</span>
+                        <span class="price2">14.000₫</span>
+                        <i class="fa-regular fa-heart dp-icon"></i>
+                    </div>
+                </a>
 
-                <div class="dp-item">
-                    <img src="~/images/discount_item1.png">
-                    <h4>Nutri Plan</h4>
-                    <p>Pate Cho Mèo Trưởng Thành Nutri Plan</p>
-                    <span class="price1">25.000₫</span>
-                    <span class="price2">14.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
+                    <div class="dp-item">
+                        <img src="~/images/discount_item2.png" alt="Natural Core">
+                        <h4>Natural Core</h4>
+                        <p>Bánh Thưởng Cho Chó Natural Core</p>
+                        <span class="price1">45.000₫</span>
+                        <span class="price2">35.000₫</span>
+                        <i class="fa-regular fa-heart dp-icon"></i>
+                    </div>
+                </a>
 
-                <div class="dp-item">
-                    <img src="~/images/discount_item2.png">
-                    <h4>Natural Core</h4>
-                    <p>Bánh Thưởng Cho Chó Natural Core</p>
-                    <span class="price1">45.000₫</span>
-                    <span class="price2">35.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
+                    <div class="dp-item">
+                        <img src="~/images/discount_item3.png" alt="Ultimates Indulge">
+                        <h4>Ultimates Indulge</h4>
+                        <p>Pate Mèo Ultimates Indulge</p>
+                        <span class="price1">27.000₫</span>
+                        <span class="price2">21.000₫</span>
+                        <i class="fa-regular fa-heart dp-icon"></i>
+                    </div>
+                </a>
 
-                <div class="dp-item">
-                    <img src="~/images/discount_item3.png">
-                    <h4>Ultimates Indulge</h4>
-                    <p>Pate Mèo Ultimates Indulge</p>
-                    <span class="price1">27.000₫</span>
-                    <span class="price2">21.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
-
-                <div class="dp-item">
-                    <img src="~/images/discount_item4.png">
-                    <h4>Royal Canin</h4>
-                    <p>Pate Cho Mèo Mẹ & Mèo Con</p>
-                    <span class="price1">95.000₫</span>
-                    <span class="price2">58.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
-
-                <div class="dp-item">
-                    <img src="~/images/discount_item5.png">
-                    <h4>Bioline</h4>
-                    <p>Xúc Xích Cho Chó Mèo</p>
-                    <span class="price1">85.000₫</span>
-                    <span class="price2">75.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
-
-                <div class="dp-item">
-                    <img src="~/images/discount_item6.png">
-                    <h4>Q8</h4>
-                    <p>Viên Dầu Cá Hồi Omega</p>
-                    <span class="price1">100.000₫</span>
-                    <span class="price2">80.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
-
-                <div class="dp-item">
-                    <img src="~/images/discount_item7.png">
-                    <h4>Keos</h4>
-                    <p>Hạt Cho Chó Trưởng Thành</p>
-                    <span class="price1">169.000₫</span>
-                    <span class="price2">89.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
-
-                <div class="dp-item">
-                    <img src="~/images/discount_item8.png">
-                    <h4>Royal Canin</h4>
-                    <p>Thức Ăn Hạt Cho Mèo Hairball</p>
-                    <span class="price1">565.000₫</span>
-                    <span class="price2">149.000₫</span>
-                    <i class="fa-regular fa-heart dp-icon"></i>
-                </div>
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
+                    <div class="dp-item">
+                        <img src="~/images/discount_item4.png" alt="Royal Canin">
+                        <h4>Royal Canin</h4>
+                        <p>Pate Cho Mèo Mẹ & Mèo Con</p>
+                        <span class="price1">95.000₫</span>
+                        <span class="price2">58.000₫</span>
+                        <i class="fa-regular fa-heart dp-icon"></i>
+                    </div>
+                </a>
 
             </div>
         </div>
     </div>
 </div>
-//abc
-<!-- RECOMMEND -->
+
 <div class="recommend-items">
     <div class="deal_container">
         <div class="deal_header">
             <h2>Sản phẩm đề xuất</h2>
-            <a href="#" class="deal_see_all">Xem tất cả</a>
+            <a asp-controller="Collections" asp-action="PateMeoCon" class="deal_see_all">Xem tất cả</a>
         </div>
 
         <div class="deal-slider">
             <div class="deal-wrapper">
-
-                <a href="#" class="di-link">
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
                     <div class="deal-item">
-                        <img src="~/images/deal1.png" alt="">
+                        <img src="~/images/deal1.png" alt="Silver Spoon">
                         <h4>Silver Spoon</h4>
-                        <p>Súp Thưởng Cho Mèo Silver Spoon (Túi 8 tuýp*6g)</p>
+                        <p>Súp Thưởng Cho Mèo Silver Spoon</p>
                         <span class="price">27.000₫</span>
                         <i class="fa-regular fa-heart deal-icon"></i>
                     </div>
                 </a>
 
-                <a href="#" class="di-link">
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
                     <div class="deal-item">
-                        <img src="~/images/deal2.png" alt="">
+                        <img src="~/images/deal2.png" alt="Silver Spoon">
                         <h4>Silver Spoon</h4>
-                        <p>Pate Cho Mèo Silver Spoon Dạng Thạch & Sốt 60g</p>
+                        <p>Pate Cho Mèo Silver Spoon Dạng Thạch</p>
                         <span class="price">16.000₫</span>
                         <i class="fa-regular fa-heart deal-icon"></i>
                     </div>
                 </a>
 
-                <a href="#" class="di-link">
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
                     <div class="deal-item">
-                        <img src="~/images/deal3.png" alt="">
+                        <img src="~/images/deal3.png" alt="Silver Spoon">
                         <h4>Silver Spoon</h4>
-                        <p>Súp Thưởng Cho Mèo Silver Spoon Dạng Thìa 10g</p>
+                        <p>Súp Thưởng Cho Mèo Silver Spoon Dạng Thìa</p>
                         <span class="price">27.000₫</span>
                         <i class="fa-regular fa-heart deal-icon"></i>
                     </div>
                 </a>
 
-                <a href="#" class="di-link">
+                <a asp-controller="Product" asp-action="Detail" class="di-link">
                     <div class="deal-item">
-                        <img src="~/images/deal4.png" alt="">
-                        <h4>Silver Spoon</h4>
-                        <p>Thức Ăn Hạt Cho Mèo Trưởng Thành Silver Spoon 1kg</p>
-                        <span class="price1">189.000₫</span>
-                        <span class="price2">150.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
-
-                <a href="#" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/fav1.webp" alt="">
-                        <h4>Royal Canin</h4>
-                        <p>Thức Ăn Hạt Cho Mèo Trưởng Thành Nuôi Trong Nhà</p>
-                        <span class="price">132.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
-
-                <a href="#" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/fav2.webp" alt="">
+                        <img src="~/images/fav2.webp" alt="Royal Canin">
                         <h4>Royal Canin</h4>
                         <p>Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
                         <span class="price">132.000₫</span>
                         <i class="fa-regular fa-heart deal-icon"></i>
                     </div>
                 </a>
-
-                <a href="#" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/fav3.webp" alt="">
-                        <h4>Royal Canin</h4>
-                        <p>Thức Ăn Hạt Cho Mèo Sỏi Thận Urinary S/O</p>
-                        <span class="price">185.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
-
-                <a href="#" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/fav4.webp" alt="">
-                        <h4>Royal Canin</h4>
-                        <p>Pate Cho Mèo Con Royal Canin Kitten Instinctive</p>
-                        <span class="price">30.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
-
             </div>
         </div>
     </div>
 </div>
 
-<!-- TRADEMARK LIST -->
 <div class="trademark_list">
     <div class="trademark_container">
         <div class="trademark_header">
             <h2>Top Thương Hiệu Boss Thích</h2>
-            <p>Xem tất cả</p>
+            <a href="#" class="see-all">Xem tất cả</a>
         </div>
 
         <div class="trademark_item">
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark1.png" alt="">
-                </div>
+                <img src="~/images/trademark1.png" alt="Nutrience">
                 <p>Nutrience</p>
             </div>
-
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark2.png" alt="">
-                </div>
+                <img src="~/images/trademark2.png" alt="Royal Canin">
                 <p>Royal Canin</p>
             </div>
-
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark3.png" alt="">
-                </div>
+                <img src="~/images/trademark3.png" alt="Kit Cat">
                 <p>Kit Cat</p>
             </div>
-
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark4.png" alt="">
-                </div>
+                <img src="~/images/trademark4.png" alt="Nekko">
                 <p>Nekko</p>
             </div>
-
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark5.png" alt="">
-                </div>
+                <img src="~/images/trademark5.png" alt="Monge">
                 <p>Monge</p>
             </div>
-
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark6.png" alt="">
-                </div>
+                <img src="~/images/trademark6.png" alt="Silver Spoon">
                 <p>Silver Spoon</p>
             </div>
-
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark7.png" alt="">
-                </div>
+                <img src="~/images/trademark7.png" alt="Me-O">
                 <p>Me-O</p>
             </div>
-
             <div class="trade_logo">
-                <div class="trade_img">
-                    <img src="~/images/trademark8.png" alt="">
-                </div>
+                <img src="~/images/trademark8.png" alt="Gimcat">
                 <p>Gimcat</p>
             </div>
         </div>
     </div>
 </div>
 
-
-<!-- STORE LIST -->
 <div class="list-store">
     <div class="store-container">
         <div class="header-line">
@@ -354,41 +269,45 @@
             <h2 class="title-store">Mua Trực Tiếp Tại Cửa Hàng</h2>
         </div>
 
-        <div class="store-item">
-            <div class="store-img">
-                <img src="~/images/cuahang1.webp" alt="">
-            </div>
-            <h3>Paddy Pet Shop - Trường Sa</h3>
-            <p>168 Trường Sa, P. Gia Định, TP.HCM</p>
-            <button>Chỉ đường</button>
-        </div>
+        <div class="store-grid">
 
-        <div class="store-item">
-            <div class="store-img">
-                <img src="~/images/cuahang2.webp" alt="">
+            <div class="store-item">
+                <div class="store-img">
+                    <img src="~/images/cuahang1.webp" alt="Paddy Pet Shop - Trường Sa">
+                </div>
+                <h3>Paddy Pet Shop - Trường Sa</h3>
+                <p>168 Trường Sa, P. Gia Định, Tp. HCM</p>
+                <button>Chỉ đường</button>
             </div>
-            <h3>Paddy Pet Shop - Nơ Trang Long</h3>
-            <p>412/3 Nơ Trang Long, TP.HCM</p>
-            <button>Chỉ đường</button>
-        </div>
 
-        <div class="store-item">
-            <div class="store-img">
-                <img src="~/images/cuahang3.webp" alt="">
+            <div class="store-item">
+                <div class="store-img">
+                    <img src="~/images/cuahang2.webp" alt="Paddy Pet Shop - Nơ Trang Long">
+                </div>
+                <h3>Paddy Pet Shop - Nơ Trang Long</h3>
+                <p>412/3 Nơ Trang Long, P. Bình Lợi Trung, Tp. HCM</p>
+                <button>Chỉ đường</button>
             </div>
-            <h3>Paddy Pet Shop - Trần Não</h3>
-            <p>91B Trần Não, TP.HCM</p>
-            <button>Chỉ đường</button>
-        </div>
 
-        <div class="store-item">
-            <div class="store-img">
-                <img src="~/images/cuahang4.webp" alt="">
+            <div class="store-item">
+                <div class="store-img">
+                    <img src="~/images/cuahang3.webp" alt="Paddy Pet Shop - Trần Não">
+                </div>
+                <h3>Paddy Pet Shop - Trần Não</h3>
+                <p>91B Trần Não, P. An Khánh, Tp. HCM</p>
+                <button>Chỉ đường</button>
             </div>
-            <h3>Paddy Pet Shop - Nguyễn Thị Thập</h3>
-            <p>406 Nguyễn Thị Thập, TP.HCM</p>
-            <button>Chỉ đường</button>
+
+            <div class="store-item">
+                <div class="store-img">
+                    <img src="~/images/cuahang4.webp" alt="Paddy Pet Shop - Nguyễn Thị Thập">
+                </div>
+                <h3>Paddy Pet Shop - Nguyễn Thị Thập</h3>
+                <p>406 Nguyễn Thị Thập, P. Tân Hưng, Tp. HCM</p>
+                <button>Chỉ đường</button>
+            </div>
+
         </div>
     </div>
 </div>
-//fdfsdffd
+
