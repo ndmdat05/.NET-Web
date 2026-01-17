@@ -1,16 +1,21 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient; // Thêm thư viện MySQL
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
-namespace WebApplication1.Controllers
+
+namespace WebShop.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly MySqlConnection _connection; // Inject MySqlConnection từ Services
 
-        public HomeController(ILogger<HomeController> logger)
+        // Constructor nhận MySqlConnection và ILogger qua Dependency Injection
+        public HomeController(ILogger<HomeController> logger, MySqlConnection connection)
         {
             _logger = logger;
+            _connection = connection;
         }
 
         public IActionResult Index()
@@ -22,29 +27,52 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+        // Các action khác vẫn giữ nguyên
+
         public IActionResult Blog()
         {
             return View();
         }
+
         public IActionResult BlogDetail()
         {
             return View();
         }
+
         public IActionResult DangKyTK()
         {
             return View();
         }
+
         public IActionResult DangNhap()
         {
             return View();
         }
+
         public IActionResult About()
         {
             return View();
         }
+
         public IActionResult Profile()
         {
             return View();
+        }
+
+        // Kiểm tra kết nối MySQL
+        public IActionResult TestDatabase()
+        {
+            try
+            {
+                _connection.Open(); 
+                _connection.Close(); 
+                return Content("Ket noi mySQL thanh cong! ✅");
+            }
+            catch (Exception ex)
+            {
+                return Content($"ket noi mySQL that bai: {ex.Message} ❌");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
