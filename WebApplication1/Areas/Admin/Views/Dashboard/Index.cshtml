@@ -1,2 +1,503 @@
-﻿<h1>ADMIN DASHBOARD</h1>
-<p>Trang quản trị WebShop</p>
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Dashboard Section -->
+<section id="dashboard" class="section active">
+    <div class="page-header">
+        <h1>Dashboard</h1>
+        <p>Chào mừng quay trở lại, Admin! </p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon bg-primary">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="stat-info">
+                <h3>1,234</h3>
+                <p>Tổng Đơn Hàng</p>
+            </div>
+            <div class="stat-trend up">
+                <i class="fas fa-arrow-up"></i> 12. 5%
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon bg-success">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-info">
+                <h3>56.8M</h3>
+                <p>Doanh Thu (VNĐ)</p>
+            </div>
+            <div class="stat-trend up">
+                <i class="fas fa-arrow-up"></i> 8.2%
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon bg-warning">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h3>892</h3>
+                <p>Khách Hàng</p>
+            </div>
+            <div class="stat-trend up">
+                <i class="fas fa-arrow-up"></i> 5.3%
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon bg-danger">
+                <i class="fas fa-box"></i>
+            </div>
+            <div class="stat-info">
+                <h3>156</h3>
+                <p>Sản Phẩm</p>
+            </div>
+            <div class="stat-trend down">
+                <i class="fas fa-arrow-down"></i> 2.1%
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+        <div class="chart-card">
+            <div class="card-header">
+                <h3>Doanh Thu Theo Tháng</h3>
+                <select class="chart-filter">
+                    <option>2025</option>
+                    <option>2024</option>
+                </select>
+            </div>
+            <div class="chart-body">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card small">
+            <div class="card-header">
+                <h3>Sản Phẩm Theo Danh Mục</h3>
+            </div>
+            <div class="chart-body">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders & Top Products -->
+    <div class="data-row">
+        <!-- Recent Orders -->
+        <div class="data-card">
+            <div class="card-header">
+                <h3>Đơn Hàng Gần Đây</h3>
+                <a href="#orders" class="view-all">Xem tất cả</a>
+            </div>
+            <div class="card-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mã ĐH</th>
+                            <th>Khách Hàng</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#DH001</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>450,000đ</td>
+                            <td><span class="status pending">Chờ xử lý</span></td>
+                        </tr>
+                        <tr>
+                            <td>#DH002</td>
+                            <td>Trần Thị B</td>
+                            <td>1,200,000đ</td>
+                            <td><span class="status shipping">Đang giao</span></td>
+                        </tr>
+                        <tr>
+                            <td>#DH003</td>
+                            <td>Lê Văn C</td>
+                            <td>680,000đ</td>
+                            <td><span class="status completed">Hoàn thành</span></td>
+                        </tr>
+                        <tr>
+                            <td>#DH004</td>
+                            <td>Phạm Thị D</td>
+                            <td>320,000đ</td>
+                            <td><span class="status pending">Chờ xử lý</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Top Products -->
+        <div class="data-card">
+            <div class="card-header">
+                <h3>Sản Phẩm Bán Chạy</h3>
+                <a href="#products" class="view-all">Xem tất cả</a>
+            </div>
+            <div class="card-body">
+                <div class="product-list">
+                    <div class="product-item">
+                        <img src="~/assets/img/product1.jpg" alt="Product" />
+                        <div class="product-info">
+                            <h4>Pate Whiskas Cho Mèo</h4>
+                            <p>Đã bán:  156</p>
+                        </div>
+                        <span class="product-price">45,000đ</span>
+                    </div>
+                    <div class="product-item">
+                        <img src="~/assets/img/product2.jpg" alt="Product" />
+                        <div class="product-info">
+                            <h4>Thức Ăn Royal Canin</h4>
+                            <p>Đã bán: 142</p>
+                        </div>
+                        <span class="product-price">380,000đ</span>
+                    </div>
+                    <div class="product-item">
+                        <img src="~/assets/img/product3.jpg" alt="Product" />
+                        <div class="product-info">
+                            <h4>Đồ Chơi Chuột Bông</h4>
+                            <p>Đã bán: 98</p>
+                        </div>
+                        <span class="product-price">25,000đ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section id="products" class="section">
+    <div class="page-header">
+        <h1>Quản Lý Sản Phẩm</h1>
+        <button class="btn btn-primary" onclick="openModal('addProductModal')">
+            <i class="fas fa-plus"></i> Thêm Sản Phẩm
+        </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-bar">
+        <div class="search-filter">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Tìm sản phẩm..." id="productSearch" />
+        </div>
+        <select class="filter-select">
+            <option value="">Tất cả danh mục</option>
+            <option value="dog-food">Thức ăn cho chó</option>
+            <option value="cat-food">Thức ăn cho mèo</option>
+            <option value="accessories">Phụ kiện</option>
+        </select>
+        <select class="filter-select">
+            <option value="">Trạng thái</option>
+            <option value="active">Đang bán</option>
+            <option value="inactive">Ngừng bán</option>
+        </select>
+    </div>
+
+    <!-- Products Table -->
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="selectAll" /></th>
+                    <th>Hình Ảnh</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Danh Mục</th>
+                    <th>Giá</th>
+                    <th>Tồn Kho</th>
+                    <th>Trạng Thái</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><img src="~/assets/img/product1.jpg" class="table-img" /></td>
+                    <td>Pate Whiskas Cho Mèo Con</td>
+                    <td>Thức ăn cho mèo</td>
+                    <td>45,000đ</td>
+                    <td>250</td>
+                    <td><span class="status active">Đang bán</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon btn-edit" title="Sửa">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" title="Xóa">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><img src="~/assets/img/product2.jpg" class="table-img" /></td>
+                    <td>Royal Canin Adult Dog 3kg</td>
+                    <td>Thức ăn cho chó</td>
+                    <td>380,000đ</td>
+                    <td>85</td>
+                    <td><span class="status active">Đang bán</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon btn-edit" title="Sửa">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" title="Xóa">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><img src="~/assets/img/product3.jpg" class="table-img" /></td>
+                    <td>Vòng Cổ Chống Ve Cho Chó</td>
+                    <td>Phụ kiện</td>
+                    <td>120,000đ</td>
+                    <td>0</td>
+                    <td><span class="status inactive">Hết hàng</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon btn-edit" title="Sửa">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" title="Xóa">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="page-info">Hiển thị 1-10 của 156 sản phẩm</span>
+        <div class="page-btns">
+            <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span>... </span>
+            <button class="page-btn">16</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- Orders Section -->
+<section id="orders" class="section">
+    <div class="page-header">
+        <h1>Quản Lý Đơn Hàng</h1>
+        <div class="header-actions">
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Xuất Excel
+            </button>
+        </div>
+    </div>
+
+    <!-- Order Stats -->
+    <div class="order-stats">
+        <div class="order-stat-item">
+            <span class="count">24</span>
+            <span class="label">Chờ xử lý</span>
+        </div>
+        <div class="order-stat-item">
+            <span class="count">18</span>
+            <span class="label">Đang giao</span>
+        </div>
+        <div class="order-stat-item">
+            <span class="count">156</span>
+            <span class="label">Hoàn thành</span>
+        </div>
+        <div class="order-stat-item">
+            <span class="count">3</span>
+            <span class="label">Đã hủy</span>
+        </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Mã Đơn</th>
+                    <th>Khách Hàng</th>
+                    <th>Sản Phẩm</th>
+                    <th>Tổng Tiền</th>
+                    <th>Ngày Đặt</th>
+                    <th>Trạng Thái</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>#DH001</strong></td>
+                    <td>
+                        <div class="customer-info">
+                            <span>Nguyễn Văn A</span>
+                            <small>0912345678</small>
+                        </div>
+                    </td>
+                    <td>Pate Whiskas x2, Royal Canin x1</td>
+                    <td><strong>450,000đ</strong></td>
+                    <td>18/01/2026</td>
+                    <td>
+                        <select class="status-select pending">
+                            <option value="pending" selected>Chờ xử lý</option>
+                            <option value="confirmed">Đã xác nhận</option>
+                            <option value="shipping">Đang giao</option>
+                            <option value="completed">Hoàn thành</option>
+                            <option value="cancelled">Đã hủy</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon btn-view" title="Chi tiết">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon btn-print" title="In">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Customers Section -->
+<section id="customers" class="section">
+    <div class="page-header">
+        <h1>Quản Lý Khách Hàng</h1>
+    </div>
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ Tên</th>
+                    <th>Email</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Tổng Đơn</th>
+                    <th>Tổng Chi</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#KH001</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>nguyenvana@email.com</td>
+                    <td>0912345678</td>
+                    <td>12</td>
+                    <td>5,400,000đ</td>
+                    <td>
+                        <button class="btn-icon btn-view"><i class="fas fa-eye"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Categories, Blogs, Reports, Settings sections...  -->
+<section id="categories" class="section">
+    <div class="page-header">
+        <h1>Quản Lý Danh Mục</h1>
+        <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm Danh Mục</button>
+    </div>
+</section>
+
+<section id="blogs" class="section">
+    <div class="page-header">
+        <h1>Quản Lý Bài Viết</h1>
+        <button class="btn btn-primary"><i class="fas fa-plus"></i> Viết Bài Mới</button>
+    </div>
+</section>
+
+<section id="reports" class="section">
+    <div class="page-header">
+        <h1>Báo Cáo & Thống Kê</h1>
+    </div>
+</section>
+
+<section id="settings" class="section">
+    <div class="page-header">
+        <h1>Cài Đặt Hệ Thống</h1>
+    </div>
+</section>
+
+<!-- Add Product Modal -->
+<div class="modal" id="addProductModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Thêm Sản Phẩm Mới</h2>
+            <button class="close-modal" onclick="closeModal('addProductModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addProductForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tên Sản Phẩm</label>
+                        <input type="text" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Danh Mục</label>
+                        <select name="category" required>
+                            <option value="">Chọn danh mục</option>
+                            <option value="dog-food">Thức ăn cho chó</option>
+                            <option value="cat-food">Thức ăn cho mèo</option>
+                            <option value="accessories">Phụ kiện</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Giá Bán</label>
+                        <input type="number" name="price" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Số Lượng Tồn</label>
+                        <input type="number" name="stock" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mô Tả</label>
+                    <textarea name="description" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Hình Ảnh</label>
+                    <div class="image-upload">
+                        <input type="file" name="images" multiple accept="image/*" />
+                        <div class="upload-placeholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Kéo thả hoặc click để tải ảnh</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('addProductModal')">Hủy</button>
+            <button class="btn btn-primary" type="submit" form="addProductForm">Thêm Sản Phẩm</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/admin-charts.js"></script>
+}
