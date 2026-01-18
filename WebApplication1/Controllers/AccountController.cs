@@ -1,14 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebShop.Models;
 
 namespace WebShop.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly string _connectionString =
+           "Server=127.0.0.1;Database=DOCNET;User Id=root;Password=123456;Port=3306;";
+
         // 1. Đăng nhập
         // URL: /Account/Login
+        [HttpGet]
         public IActionResult Login()
         {
             return View(); // Tự động tìm Views/Account/Login.cshtml
+        }
+        [HttpPost]
+        public IActionResult Login(LoginViewModel model)
+        {
+            // Xử lý đăng nhập ở đây (sau này)
+            // Hiện tại chỉ giả lập thành công và chuyển hướng về trang chủ
+            if(!ModelState.IsValid) return View(model);
+            var conn = new MySql.Data.MySqlClient.MySqlConnection(_connectionString);
+            conn.Open();
+            string sql = "SELECT COUNT(*) FROM Users WHERE email=@username";
+            using var cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@username", model.Email);
+            using var reader = cmd.ExecuteReader();
+            if (!reader.Read() || !BCrypt.Net.BCrypt.Verify(model.Password, reader["password"].ToString()))
+            {
+                ModelState.AddModelError(string.Empty, "Sai tên đăng nhập hoặc mật khẩu.");
+                return View(model);
+            }
+            HttpContext.Session.SetInt32("UserId", Convert.ToInt32(reader["id"]));
+            HttpContext.Session.SetString("UserEmail", reader["email"].ToString());
+            return RedirectToAction("Index", "Home");
         }
 
         // 2. Đăng ký
@@ -29,6 +55,7 @@ namespace WebShop.Controllers
         // URL: /Account/ForgotSuccess
         public IActionResult ForgotSuccess()
         {
+
             return View(); // Tự động tìm Views/Account/ForgotSuccess.cshtml
         }
 
