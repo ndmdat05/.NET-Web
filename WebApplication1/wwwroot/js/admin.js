@@ -1,4 +1,4 @@
-// ================= TAB NAVIGATION =================
+ï»¿// ================= TAB NAVIGATION =================
 const tabLinks = document.querySelectorAll('.tab-link');
 const sections = document.querySelectorAll('.section');
 
@@ -100,7 +100,7 @@ if (productSearch) {
 // ================= DELETE CONFIRMATION =================
 document.querySelectorAll('.btn-delete').forEach(btn => {
     btn.addEventListener('click', function () {
-        if (confirm('B?n có ch?c ch?n mu?n xóa m?c này?')) {
+        if (confirm('Báº¡n cÃ³ cháº¯c muá»‘n xÃ³a dÃ²ng nÃ y?')) {
             // Handle delete
             const row = this.closest('tr');
             row.style.animation = 'fadeOut 0.3s ease';
@@ -117,7 +117,7 @@ if (imageUpload) {
         if (this.files.length > 0) {
             placeholder.innerHTML = `
                 <i class="fas fa-check-circle" style="color: #28a745;"></i>
-                <p>${this.files.length} ?nh ?ã ???c ch?n</p>
+                <p>${this.files.length} XÃ¡c nháº­n</p>
             `;
         }
     });
@@ -128,7 +128,7 @@ const notification = document.querySelector('.notification');
 if (notification) {
     notification.addEventListener('click', function () {
         // Toggle notification dropdown
-        alert('B?n có 3 thông báo m?i! ');
+        alert('Báº¡n cÃ³ thÃ´ng bÃ¡o má»›i ');
     });
 }
 
@@ -142,7 +142,7 @@ if (addProductForm) {
         const formData = new FormData(this);
 
         // Show success message
-        alert('S?n ph?m ?ã ???c thêm thành công!');
+        alert('ThÃªm sáº£n pháº©m thÃ nh cÃ´ng!');
         closeModal('addProductModal');
         this.reset();
     });

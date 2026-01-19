@@ -1,0 +1,25 @@
+﻿@model List<WebShop.Models.Category>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản lý Danh mục</h2>
+<a asp-action="Create" class="btn btn-primary mb-3">Thêm Danh mục</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên Danh mục</th>
+            <th>Mô tả</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryName</td>
+                <td>@item.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
