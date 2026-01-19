@@ -12,6 +12,8 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddScoped<MySqlConnection>(sp => new MySqlConnection(connectionString));
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<DatabaseService>();
+
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
