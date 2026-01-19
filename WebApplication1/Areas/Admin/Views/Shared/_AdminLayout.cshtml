@@ -1,4 +1,4 @@
-﻿@{
+﻿    @{
     Layout = null;
 }
 <! DOCTYPE html>
@@ -14,20 +14,20 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="~/assets/img/logo.png" alt="Logo" class="logo" />
+            <img src="~/images/logo.jpg" alt="Logo" class="logo" />
             <h2>Paddy Admin</h2>
         </div>
 
         <nav class="sidebar-nav">
-            <a href="#dashboard" class="tab-link active">
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">
                 <i class="fas fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#products" class="tab-link">
+            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link">
                 <i class="fas fa-box"></i>
                 <span>Sản Phẩm</span>
             </a>
-            <a href="#categories" class="tab-link">
+            <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="nav-link">
                 <i class="fas fa-tags"></i>
                 <span>Danh Mục</span>
             </a>
@@ -85,7 +85,7 @@
                     <span class="badge">3</span>
                 </div>
                 <div class="user-profile">
-                    <img src="~/assets/img/avatar.png" alt="Admin" />
+                    <img src="~/images/logo.jpg" alt="Admin" />
                     <div class="user-info">
                         <span class="user-name">Admin</span>
                         <span class="user-role">Quản trị viên</span>

@@ -9,13 +9,13 @@ namespace WebShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly MySqlConnection _connection; // Inject MySqlConnection từ Services
+        private readonly DatabaseService _databaseService; // Dùng Service thay vì MySqlConnection trực tiếp
 
         // Constructor nhận MySqlConnection và ILogger qua Dependency Injection
-        public HomeController(ILogger<HomeController> logger, MySqlConnection connection)
+        public HomeController(ILogger<HomeController> logger, DatabaseService databaseService)
         {
             _logger = logger;
-            _connection = connection;
+            _databaseService = databaseService;
         }
 
         public IActionResult Index()
@@ -63,15 +63,16 @@ namespace WebShop.Controllers
         // Kiểm tra kết nối MySQL
         public IActionResult TestDatabase()
         {
-            try
+            // Gọi hàm TestConnection có sẵn trong DatabaseService.cs
+            bool isConnected = _databaseService.TestConnection();
+
+            if (isConnected)
             {
-                _connection.Open(); 
-                _connection.Close(); 
-                return Content("Ket noi mySQL thanh cong! ✅");
+                return Content("Kết nối MySQL thành công!");
             }
-            catch (Exception ex)
+            else
             {
-                return Content($"ket noi mySQL that bai: {ex.Message} ❌");
+                return Content("Kết nối MySQL thất bại . Kiểm tra lại Console log để xem chi tiết lỗi.");
             }
         }
 
