@@ -20,11 +20,11 @@ heartButtons.forEach(icon => {
 
 //Slider
 document.addEventListener('DOMContentLoaded', () => {
-    const sliderItem = document.querySelector('. slider-item');
+    const sliderItem = document.querySelector('.slider-item');
     if (!sliderItem) return;
 
-    // ĐẾM PHẦN TỬ CON TRỰC TIẾP thay vì đếm img
-    const slides = Array.from(sliderItem.children);
+
+    const slides = Array.from(sliderItem.querySelectorAll('img'));
     const dots = Array.from(document.querySelectorAll('.dots i'));
     const total = slides.length;
     let current = 0;
@@ -33,16 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateDots() {
         dots.forEach((dot, idx) => {
-            if (idx < total) {
-                dot.classList.toggle('fa-solid', idx === current);
-                dot.classList.toggle('fa-regular', idx !== current);
-            }
+            dot.classList.toggle('fa-solid', idx === current);
+            dot.classList.toggle('fa-regular', idx !== current);
         });
     }
 
     function goTo(index) {
-        if (total === 0) return;
-        current = ((index % total) + total) % total;
+        current = ((index % total) + total) % total; // luôn nằm trong [0, total-1]
         sliderItem.style.transform = `translateX(-${current * 100}%)`;
         updateDots();
     }
@@ -77,4 +74,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Khởi tạo
     goTo(0);
     startAutoplay();
+
 });

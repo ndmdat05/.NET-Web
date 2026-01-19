@@ -14,7 +14,8 @@ builder.Services.AddScoped<MySqlConnection>(sp => new MySqlConnection(connection
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
+builder.Services.AddTransient<DatabaseService>();
 
 var app = builder.Build();
 
