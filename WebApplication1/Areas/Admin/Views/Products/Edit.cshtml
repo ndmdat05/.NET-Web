@@ -1,0 +1,86 @@
+﻿@model WebShop.Models.Product
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var categories = ViewBag.Categories as List<WebShop.Models.Category>;
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Cập nhật Sản Phẩm</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group mb-3">
+                        <label>Tên sản phẩm</label>
+                        <input asp-for="Name" class="form-control" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Giá bán</label>
+                            <input asp-for="Price" type="number" class="form-control" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Số lượng kho</label>
+                            <input asp-for="Quantity" type="number" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Danh mục</label>
+                        <select asp-for="CategoryId" class="form-control">
+                            <option value="">-- Chọn danh mục --</option>
+                            @if (categories != null)
+                            {
+                                foreach (var cat in categories)
+                                {
+                                    // Tự động chọn danh mục hiện tại của sản phẩm
+                                    <option value="@cat.Id" selected="@(cat.Id == Model.CategoryId ? "selected" : null)">
+                                        @cat.CategoryName
+                                    </option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Mô tả</label>
+                        <textarea asp-for="Desc" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Ảnh đại diện</label>
+                    <div class="border p-3 text-center" style="border-radius: 5px; border-style: dashed !important;">
+                        <img id="previewImg" src="@Model.MainImage" style="max-width: 100%; height: auto; margin-bottom: 10px;"
+                             onerror="this.src='/images/default.png'" />
+
+                        <input type="file" name="ImageFile" class="form-control" onchange="previewFile(this);" />
+                        <small class="text-muted d-block mt-2">Bỏ trống nếu không muốn đổi ảnh</small>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Cập nhật</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    function previewFile(input){
+        var file = input.files[0];
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                document.getElementById("previewImg").src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
