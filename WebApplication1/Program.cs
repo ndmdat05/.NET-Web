@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient; // Thêm thư viện MySQL ADO.NET
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("http://127.0.0.1:5200");
+
 
 
 // Add services to the container.
@@ -9,8 +9,12 @@ builder.Services.AddControllersWithViews();
 
 // Cấu hình chuỗi kết nối MySQL
 // Chuỗi kết nối
-var connectionString = "Server=127.0.0.1;Database=DOCNET;User Id=root;Password=123456;Port=3306;";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddScoped<MySqlConnection>(sp => new MySqlConnection(connectionString));
+builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+
 
 var app = builder.Build();
 
@@ -28,6 +32,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllerRoute(
     name: "areas",
