@@ -3,16 +3,18 @@ using WebShop; // Namespace chứa DatabaseService
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // 1. Thêm các dịch vụ vào container (Dependency Injection)
 builder.Services.AddControllersWithViews();
 
-// Cấu hình chuỗi kết nối MySQL từ appsettings.json
+// Cấu hình chuỗi kết nối MySQL
+// Chuỗi kết nối
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddScoped<MySqlConnection>(sp => new MySqlConnection(connectionString));
+builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 
-// Đăng ký MySqlConnection (để tiêm vào DatabaseService)
-builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
-
-builder.Services.AddTransient<DatabaseService>();
 
 var app = builder.Build();
 
@@ -30,6 +32,8 @@ app.UseStaticFiles(); // Cho phép load file css, js, images trong wwwroot
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 // 3. Cấu hình định tuyến (Routing)
 

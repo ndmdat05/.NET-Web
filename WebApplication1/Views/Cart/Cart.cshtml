@@ -1,9 +1,15 @@
+@model List<WebShop.Models.CartItem>
+
 @{
     ViewData["Title"] = "Giỏ Hàng Của Bạn";
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/Cart_style.css">
+    <style>
+        .qty-form { display: inline-block; margin: 0; }
+        .qty-btn { cursor: pointer; }
+    </style>
 }
 
 <div id="container">
@@ -12,49 +18,81 @@
 
             <div class="cart-left">
                 <h2>GIỎ HÀNG CỦA BẠN</h2>
-                <table class="cart-table">
-                    <thead>
-                        <tr>
-                            <th>SẢN PHẨM</th>
-                            <th>GIÁ</th>
-                            <th>SỐ LƯỢNG</th>
-                            <th>TỔNG</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="cart-item">
-                            <td class="product-info">
-                                <img src="~/images/fav4.webp" alt="Royal Canin" class="product-img">
-                                <div>
-                                    <p class="product-name">Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
-                                    <p class="product-weight">400g</p>
-                                    <p class="product-brand">Royal Canin</p>
-                                </div>
-                            </td>
-                            <td class="product-price">135.000đ</td>
-                            <td class="product-qty">
-                                <button class="qty-btn decrease">−</button>
-                                <input type="text" value="1" class="qty-input" readonly>
-                                <button class="qty-btn increase">+</button>
-                            </td>
-                            <td class="product-total">135.000đ</td>
-                            <td class="remove-cell">
-                                <i class="fa-solid fa-x remove-item"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
 
-                <textarea class="note-box" placeholder="Ghi chú giao hàng"></textarea>
+                @if (Model == null || Model.Count == 0)
+                {
+                    <div style="text-align: center; padding: 20px;">
+                        <p>Giỏ hàng chưa có sản phẩm nào.</p>
+                        <a href="/" style="text-decoration: underline;">Mua sắm ngay</a>
+                    </div>
+                }
+                else
+                {
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>SẢN PHẨM</th>
+                                <th>GIÁ</th>
+                                <th>SỐ LƯỢNG</th>
+                                <th>TỔNG</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="cart-item">
+                                    <td class="product-info">
+                                        <img src="@item.imageUrl" alt="@item.ProductName" class="product-img" onerror="this.src='/images/fav4.webp'">
+                                        <div>
+                                            <p class="product-name">@item.ProductName</p>
+                                            <p class="product-weight">Mã: @item.ProductId</p> <p class="product-brand">Thương hiệu</p>
+                                        </div>
+                                    </td>
+                                    <td class="product-price">@item.Price.ToString("N0")đ</td>
+
+                                    <td class="product-qty">
+                                        <form asp-controller="Cart" asp-action="Update" method="post" class="qty-form">
+                                            <input type="hidden" name="id" value="@item.ProductId" />
+                                            <input type="hidden" name="quantity" value="@(item.Quantity - 1)" />
+                                            <button type="submit" class="qty-btn decrease">−</button>
+                                        </form>
+
+                                        <input type="text" value="@item.Quantity" class="qty-input" readonly>
+
+                                        <form asp-controller="Cart" asp-action="Update" method="post" class="qty-form">
+                                            <input type="hidden" name="id" value="@item.ProductId" />
+                                            <input type="hidden" name="quantity" value="@(item.Quantity + 1)" />
+                                            <button type="submit" class="qty-btn increase">+</button>
+                                        </form>
+                                    </td>
+
+                                    <td class="product-total">@item.Total.ToString("N0")đ</td>
+
+                                    <td class="remove-cell">
+                                        <a href="/Cart/Remove/@item.ProductId" onclick="return confirm('Xóa món này?')">
+                                            <i class="fa-solid fa-x remove-item"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <textarea class="note-box" placeholder="Ghi chú giao hàng"></textarea>
+                }
             </div>
 
             <div class="cart-right">
                 <h2>TỔNG SỐ TIỀN</h2>
                 <div class="cart-summary">
+                    @{
+                        decimal total = ViewBag.TotalAmount != null ? (decimal)ViewBag.TotalAmount : 0;
+                    }
+
                     <div class="summary-item">
                         <p>Tổng số tiền:</p>
-                        <p class="summary-value">135.000đ</p>
+                        <p class="summary-value">@total.ToString("N0")đ</p>
                     </div>
 
                     <div class="promo-code">
@@ -64,12 +102,19 @@
 
                     <div class="summary-item total">
                         <p>TỔNG</p>
-                        <p class="summary-value">135.000đ</p>
+                        <p class="summary-value">@total.ToString("N0")đ</p>
                     </div>
 
-                    <a asp-controller="Cart" asp-action="Payment">
-                        <button class="checkout-btn">Đi Đến Trang Thanh Toán</button>
-                    </a>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        <a asp-controller="Cart" asp-action="Payment">
+                            <button class="checkout-btn">Đi Đến Trang Thanh Toán</button>
+                        </a>
+                    }
+                    else
+                    {
+                        <button class="checkout-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Giỏ hàng trống</button>
+                    }
 
                     <a asp-controller="Home" asp-action="Index">
                         <button class="continue-btn">Tiếp Tục Mua Sắm</button>
