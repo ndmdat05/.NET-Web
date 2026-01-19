@@ -35,10 +35,10 @@ app.UseStaticFiles(); // Cho phép load file css, js, images trong wwwroot
 app.UseRouting();
 
 app.UseAuthorization();
-app.UseSession();
-
-
-// 3. Cấu hình định tuyến (Routing)
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+);
 
 // Route cho khu vực Admin (Areas)
 app.MapControllerRoute(
