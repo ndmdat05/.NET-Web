@@ -1,0 +1,60 @@
+﻿@model WebShop.Models.Product
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var categories = ViewBag.Categories as List<WebShop.Models.Category>;
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thêm Sản Phẩm Mới</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Tên sản phẩm</label>
+                        <input asp-for="Name" class="form-control" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Giá bán</label>
+                            <input asp-for="Price" type="number" class="form-control" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Số lượng kho</label>
+                            <input asp-for="Quantity" type="number" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Danh mục</label>
+                        <select asp-for="CategoryId" class="form-control">
+                            <option value="">-- Chọn danh mục --</option>
+                            @if (categories != null)
+                            {
+                                foreach (var cat in categories)
+                                {
+                                    <option value="@cat.Id">@cat.CategoryName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Mô tả</label>
+                        <textarea asp-for="Desc" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Ảnh đại diện</label>
+                    <div class="border p-3 text-center">
+                        <img id="preview" src="/images/default.png" style="max-width: 100%; height: auto; margin-bottom: 10px;" />
+                        <input type="file" name="ImageFile" class="form-control" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Lưu Sản Phẩm</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>
