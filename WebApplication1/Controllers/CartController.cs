@@ -98,7 +98,7 @@ namespace WebShop.Controllers
                                 ProductId = reader["id"].ToString(),
                                 ProductName = reader["name"].ToString(),
                                 Price = Convert.ToDecimal(reader["final_price"]),
-                                imageUrl = reader["image_url"] != DBNull.Value ? reader["image_url"].ToString() : "/images/default.png"
+                                ImageUrl = reader["image_url"] != DBNull.Value ? reader["image_url"].ToString() : "/images/default.png"
                             };
                         }
                     }

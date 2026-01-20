@@ -1,8 +1,4 @@
-
-@model WebShop.Models.CartItem
-
 @model WebShop.Models.ProductDetailViewModel
-
 
 @{
     ViewData["Title"] = Model.Name;
@@ -176,23 +172,18 @@
                             <h4 style="font-size: 14px; margin: 10px 0;">@item.Name</h4>
                             <p style="color: #d0021b; font-weight: bold;">@item.Price.ToString("N0")đ</p>
                         </a>
-                    </div>
 
-                    <p class="review-text">
-                        Sản phẩm này thật sự rất tốt! Chất lượng vượt xa mong đợi, thiết kế đẹp và dùng cực kỳ tiện lợi.
-                        Sau một thời gian sử dụng, mình thấy hiệu quả rõ rệt. Giao hàng nhanh, đóng gói cẩn thận.
-                        Rất hài lòng và chắc chắn sẽ ủng hộ thêm lần nữa!
-                    </p>
-                    <div class="review-images">
-                        <img src="~/images/fav2.webp" alt="">
+                        <p class="review-text" style="font-size: 12px; color: #666; margin-top: 5px;">
+                            Sản phẩm này thật sự rất tốt! Chất lượng vượt xa mong đợi...
+                        </p>
+                        <div class="review-images">
+                            <img src="~/images/fav2.webp" alt="" style="width: 30px;">
+                        </div>
+                        <div class="review-likes">
+                            <i class="fa-regular fa-thumbs-up"></i>
+                        </div>
                     </div>
-                    <div class="review-likes">
-                        <i class="fa-regular fa-thumbs-up"></i> 
-                    </div>
-                </div>
-
                 }
-
             </div>
         </div>
     }
