@@ -43,7 +43,7 @@
                             {
                                 <tr class="cart-item">
                                     <td class="product-info">
-                                        <img src="@item.imageUrl" alt="@item.ProductName" class="product-img" onerror="this.src='/images/fav4.webp'">
+                                        <img src="@item.ImageUrl" alt="@item.ProductName" class="product-img" onerror="this.src='/images/fav4.webp'">
                                         <div>
                                             <p class="product-name">@item.ProductName</p>
                                             <p class="product-weight">Mã: @item.ProductId</p> <p class="product-brand">Thương hiệu</p>
@@ -107,7 +107,9 @@
 
                     @if (Model != null && Model.Count > 0)
                     {
-                        <a asp-controller="Cart" asp-action="Payment">
+
+                        ///////gốc là cart và Cart
+                        <a asp-controller="Payment" asp-action="Index">
                             <button class="checkout-btn">Đi Đến Trang Thanh Toán</button>
                         </a>
                     }
