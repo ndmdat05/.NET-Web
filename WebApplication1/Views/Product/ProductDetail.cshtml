@@ -1,6 +1,11 @@
+
 @model WebShop.Models.CartItem
+
+@model WebShop.Models.ProductDetailViewModel
+
+
 @{
-    ViewData["Title"] = "Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36";
+    ViewData["Title"] = Model.Name;
 }
 
 @section Styles {
@@ -12,72 +17,100 @@
         <div class="product-detail-left">
             <div class="product-thumbnails">
                 <i class="fa-solid fa-chevron-up"></i>
-                <img src="~/images/product1.webp" alt="thumb1">
-                <img src="~/images/product2.webp" alt="thumb2">
-                <img src="~/images/product3.webp" alt="thumb3">
-                <img src="~/images/product4.webp" alt="thumb4">
+                @if (Model.Images != null && Model.Images.Count > 0)
+                {
+                    foreach (var img in Model.Images)
+                    {
+                        <img src="@img" alt="thumb" onclick="changeImage(this.src)">
+                    }
+                }
+                else
+                {
+                    <img src="/images/default.png" alt="thumb">
+                }
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
 
             <div class="product-main-image">
-                <img src="~/images/product1.webp" alt="main product">
+                <img id="main-img" src="@(Model.Images != null && Model.Images.Count > 0 ? Model.Images[0] : "/images/default.png")" alt="main product">
             </div>
         </div>
 
         <div class="product-detail-right">
             <div class="breadcrumb">
                 <a asp-controller="Home" asp-action="Index">Trang chủ</a> >
-                <a asp-controller="Collections" asp-action="PateMeoCon">Thức ăn cho mèo</a> >
-                <span>Royal Canin Indoor 36</span>
+                <a href="#">Danh mục</a> >
+                <span>@Model.Name</span>
             </div>
 
-            <h2>Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</h2>
+            <h2>@Model.Name</h2>
 
             <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <span>(1 đánh giá)</span>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= Math.Round(Model.AverageRating))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                    }
+                    else
+                    {
+                        <i class="fa-regular fa-star"></i>
+                    }
+                }
+                <span>(@Model.ReviewCount đánh giá)</span>
             </div>
 
-            <p class="product-brand">Thương hiệu: <span>Royal Canin</span></p>
+            <p class="product-brand">Thương hiệu: <span>@Model.Brand</span></p>
 
-            <div class="product-price">132.000₫</div>
+            <div class="product-price">
+                @if (Model.SalePrice != null && Model.SalePrice > 0 && Model.SalePrice < Model.Price)
+                {
+                    <span style="text-decoration: line-through; color: #999; font-size: 18px; margin-right: 10px;">
+                        @Model.Price.ToString("N0")đ
+                    </span>
+                    <span style="color: #d0021b; font-weight: bold; font-size: 24px;">
+                        @Model.SalePrice?.ToString("N0")đ
+                    </span>
+                }
+                else
+                {
+                    <span style="color: #d0021b; font-weight: bold; font-size: 24px;">
+                        @Model.Price.ToString("N0")đ
+                    </span>
+                }
+            </div>
 
             <div class="product-size">
                 <p>Size:</p>
                 <div class="size-options">
-                    <button class="active">400g</button>
-                    <button>2kg</button>
-                    <button>4kg</button>
-                    <button>10kg</button>
-                    <button class="disabled">Túi 1kg</button>
+                    <button class="active">Tiêu chuẩn</button>
                 </div>
             </div>
 
-            <div class="product-quantity">
-                <p>Số lượng:</p>
-                <div class="quantity-control">
-                    <button class="minus">−</button>
-                    <input type="text" value="1">
-                    <button class="plus">+</button>
+            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <div class="product-quantity">
+                    <p>Số lượng:</p>
+                    <div class="quantity-control">
+                        <button type="button" class="minus" onclick="updateQty(-1)">−</button>
+                        <input type="text" name="quantity" id="qtyInput" value="1" readonly>
+                        <button type="button" class="plus" onclick="updateQty(1)">+</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="product-total">
-                Tổng số tiền: <span>132.000₫</span>
-            </div>
+                <div class="product-total">
+                    Tồn kho: <span>@Model.StockQuantity</span> sản phẩm
+                </div>
 
-            <div class="product-buttons">
-                <button class="add-cart" onclick="addToCart()">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    Thêm vào giỏ hàng
-                </button>
-                <button class="favorite"><i class="fa-regular fa-heart"></i></button>
-                <button class="share"><i class="fa-solid fa-share-nodes"></i></button>
-            </div>
+                <div class="product-buttons">
+                    <button type="submit" class="add-cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Thêm vào giỏ hàng
+                    </button>
+                    <button type="button" class="favorite"><i class="fa-regular fa-heart"></i></button>
+                </div>
+            </form>
 
             <div class="product-shipping">
                 <i class="fa-solid fa-truck-fast"></i>
@@ -95,76 +128,56 @@
             <div class="underline"></div>
         </div>
 
-        <h4>Thức Ăn Cho Mèo Con Royal Canin Kitten 36</h4>
-        <p>
-            Thức ăn cho mèo <strong>Royal Canin Kitten</strong> hỗ trợ sức khỏe của mèo con bằng việc cung cấp các chất dinh dưỡng
-            chính xác dựa trên nghiên cứu của các nhà khoa học từ ROYAL CANIN. Trong giai đoạn tăng trưởng, hệ thống tiêu hóa của mèo con chưa phát triển đầy đủ,
-            chính vì vậy Royal Canin Kitten thúc đẩy sự cân bằng hệ vi sinh đường ruột và hỗ trợ sự phát triển khỏe mạnh.
-        </p>
-
-        <h4>Lợi ích:</h4>
-        <ul>
-            <li>Hỗ trợ quá trình tăng trưởng và phát triển toàn diện</li>
-            <li>Thúc đẩy phát triển xương và khớp</li>
-            <li>Giúp hệ tiêu hóa khỏe mạnh</li>
-            <li>Tăng cường sức đề kháng</li>
-            <li>Hạn chế mùi hôi phân</li>
-        </ul>
-        <h4>Thành phần</h4>
-        <ul>
-            <li>Protein gia cầm, gạo, protein thực vật*, chất béo động vật, bột bắp, protein động vật, bột lúa mì, gluten bắp,...</li>
-        </ul>
-        <h4>Hướng dẫn sử dụng</h4>
-        <ul>
-            <li>Chia làm 2-3 bữa/ngày</li>
-            <li>Lượng cho ăn hàng ngày được khuyến nghị (gam mỗi ngày) theo trọng lượng cơ thể (kg) và hình dáng của mèo.</li>
-            <li>Khẩu phần ăn hàng ngày có thể thay đổi liên quan đến nhiệt độ môi trường, lối sống của mèo (trong nhà-ngoài trời), tính khí và hoạt động của mèo.</li>
-        </ul>
+        <div class="desc-content">
+            @Html.Raw(Model.Description)
+        </div>
 
         <div class="review-section">
             <h2 class="review-title">ĐÁNH GIÁ SẢN PHẨM</h2>
 
-            <div class="review-summary-box">
-                <div class="left-rating">
-                    <div class="avg-score">4 <span>trên 5</span></div>
-                    <div class="summary-stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+            @if (Model.Reviews != null && Model.Reviews.Count > 0)
+            {
+                foreach (var review in Model.Reviews)
+                {
+                    <div class="review-item">
+                        <div class="review-avatar">
+                            <span>@review.UserName.Substring(0, 1).ToUpper()</span>
+                        </div>
+                        <div class="review-body">
+                            <p class="review-username">@review.UserName</p>
+                            <div class="review-stars">
+                                @for (int i = 0; i < review.Rating; i++)
+                                {
+                                    <i class="fa-solid fa-star"></i>
+                                }
+                            </div>
+                            <p class="review-text">@review.Comment</p>
+                        </div>
                     </div>
-                    <div class="create-comment">
-                        <h4>Tạo bình luận</h4>
-                        <textarea placeholder="Thêm đánh giá của bạn..." rows="4"></textarea>
-                        <button class="submit-comment">Gửi đánh giá</button>
-                    </div>
-                </div>
-                <div class="rating-filters">
-                    <button class="active">Tất Cả</button>
-                    <button>5 Sao ()</button>
-                    <button>4 Sao ()</button>
-                    <button>3 Sao ()</button>
-                    <button>2 Sao ()</button>
-                    <button>1 Sao ()</button>
-                    <button>Có Bình Luận ()</button>
-                    <button>Có Hình Ảnh / Video ()</button>
-                </div>
-            </div>
+                }
+            }
+            else
+            {
+                <p>Chưa có đánh giá nào cho sản phẩm này.</p>
+            }
+        </div>
+    </div>
 
-            <div class="review-item">
-                <div class="review-avatar">
-                    <span>N</span>
-                </div>
-                <div class="review-body">
-                    <p class="review-username">abc</p>
-                    <div class="review-stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
+    @if (Model.RelatedProducts != null && Model.RelatedProducts.Count > 0)
+    {
+        <div class="related-products" style="margin-top: 30px;">
+            <h3>Sản phẩm cùng loại</h3>
+            <div class="row" style="display: flex; gap: 20px;">
+                @foreach (var item in Model.RelatedProducts)
+                {
+                    <div class="col-md-3" style="border: 1px solid #eee; padding: 10px; border-radius: 8px;">
+                        <a href="/Product/Detail?id=@item.Id" style="text-decoration: none; color: inherit;">
+                            <img src="@item.MainImage" style="width:100%; height: 200px; object-fit: contain;">
+                            <h4 style="font-size: 14px; margin: 10px 0;">@item.Name</h4>
+                            <p style="color: #d0021b; font-weight: bold;">@item.Price.ToString("N0")đ</p>
+                        </a>
                     </div>
+
                     <p class="review-text">
                         Sản phẩm này thật sự rất tốt! Chất lượng vượt xa mong đợi, thiết kế đẹp và dùng cực kỳ tiện lợi.
                         Sau một thời gian sử dụng, mình thấy hiệu quả rõ rệt. Giao hàng nhanh, đóng gói cẩn thận.
@@ -177,11 +190,30 @@
                         <i class="fa-regular fa-thumbs-up"></i> 
                     </div>
                 </div>
+
+                }
+
             </div>
         </div>
-    </div>
+    }
 </div>
 
 @section Scripts {
     <script src="~/js/Product.js"></script>
+    <script>
+        // Hàm thay đổi ảnh khi click thumbnail
+        function changeImage(src) {
+            document.getElementById('main-img').src = src;
+        }
+
+        // Hàm tăng giảm số lượng
+        function updateQty(change) {
+            var qtyInput = document.getElementById('qtyInput');
+            var currentQty = parseInt(qtyInput.value);
+            var newQty = currentQty + change;
+            if (newQty >= 1) {
+                qtyInput.value = newQty;
+            }
+        }
+    </script>
 }
