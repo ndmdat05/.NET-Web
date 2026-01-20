@@ -34,6 +34,8 @@ app.UseStaticFiles(); // Cho phép load file css, js, images trong wwwroot
 
 app.UseRouting();
 
+app.UseSession();
+
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "areas",
