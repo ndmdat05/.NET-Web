@@ -1,0 +1,35 @@
+﻿@model List<WebShop.Models.OrderViewModel>
+@{ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml"; }
+
+<h2>Quản lý Đơn hàng</h2>
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Mã đơn</th>
+            <th>Khách hàng</th>
+            <th>Tổng tiền</th>
+            <th>Ngày đặt</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.CustomerName</td>
+                <td>@item.TotalAmount.ToString("N0") đ</td>
+                <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    <span class="badge @(item.Status == "Completed" ? "bg-success" : "bg-warning")">
+                        @item.Status
+                    </span>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-sm btn-info">Xem chi tiết</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

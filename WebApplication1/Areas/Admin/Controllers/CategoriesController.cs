@@ -61,5 +61,59 @@ namespace WebShop.Areas.Admin.Controllers
             }
             finally { _conn.Close(); }
         }
+        // --- 4. SỬA DANH MỤC (GET) ---
+        public IActionResult Edit(string id)
+        {
+            if (_conn.State == ConnectionState.Closed) _conn.Open();
+            Category cat = null;
+            using (var cmd = new MySqlCommand("SELECT * FROM P_category WHERE id=@id", _conn))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        cat = new Category
+                        {
+                            Id = reader["id"].ToString(),
+                            CategoryName = reader["category_name"].ToString(),
+                            Description = reader["description"].ToString()
+                        };
+                    }
+                }
+            }
+            _conn.Close();
+            return View(cat); // Tạo View Edit.cshtml tương tự Create
+        }
+
+        // --- 5. LƯU SỬA (POST) ---
+        [HttpPost]
+        public IActionResult Edit(Category model)
+        {
+            if (_conn.State == ConnectionState.Closed) _conn.Open();
+            string sql = "UPDATE P_category SET category_name=@name, description=@desc WHERE id=@id";
+            using (var cmd = new MySqlCommand(sql, _conn))
+            {
+                cmd.Parameters.AddWithValue("@name", model.CategoryName);
+                cmd.Parameters.AddWithValue("@desc", model.Description);
+                cmd.Parameters.AddWithValue("@id", model.Id);
+                cmd.ExecuteNonQuery();
+            }
+            _conn.Close();
+            return RedirectToAction("Index");
+        }
+
+        // --- 6. XÓA DANH MỤC (POST AJAX) ---
+        [HttpPost]
+        public IActionResult Delete(string id)
+        {
+            // Cần check xem có sản phẩm nào đang dùng danh mục này không?
+            // Nếu có thì chặn xóa để tránh lỗi dữ liệu
+            // ... (Code check Count(*) from Products where category_id = id)
+
+            // Nếu an toàn thì xóa: DELETE FROM P_category WHERE id = @id
+            // ...
+            return Json(new { success = true });
+        }
     }
 }

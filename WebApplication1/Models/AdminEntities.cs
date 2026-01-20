@@ -24,5 +24,13 @@ namespace WebShop.Models
         public String CategoryName { get; set; }
         public String MainImage { get; set; }
     }
+    public class OrderViewModel
+    {
+        public string Id { get; set; }
+        public string CustomerName { get; set; } // Lấy từ bảng User_Infos hoặc Users
+        public decimal TotalAmount { get; set; }
+        public string Status { get; set; } // Pending, Shipping...
+        public DateTime OrderDate { get; set; }
+    }
 
 }
