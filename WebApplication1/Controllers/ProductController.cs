@@ -4,16 +4,19 @@ using WebShop.Models;
 using System.Collections.Generic;
 using System;
 
+
 namespace WebShop.Controllers
 {
     public class ProductController : Controller
     {
+
         private readonly IConfiguration _configuration;
         public ProductController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
         private string GetConnectionString() => _configuration.GetConnectionString("DefaultConnection");
+
         // Giả sử Action bạn đặt tên là Detail hoặc ProductDetail
         public IActionResult Detail(String id)
         {
@@ -130,6 +133,8 @@ namespace WebShop.Controllers
             }
             return View("ProductDetail", model);
         }
+       
+    
 
 
         public IActionResult SearchResult(string q)
