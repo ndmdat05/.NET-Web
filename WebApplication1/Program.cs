@@ -14,6 +14,7 @@ builder.Services.AddScoped<MySqlConnection>(sp => new MySqlConnection(connection
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DatabaseService>();
 
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
@@ -29,13 +30,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection(); 
-
+app.UseSession();
 app.UseStaticFiles(); // Cho phép load file css, js, images trong wwwroot
 
 app.UseRouting();
 
 app.UseAuthorization();
-app.UseSession();
+
 
 
 // 3. Cấu hình định tuyến (Routing)

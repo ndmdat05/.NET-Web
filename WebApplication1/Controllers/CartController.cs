@@ -16,9 +16,9 @@ namespace WebShop.Controllers
         {
             var cart = HttpContext.Session.Get<List<Models.CartItem>>("Cart") ?? new List<CartItem>();
             ViewBag.totalAmount = cart.Sum(item => item.Total);
-            return View("Cart");
+            return View(cart);
         }
-        public IActionResult AddToCart(string id, int quantity = 1)
+        public IActionResult AddToCart(String id, int quantity = 1)
         {
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new List<CartItem>();
             var existingItem = cart.FirstOrDefault(x => x.ProductId == id);
