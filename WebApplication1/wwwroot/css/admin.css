@@ -942,3 +942,114 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* --- 5. TÙY CHỈNH BẢNG SẢN PHẨM (MỚI) --- */
+
+/* Căn giữa nội dung trong bảng theo chiều dọc */
+.table tbody td {
+    vertical-align: middle !important;
+}
+
+/* 1. Ảnh sản phẩm đẹp hơn */
+.product-img-col {
+    width: 80px; /* Cố định cột ảnh */
+    text-align: center;
+}
+
+.product-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px; /* Bo góc ảnh */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Đổ bóng nhẹ cho ảnh */
+    border: 1px solid #edf2f9;
+}
+
+/* 2. Xử lý Tên sản phẩm (Tránh dính hình và dính giá) */
+.product-name-cell {
+    padding-left: 15px !important; /* Tạo khoảng cách với ảnh */
+    max-width: 250px; /* Giới hạn chiều rộng tối đa */
+}
+
+.product-name {
+    font-weight: 600;
+    color: #2e384d;
+    display: block;
+    line-height: 1.4;
+    font-size: 0.95rem;
+}
+/* Hiển thị danh mục nhỏ bên dưới tên */
+.product-cat-small {
+    font-size: 0.75rem;
+    color: #8898aa;
+    margin-top: 3px;
+    display: block;
+}
+
+/* 3. Giá tiền nổi bật */
+.product-price {
+    font-weight: 700;
+    color: #2e384d;
+    white-space: nowrap; /* Không cho giá bị xuống dòng */
+}
+
+/* 4. Badge Tồn kho phong cách Soft (Pastel) */
+.badge-soft {
+    padding: 0.5em 0.8em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Màu xanh nhạt cho hàng còn nhiều */
+.badge-soft-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+}
+
+/* Màu vàng cho hàng sắp hết */
+.badge-soft-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border: 1px solid #ffecb5;
+}
+
+/* Màu đỏ nhạt cho hết hàng */
+.badge-soft-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+/* --- 6. TĂNG KHOẢNG CÁCH (SPACING) --- */
+
+/* Làm tiêu đề bảng thoáng hơn */
+.table thead th {
+    border-bottom-width: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding-top: 1.2rem !important; /* Tăng đệm trên */
+    padding-bottom: 1.2rem !important; /* Tăng đệm dưới */
+}
+
+/* Làm các hàng dữ liệu cao và thoáng hơn */
+.table tbody td {
+    vertical-align: middle;
+    padding-top: 1.25rem !important; /* Padding trên */
+    padding-bottom: 1.25rem !important; /* Padding dưới */
+    font-size: 0.95rem;
+}
+
+/* Tăng khoảng cách nút bấm trong bảng */
+.table .btn-sm {
+    margin: 0 3px; /* Cách nhau ra một chút */
+    padding: 0.4rem 0.6rem; /* Nút to hơn một chút cho dễ bấm */
+}
+
+/* Card bao quanh bảng (nếu dùng code bước 1) */
+.card {
+    border: none;
+    margin-bottom: 2rem; /* Đẩy nội dung bên dưới ra xa */
+}
