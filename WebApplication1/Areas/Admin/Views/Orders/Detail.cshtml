@@ -1,0 +1,87 @@
+﻿@model WebShop.Models.OrderViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var items = ViewBag.Items as List<WebShop.Models.OrderItem>;
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Thông tin đơn hàng #@Model.Id</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Ngày đặt:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+                <p><strong>Khách hàng:</strong> @Model.CustomerName</p>
+                <p><strong>Tổng tiền:</strong> <span class="text-danger font-weight-bold">@Model.TotalAmount.ToString("N0") đ</span></p>
+                <p>
+                    <strong>Trạng thái:</strong>
+                    <span class="badge @(Model.Status == "Completed" ? "bg-success" : Model.Status == "Cancelled" ? "bg-danger" : "bg-warning")">
+                        @Model.Status
+                    </span>
+                </p>
+
+                <hr />
+                <form asp-action="UpdateStatus" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <label>Xử lý đơn hàng:</label>
+                    <div class="d-grid gap-2">
+                        @if (Model.Status == "Pending")
+                        {
+                            <button type="submit" name="status" value="Shipping" class="btn btn-primary">
+                                <i class="fas fa-truck"></i> Xác nhận giao hàng
+                            </button>
+                            <button type="submit" name="status" value="Cancelled" class="btn btn-danger">
+                                <i class="fas fa-times"></i> Hủy đơn
+                            </button>
+                        }
+                        @if (Model.Status == "Shipping")
+                        {
+                            <button type="submit" name="status" value="Completed" class="btn btn-success">
+                                <i class="fas fa-check"></i> Đã giao thành công
+                            </button>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Sản phẩm trong đơn</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>SL</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (items != null)
+                        {
+                            foreach (var item in items)
+                            {
+                                <tr>
+                                    <td><img src="@item.ProductImage" width="50" style="border-radius:4px" /></td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.UnitPrice.ToString("N0")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.TotalPrice.ToString("N0")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Quay lại danh sách</a>

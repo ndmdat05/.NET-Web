@@ -32,5 +32,14 @@ namespace WebShop.Models
         public string Status { get; set; } // Pending, Shipping...
         public DateTime OrderDate { get; set; }
     }
+    public class OrderItem
+    {
+        public string ProductName { get; set; }
+        public string ProductImage { get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice => Quantity * UnitPrice; // Tính thành tiền
+    }
+
 
 }

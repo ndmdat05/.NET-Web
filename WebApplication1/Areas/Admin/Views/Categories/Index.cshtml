@@ -4,7 +4,9 @@
 }
 
 <h2>Quản lý Danh mục</h2>
-<a asp-action="Create" class="btn btn-primary mb-3">Thêm Danh mục</a>
+<a asp-action="Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> Thêm Danh mục
+</a>
 
 <table class="table table-bordered">
     <thead>
@@ -37,25 +39,36 @@
     <script>
         function deleteCategory(id) {
             Swal.fire({
-                title: 'Xóa danh mục?',
-                text: "Bạn không thể khôi phục sau khi xóa!",
+                title: 'Bạn chắc chắn xóa?',
+                text: "Hành động này không thể hoàn tác!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'Xóa ngay'
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Vâng, xóa nó!',
+                cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Hiện loading trong lúc chờ xóa
+                    Swal.showLoading();
+
                     $.ajax({
-                        url: '/Admin/Categories/Delete', // Đường dẫn Ajax
+                        url: '/Admin/Categories/Delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (res) {
                             if (res.success) {
-                                Swal.fire('Thành công', res.message, 'success')
-                                .then(() => location.reload());
+                                Swal.fire('Thành công!', res.message, 'success')
+                                    .then(() => { location.reload(); });
                             } else {
-                                Swal.fire('Lỗi', res.message, 'error'); // Hiện lỗi nếu danh mục đang có sản phẩm
+                                // Hiện lỗi nếu server trả về false (VD: Còn sản phẩm trong danh mục)
+                                Swal.fire('Không thể xóa!', res.message, 'error');
                             }
+                        },
+                        error: function (xhr, status, error) {
+                            // Bắt lỗi hệ thống (404, 500)
+                            console.error(error);
+                            Swal.fire('Lỗi hệ thống!', 'Không thể kết nối đến Server. Mã lỗi: ' + xhr.status, 'error');
                         }
                     });
                 }
