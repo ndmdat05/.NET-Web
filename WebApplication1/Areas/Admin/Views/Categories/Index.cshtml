@@ -11,6 +11,7 @@
         <tr>
             <th>Tên Danh mục</th>
             <th>Mô tả</th>
+            <th width="150">Hành động</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +20,46 @@
             <tr>
                 <td>@item.CategoryName</td>
                 <td>@item.Description</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="javascript:void(0)" onclick="deleteCategory('@item.Id')" class="btn btn-sm btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteCategory(id) {
+            Swal.fire({
+                title: 'Xóa danh mục?',
+                text: "Bạn không thể khôi phục sau khi xóa!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Xóa ngay'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/Categories/Delete', // Đường dẫn Ajax
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.success) {
+                                Swal.fire('Thành công', res.message, 'success')
+                                .then(() => location.reload());
+                            } else {
+                                Swal.fire('Lỗi', res.message, 'error'); // Hiện lỗi nếu danh mục đang có sản phẩm
+                            }
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}
