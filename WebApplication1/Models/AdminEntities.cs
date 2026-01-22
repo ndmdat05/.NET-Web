@@ -42,7 +42,16 @@ namespace WebShop.Models
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice => Quantity * UnitPrice;
     }
-
+    public class UserViewModel
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public string FullName { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public DateTime JoinDate { get; set; }
+    }
 
 
 }
