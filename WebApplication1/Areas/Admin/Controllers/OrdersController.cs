@@ -15,7 +15,7 @@ namespace WebShop.Areas.Admin.Controllers
             _conn = conn;
         }
 
-        // 1. DANH SÁCH ĐƠN HÀNG
+        // --- 1. TRANG DANH SÁCH (Index) ---
         public IActionResult Index()
         {
             List<OrderViewModel> list = new List<OrderViewModel>();
@@ -23,7 +23,7 @@ namespace WebShop.Areas.Admin.Controllers
 
             try
             {
-                // Join bảng Users và User_infos để lấy tên người mua
+                // Lấy danh sách đơn hàng giảm dần theo ngày
                 string sql = @"
                     SELECT o.id, u.email, ui.name, o.total_amount, o.order_status, o.order_date 
                     FROM Orders o
@@ -39,7 +39,7 @@ namespace WebShop.Areas.Admin.Controllers
                         list.Add(new OrderViewModel
                         {
                             Id = reader["id"].ToString(),
-                            // Ưu tiên hiện Tên thật, nếu không có thì hiện Email
+                            // Nếu có tên thì lấy tên, không thì lấy email
                             CustomerName = reader["name"] != DBNull.Value ? reader["name"].ToString() : reader["email"].ToString(),
                             TotalAmount = Convert.ToDecimal(reader["total_amount"]),
                             Status = reader["order_status"].ToString(),
@@ -50,14 +50,15 @@ namespace WebShop.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "Lỗi lấy dữ liệu: " + ex.Message;
+                // Ghi lỗi tạm thời để debug
+                Console.WriteLine("Lỗi SQL Index: " + ex.Message);
             }
             finally { _conn.Close(); }
 
             return View(list);
         }
 
-        // 2. XEM CHI TIẾT ĐƠN HÀNG
+        // --- 2. TRANG CHI TIẾT (Detail) ---
         public IActionResult Detail(string id)
         {
             if (string.IsNullOrEmpty(id)) return NotFound();
@@ -68,7 +69,7 @@ namespace WebShop.Areas.Admin.Controllers
 
             try
             {
-                // A. Lấy thông tin chung (Header)
+                // A. Lấy thông tin đơn hàng
                 string sqlOrder = @"
                     SELECT o.id, u.email, o.total_amount, o.order_status, o.order_date,
                            ui.name as receiver_name, ui.phone_num, ui.location
@@ -100,7 +101,7 @@ namespace WebShop.Areas.Admin.Controllers
 
                 if (order == null) return NotFound();
 
-                // B. Lấy danh sách sản phẩm (Items)
+                // B. Lấy danh sách sản phẩm
                 string sqlItems = @"
                     SELECT oi.quantity, oi.unit_price, p.name, pi.image_url
                     FROM Order_items oi
@@ -126,14 +127,14 @@ namespace WebShop.Areas.Admin.Controllers
                     }
                 }
 
-                ViewBag.Items = items; // Truyền list sản phẩm sang View
+                ViewBag.Items = items;
             }
             finally { _conn.Close(); }
 
             return View(order);
         }
 
-        // 3. CẬP NHẬT TRẠNG THÁI (POST)
+        // --- 3. CẬP NHẬT TRẠNG THÁI (UpdateStatus) ---
         [HttpPost]
         public IActionResult UpdateStatus(string id, string status)
         {
@@ -147,7 +148,7 @@ namespace WebShop.Areas.Admin.Controllers
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                 }
-                TempData["Success"] = "Đã cập nhật trạng thái thành công!";
+                TempData["Success"] = "Cập nhật trạng thái thành công!";
             }
             catch (Exception ex)
             {
