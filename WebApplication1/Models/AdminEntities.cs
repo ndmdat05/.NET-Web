@@ -27,9 +27,11 @@ namespace WebShop.Models
     public class OrderViewModel
     {
         public string Id { get; set; }
-        public string CustomerName { get; set; } // Lấy từ bảng User_Infos hoặc Users
+        public string CustomerName { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
         public decimal TotalAmount { get; set; }
-        public string Status { get; set; } // Pending, Shipping...
+        public string Status { get; set; }
         public DateTime OrderDate { get; set; }
     }
     public class OrderItem
@@ -38,8 +40,9 @@ namespace WebShop.Models
         public string ProductImage { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal TotalPrice => Quantity * UnitPrice; // Tính thành tiền
+        public decimal TotalPrice => Quantity * UnitPrice;
     }
+
 
 
 }
