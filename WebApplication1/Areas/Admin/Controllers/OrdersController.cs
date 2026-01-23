@@ -25,11 +25,10 @@ namespace WebShop.Areas.Admin.Controllers
             {
                 // Lấy danh sách đơn hàng giảm dần theo ngày
                 string sql = @"
-                    SELECT o.id, u.email, ui.name, o.total_amount, o.order_status, o.order_date 
-                    FROM Orders o
-                    LEFT JOIN Users u ON o.user_id = u.id
-                    LEFT JOIN user_infos ui ON u.id = ui.id
-                    ORDER BY o.order_date DESC";
+                            SELECT o.id, u.email, o.total_amount, o.order_status, o.order_date 
+                            FROM Orders o
+                            LEFT JOIN Users u ON o.user_id = u.id
+                            ORDER BY o.order_date DESC";
 
                 using (var cmd = new MySqlCommand(sql, _conn))
                 using (var reader = cmd.ExecuteReader())
@@ -39,11 +38,13 @@ namespace WebShop.Areas.Admin.Controllers
                         list.Add(new OrderViewModel
                         {
                             Id = reader["id"].ToString(),
-                            // Nếu có tên thì lấy tên, không thì lấy email
-                            CustomerName = reader["name"] != DBNull.Value ? reader["name"].ToString() : reader["email"].ToString(),
-                            TotalAmount = Convert.ToDecimal(reader["total_amount"]),
-                            Status = reader["order_status"].ToString(),
-                            OrderDate = Convert.ToDateTime(reader["order_date"])
+
+                            // Nếu không join bảng info, tạm thời hiển thị Email làm tên khách
+                            CustomerName = reader["email"] != DBNull.Value ? reader["email"].ToString() : "Khách vãng lai",
+
+                            TotalAmount = reader["total_amount"] != DBNull.Value ? Convert.ToDecimal(reader["total_amount"]) : 0,
+                            Status = reader["order_status"] != DBNull.Value ? reader["order_status"].ToString() : "Pending",
+                            OrderDate = reader["order_date"] != DBNull.Value ? Convert.ToDateTime(reader["order_date"]) : DateTime.MinValue
                         });
                     }
                 }

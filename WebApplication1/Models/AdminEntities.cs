@@ -54,6 +54,16 @@ namespace WebShop.Models
         public string Address { get; set; }
         public DateTime JoinDate { get; set; }
     }
+    public class UserViewModelAdmin
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public string FullName { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public bool IsLocked { get; set; }
+    }
 
 
 }
