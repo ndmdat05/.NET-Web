@@ -26,6 +26,7 @@ namespace WebShop.Models
     }
     public class OrderViewModel
     {
+
         public string Id { get; set; }
         public string CustomerName { get; set; }
         public string Phone { get; set; }
@@ -36,6 +37,7 @@ namespace WebShop.Models
     }
     public class OrderItem
     {
+        public string ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductImage { get; set; }
         public int Quantity { get; set; }

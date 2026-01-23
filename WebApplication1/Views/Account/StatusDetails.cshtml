@@ -1,3 +1,4 @@
+@model List<WebShop.Models.OrderItem>
 @{
     ViewData["Title"] = "Chi tiết trạng thái đơn hàng";
 }
@@ -6,20 +7,38 @@
     <link rel="stylesheet" href="~/css/SDetail_Style.css">
 }
 
+
 <div class="status-detail">
     <div class="sd-container">
         <div class="sd-header">
             <h2>Chi tiết trạng thái đơn hàng</h2>
         </div>
         <div class="sd-content">
-            <div class="sd-info">
-                <img src="~/images/fav4.webp" alt="Royal Canin" class="sd-img">
-                <div class="sd-item">
-                    <p class="sd-name">Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
-                    <p class="sd-weight">400g</p>
-                    <p class="sd-brand">Royal Canin</p>
-                    <p class="sd-price">Giá: <span class="sd-price-detail">135.000đ</span></p>
-                </div>
+            @if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div class="sd-info">
+            <img src="@item.ProductImage" class="sd-img">
+
+            <div class="sd-item">
+                <p class="sd-name">@item.ProductName</p>
+                <p class="sd-price">
+                    Giá:
+                    <span class="sd-price-detail">
+                        @item.UnitPrice.ToString("N0")đ
+                    </span>
+                </p>
+                <p>Số lượng: @item.Quantity</p>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Không tìm thấy chi tiết đơn hàng.</p>
+}
+
             </div>
 
             <div class="sd-line">
