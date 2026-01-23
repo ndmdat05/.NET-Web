@@ -1,4 +1,4 @@
-﻿@model List<WebShop.Models.UserViewModel>
+﻿@model List<WebShop.Models.UserViewModelAdmin>
 @{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Quản lý khách hàng";
@@ -17,7 +17,7 @@
                             <th>Họ tên</th>
                             <th>SĐT / Địa chỉ</th>
                             <th>Vai trò</th>
-                            <th>Ngày tham gia</th>
+                            <th>Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,8 +29,8 @@
                                     <td class="ps-4 fw-bold text-primary">@item.Email</td>
                                     <td>@item.FullName</td>
                                     <td>
-                                        <div><i class="fas fa-phone fa-xs text-muted"></i> @(string.IsNullOrEmpty(item.Phone) ? "---" : item.Phone)</div>
-                                        <small class="text-muted"><i class="fas fa-map-marker-alt fa-xs"></i> @(string.IsNullOrEmpty(item.Address) ? "---" : item.Address)</small>
+                                        <div><i class="fas fa-phone fa-xs text-muted"></i> @item.Phone</div>
+                                        <small class="text-muted"><i class="fas fa-map-marker-alt fa-xs"></i> @item.Address</small>
                                     </td>
                                     <td>
                                         @if (item.Role == "admin")
@@ -42,7 +42,16 @@
                                             <span class="badge bg-info text-dark">Khách hàng</span>
                                         }
                                     </td>
-                                    <td>@item.JoinDate.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        @if (item.IsLocked)
+                                        {
+                                            <span class="badge bg-secondary"><i class="fas fa-lock"></i> Đã khóa</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success"><i class="fas fa-check"></i> Hoạt động</span>
+                                        }
+                                    </td>
                                 </tr>
                             }
                         }

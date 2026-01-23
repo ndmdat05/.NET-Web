@@ -1,56 +1,46 @@
 ﻿@model WebShop.Models.OrderViewModel
 @{
+    ViewData["Title"] = "Chi tiết đơn hàng";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    var items = ViewBag.Items as List<WebShop.Models.OrderItem> ?? new List<WebShop.Models.OrderItem>();
+
+    // Lấy danh sách items truyền từ ViewBag
+    var items = ViewBag.Items as List<WebShop.Models.OrderItem>;
+
+    // Tự tính lại tổng tiền để kiểm tra
+    decimal calculatedTotal = 0;
 }
 
 <div class="container-fluid p-4">
-    <div class="d-flex justify-content-between mb-4">
-        <h3>Chi tiết đơn: <span class="text-primary">#@Model.Id</span></h3>
-        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold">Chi tiết đơn hàng #@Model.Id</h2>
+        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
     </div>
-
-    @if (TempData["Success"] != null)
-    {
-        <div class="alert alert-success">@TempData["Success"]</div>
-    }
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger">@TempData["Error"]</div>
-    }
 
     <div class="row">
         <div class="col-md-4">
-            <div class="card shadow mb-3">
-                <div class="card-header bg-primary text-white">Khách hàng</div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Thông tin khách hàng</h6>
+                </div>
                 <div class="card-body">
                     <p><strong>Tên:</strong> @Model.CustomerName</p>
                     <p><strong>SĐT:</strong> @Model.Phone</p>
                     <p><strong>Địa chỉ:</strong> @Model.Address</p>
-                    <p><strong>Ngày đặt:</strong> @Model.OrderDate</p>
-                </div>
-            </div>
+                    <p><strong>Ngày đặt:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
 
-            <div class="card shadow">
-                <div class="card-header fw-bold">Trạng thái: @Model.Status</div>
-                <div class="card-body">
+                    <hr />
                     <form asp-action="UpdateStatus" method="post">
                         <input type="hidden" name="id" value="@Model.Id" />
-                        <div class="d-grid gap-2">
-                            @if (Model.Status == "Pending")
-                            {
-                                <button type="submit" name="status" value="Shipping" class="btn btn-primary">Giao hàng</button>
-                                <button type="submit" name="status" value="Cancelled" class="btn btn-danger">Hủy đơn</button>
-                            }
-                            else if (Model.Status == "Shipping")
-                            {
-                                <button type="submit" name="status" value="Completed" class="btn btn-success">Đã giao xong</button>
-                            }
-                            else
-                            {
-                                <span class="text-muted text-center">Đơn hàng đã kết thúc</span>
-                            }
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Trạng thái đơn hàng:</label>
+                            <select name="status" class="form-select">
+                                <!option value="Pending" @(Model.Status == "Pending" ? "selected" : "")>Chờ duyệt</!option>
+                                <!option value="Shipping" @(Model.Status == "Shipping" ? "selected" : "")>Đang giao</!option>
+                                <!option value="Completed" @(Model.Status == "Completed" ? "selected" : "")>Hoàn thành</!option>
+                                <!option value="Cancelled" @(Model.Status == "Cancelled" ? "selected" : "")>Đã hủy</!option>
+                            </select>
                         </div>
+                        <button type="submit" class="btn btn-primary w-100">Cập nhật trạng thái</button>
                     </form>
                 </div>
             </div>
@@ -58,28 +48,65 @@
 
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header">Sản phẩm</div>
-                <table class="table mb-0">
-                    <thead>
-                        <tr><th>Hình</th><th>Tên</th><th>Giá</th><th>SL</th><th>Thành tiền</th></tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in items)
-                        {
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Sản phẩm đã đặt</h6>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-bordered mb-0">
+                        <thead class="bg-light">
                             <tr>
-                                <td><img src="@item.ProductImage" width="50" onerror="this.src='/images/default.png'" /></td>
-                                <td>@item.ProductName</td>
-                                <td>@item.UnitPrice.ToString("N0")</td>
-                                <td>@item.Quantity</td>
-                                <td>@item.TotalPrice.ToString("N0")</td>
+                                <th>Sản phẩm</th>
+                                <th class="text-center">Đơn giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-end">Thành tiền</th>
                             </tr>
-                        }
-                        <tr class="fw-bold bg-light">
-                            <td colspan="4" class="text-end">TỔNG CỘNG:</td>
-                            <td class="text-danger">@Model.TotalAmount.ToString("N0") đ</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @if (items != null && items.Count > 0)
+                            {
+                                foreach (var item in items)
+                                {
+                                    // Tính thành tiền của dòng này
+                                    decimal lineTotal = item.Quantity * item.UnitPrice;
+                                    // Cộng dồn vào tổng tính toán
+                                    calculatedTotal += lineTotal;
+
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="@item.ProductImage" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
+                                                <span>@item.ProductName</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">@item.UnitPrice.ToString("N0") đ</td>
+                                        <td class="text-center">@item.Quantity</td>
+                                        <td class="text-end fw-bold">@lineTotal.ToString("N0") đ</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot class="bg-light">
+                            <tr>
+                                <td colspan="3" class="text-end fw-bold">Tạm tính (Tổng các món):</td>
+                                <td class="text-end fw-bold">@calculatedTotal.ToString("N0") đ</td>
+                            </tr>
+                            <tr class="table-primary">
+                                <td colspan="3" class="text-end fw-bold text-uppercase">Tổng cộng (Đơn hàng):</td>
+                                <td class="text-end fw-bold text-danger fs-5">@Model.TotalAmount.ToString("N0") đ</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    @if (Model.TotalAmount != calculatedTotal)
+                    {
+                        <div class="alert alert-warning m-3">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Lưu ý:</strong> Tổng tiền lưu trong đơn hàng (@Model.TotalAmount.ToString("N0") đ)
+                            khác với tổng giá trị các món hàng (@calculatedTotal.ToString("N0") đ).
+                            <br />Có thể do phí vận chuyển, mã giảm giá hoặc dữ liệu cũ không khớp.
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
