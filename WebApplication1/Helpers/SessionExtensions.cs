@@ -4,6 +4,7 @@ using WebShop.Helpers;
 
 namespace WebShop.Helpers
 {
+
     public static class SessionExtensions
     {
         public static void Set<T>(this ISession session, string key, T value)
