@@ -109,11 +109,46 @@ namespace WebShop.Controllers
         
 
         public IActionResult Payment() => View();
-       
+
 
         public IActionResult NotifyPayment()
         {
+            var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
+
+            if (cart != null && cart.Any())
+            {
+                var orders = HttpContext.Session.Get<List<OrderViewModel>>("Orders")
+                             ?? new List<OrderViewModel>();
+
+                var newOrder = new OrderViewModel
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CustomerName = "Guest",
+                    Phone = "000000000",
+                    Address = "Chưa có",
+                    OrderDate = DateTime.Now,
+                    Status = "Shipping",
+                    TotalAmount = cart.Sum(c => c.Total)
+                };
+
+                // Lưu chi tiết đơn (OrderItem)
+                var orderItems = cart.Select(c => new OrderItem
+                {
+                    ProductId = c.ProductId,
+                    ProductName = c.ProductName,
+                    ProductImage = c.ImageUrl,
+                    Quantity = c.Quantity,
+                    UnitPrice = c.Price
+                }).ToList();
+
+                HttpContext.Session.Set("Orders", orders);
+                HttpContext.Session.Set("OrderItems_" + newOrder.Id, orderItems);
+
+                HttpContext.Session.Remove("Cart");
+            }
+
             return View("NotifyPayment");
         }
+
     }
 }

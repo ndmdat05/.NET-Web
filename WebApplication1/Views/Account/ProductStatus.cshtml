@@ -1,3 +1,5 @@
+@model List<WebShop.Models.OrderViewModel>
+
 @{
     ViewData["Title"] = "Trạng thái đơn hàng";
 }
@@ -11,84 +13,62 @@
         <div class="ps-header">
             <h2>Trạng thái đơn hàng đã đặt</h2>
         </div>
+
         <div class="ps-content">
             <table class="ps-table">
                 <thead>
                     <tr>
-                        <th>SẢN PHẨM</th>
-                        <th>GIÁ</th>
+                        <th>ĐƠN HÀNG</th>
+                        <th>TỔNG TIỀN</th>
                         <th>TRẠNG THÁI</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="ps-item">
-                        <td class="ps-info">
-                            <img src="~/images/fav4.webp" alt="" class="ps-img">
-                            <div>
-                                <p class="ps-name">Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
-                                <p class="ps-weight">400g</p>
-                                <p class="ps-brand">Royal Canin</p>
-                            </div>
-                        </td>
-                        <td class="ps-price">135.000đ</td>
-                        <td class="ps-stt-shipping">Đang vận chuyển</td>
-                        <td class="ps-details">
-                            <a asp-controller="Account"
-                               asp-action="StatusDetails"
-                               asp-route-id="1"
-                               class="ps-button">
-                                Xem chi tiết
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
 
                 <tbody>
-                    <tr class="ps-item">
-                        <td class="ps-info">
-                            <img src="~/images/fav1.webp" alt="" class="ps-img">
-                            <div>
-                                <p class="ps-name">Thức Ăn Hạt Cho Mèo Trưởng Thành Nuôi Trong Nhà Royal Canin Indoor 27</p>
-                                <p class="ps-weight">400g</p>
-                                <p class="ps-brand">Royal Canin</p>
-                            </div>
-                        </td>
-                        <td class="ps-price">132.000đ</td>
-                        <td class="ps-stt">Đang đóng gói</td>
-                        <td class="ps-details">
-                            <a asp-controller="Account"
-                               asp-action="StatusDetails"
-                               asp-route-id="2"
-                               class="ps-button">
-                                Xem chi tiết
-                            </a>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var order in Model)
+                    {
+                        <tr class="ps-item">
+                            <td class="ps-info">
+                                <div>
+                                    <p class="ps-name">Đơn hàng #@order.Id</p>
+                                    <p class="ps-brand">
+                                        Ngày đặt: @order.OrderDate.ToString("dd/MM/yyyy")
+                                    </p>
+                                </div>
+                            </td>
+
+                            <td class="ps-price">
+                                @order.TotalAmount.ToString("N0")đ
+                            </td>
+
+                            <td class="ps-stt">
+                                @order.Status
+                            </td>
+
+                            <td class="ps-details">
+                                <a asp-controller="Account"
+                                   asp-action="StatusDetails"
+                                   asp-route-id="@order.Id"
+                                   class="ps-button">
+                                    Xem chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="text-align:center">
+                            Chưa có đơn hàng nào
                         </td>
                     </tr>
+                }
                 </tbody>
 
-                <tbody>
-                    <tr class="ps-item">
-                        <td class="ps-info">
-                            <img src="~/images/deal4.png" alt="" class="ps-img">
-                            <div>
-                                <p class="ps-name">Thức Ăn Hạt Cho Mèo Trưởng Thành Silver Spoon 1kg</p>
-                                <p class="ps-weight">1kg</p>
-                                <p class="ps-brand">Silver Spoon</p>
-                            </div>
-                        </td>
-                        <td class="ps-price">150.000đ</td>
-                        <td class="ps-stt-shipped">Đã giao</td>
-                        <td class="ps-details">
-                            <a asp-controller="Account"
-                               asp-action="StatusDetails"
-                               asp-route-id="3"
-                               class="ps-button">
-                                Xem chi tiết
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
