@@ -4,7 +4,6 @@ using WebShop; // Namespace chứa DatabaseService
 var builder = WebApplication.CreateBuilder(args);
 
 
-
 // 1. Thêm các dịch vụ vào container (Dependency Injection)
 builder.Services.AddControllersWithViews();
 

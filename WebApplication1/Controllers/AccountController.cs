@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebShop.Helpers;
 using WebShop.Models;
 
 namespace WebShop.Controllers
@@ -75,32 +74,19 @@ namespace WebShop.Controllers
         }
 
         // 7. Trạng thái đơn hàng (Danh sách đơn)
-        // URL: /Account/ProductStatus 
+        // URL: /Account/ProductStatus
         public IActionResult ProductStatus()
         {
-            var orders = HttpContext.Session.Get<List<OrderViewModel>>("Orders");
-
-            if (orders == null)
-                orders = new List<OrderViewModel>(); // ✅ CHỐNG NULL
-
-            return View(orders); // ✅ PHẢI TRUYỀN MODEL
+            return View(); // Tự động tìm Views/Account/ProductStatus.cshtml
         }
-
-
 
         // 8. Chi tiết đơn hàng
         // URL: /Account/StatusDetails/5
-        public IActionResult StatusDetails(string id)
+        public IActionResult StatusDetails(int id)
         {
-            var items = HttpContext.Session.Get<List<OrderItem>>("OrderItems_" + id)
-                        ?? new List<OrderItem>();
-
-            return View(items); 
+            // Sau này sẽ dùng id để lấy dữ liệu đơn hàng từ DB
+            return View(); // Tự động tìm Views/Account/StatusDetails.cshtml
         }
-
-                            // Sau này sẽ dùng id để lấy dữ liệu đơn hàng từ DB
-             // Tự động tìm Views/Account/StatusDetails.cshtml
-        
 
         // 9. Đăng xuất
         public IActionResult Logout()
