@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 namespace WebShop.Models
 {
     public class Category
@@ -36,6 +37,7 @@ namespace WebShop.Models
     }
     public class OrderItem
     {
+        public string ProductId { get; set; } 
         public string ProductName { get; set; }
         public string ProductImage { get; set; }
         public int Quantity { get; set; }
