@@ -1,3 +1,4 @@
+@model WebShop.Models.HomeViewModel
 @{
     ViewData["Title"] = "Trang chủ";
 }
@@ -69,37 +70,42 @@
     </div>
     <div class="collections-item">
         <div class="item">
-            <a asp-controller="Collections" asp-action="PateMeoCon">
+            <a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_MEO" asp-route-keyword="Pate">
                 <img src="~/images/collections_1x.webp" alt="Pate Mèo Con">
                 <p>Pate Mèo Con</p>
             </a>
         </div>
+
         <div class="item">
-            <a asp-controller="Collections" asp-action="PateMeoCon">
+            <a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_MEO" asp-route-keyword="Hạt">
                 <img src="~/images/collections2.webp" alt="Thức Ăn">
                 <p>Thức Ăn Cho Mèo Con</p>
             </a>
         </div>
+
         <div class="item">
-            <a asp-controller="Collections" asp-action="PateMeoCon">
+            <a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_MEO" asp-route-keyword="Cát">
                 <img src="~/images/collections3.webp" alt="Cát Vệ Sinh">
                 <p>Cát Vệ Sinh Mèo</p>
             </a>
         </div>
+
         <div class="item">
-            <a asp-controller="Collections" asp-action="PateMeoCon">
+            <a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_MEO" asp-route-keyword="Sữa Tắm">
                 <img src="~/images/collections4.webp" alt="Sữa Tắm">
                 <p>Sữa Tắm Cho Mèo Con</p>
             </a>
         </div>
+
         <div class="item">
-            <a asp-controller="Collections" asp-action="PateMeoCon">
+            <a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_MEO" asp-route-keyword="Đồ Chơi">
                 <img src="~/images/collections5.webp" alt="Đồ Chơi">
                 <p>Đồ Chơi Cho Mèo Con</p>
             </a>
         </div>
+
         <div class="item">
-            <a asp-controller="Collections" asp-action="PateMeoCon">
+            <a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_MEO" asp-route-keyword="Nhà">
                 <img src="~/images/collections6.webp" alt="Nhà Mèo">
                 <p>Nhà Cho Mèo</p>
             </a>
@@ -116,50 +122,34 @@
 
         <div class="dp-slider">
             <div class="dp-wrapper">
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="dp-item">
-                        <img src="~/images/discount_item1.png" alt="Nutri Plan">
-                        <h4>Nutri Plan</h4>
-                        <p>Pate Cho Mèo Trưởng Thành Nutri Plan</p>
-                        <span class="price1">25.000₫</span>
-                        <span class="price2">14.000₫</span>
-                        <i class="fa-regular fa-heart dp-icon"></i>
-                    </div>
-                </a>
+                @if (Model.DiscountedProducts != null && Model.DiscountedProducts.Count > 0)
+                {
+                    foreach (var item in Model.DiscountedProducts)
+                    {
+                        <a href="/Product/Detail?id=@item.Id" class="di-link">
+                            <div class="dp-item">
+                                <img src="@item.ImageUrl" alt="@item.Name" onerror="this.src='/images/default.png'">
+                                <h4>@item.Name</h4>
+                                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@item.Name</p>
 
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="dp-item">
-                        <img src="~/images/discount_item2.png" alt="Natural Core">
-                        <h4>Natural Core</h4>
-                        <p>Bánh Thưởng Cho Chó Natural Core</p>
-                        <span class="price1">45.000₫</span>
-                        <span class="price2">35.000₫</span>
-                        <i class="fa-regular fa-heart dp-icon"></i>
-                    </div>
-                </a>
-
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="dp-item">
-                        <img src="~/images/discount_item3.png" alt="Ultimates Indulge">
-                        <h4>Ultimates Indulge</h4>
-                        <p>Pate Mèo Ultimates Indulge</p>
-                        <span class="price1">27.000₫</span>
-                        <span class="price2">21.000₫</span>
-                        <i class="fa-regular fa-heart dp-icon"></i>
-                    </div>
-                </a>
-
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="dp-item">
-                        <img src="~/images/discount_item4.png" alt="Royal Canin">
-                        <h4>Royal Canin</h4>
-                        <p>Pate Cho Mèo Mẹ & Mèo Con</p>
-                        <span class="price1">95.000₫</span>
-                        <span class="price2">58.000₫</span>
-                        <i class="fa-regular fa-heart dp-icon"></i>
-                    </div>
-                </a>
-
+                                @if (item.SalePrice > 0)
+                                {
+                                    <span class="price1" style="text-decoration: line-through;">@item.Price.ToString("N0")đ</span>
+                                    <span class="price2">@item.SalePrice?.ToString("N0")đ</span>
+                                }
+                                else
+                                {
+                                    <span class="price2">@item.Price.ToString("N0")đ</span>
+                                }
+                                <i class="fa-regular fa-heart dp-icon"></i>
+                            </div>
+                        </a>
+                    }
+                }
+                else
+                {
+                    <p style="padding: 20px;">Chưa có sản phẩm khuyến mãi nào.</p>
+                }
             </div>
         </div>
     </div>
@@ -174,45 +164,24 @@
 
         <div class="deal-slider">
             <div class="deal-wrapper">
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/deal1.png" alt="Silver Spoon">
-                        <h4>Silver Spoon</h4>
-                        <p>Súp Thưởng Cho Mèo Silver Spoon</p>
-                        <span class="price">27.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
+                @if (Model.RecommendedProducts != null && Model.RecommendedProducts.Count > 0)
+                {
+                    foreach (var item in Model.RecommendedProducts)
+                    {
+                        <a href="/Product/Detail?id=@item.Id" class="di-link">
+                            <div class="deal-item">
+                                <img src="@item.ImageUrl" alt="@item.Name" onerror="this.src='/images/default.png'">
+                                <h4>@item.Name</h4>
+                                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@item.Name</p>
 
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/deal2.png" alt="Silver Spoon">
-                        <h4>Silver Spoon</h4>
-                        <p>Pate Cho Mèo Silver Spoon Dạng Thạch</p>
-                        <span class="price">16.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
-
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/deal3.png" alt="Silver Spoon">
-                        <h4>Silver Spoon</h4>
-                        <p>Súp Thưởng Cho Mèo Silver Spoon Dạng Thìa</p>
-                        <span class="price">27.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
-
-                <a asp-controller="Product" asp-action="Detail" class="di-link">
-                    <div class="deal-item">
-                        <img src="~/images/fav2.webp" alt="Royal Canin">
-                        <h4>Royal Canin</h4>
-                        <p>Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
-                        <span class="price">132.000₫</span>
-                        <i class="fa-regular fa-heart deal-icon"></i>
-                    </div>
-                </a>
+                                <span class="price">
+                                    @(item.SalePrice > 0 ? item.SalePrice?.ToString("N0") : item.Price.ToString("N0"))đ
+                                </span>
+                                <i class="fa-regular fa-heart deal-icon"></i>
+                            </div>
+                        </a>
+                    }
+                }
             </div>
         </div>
     </div>

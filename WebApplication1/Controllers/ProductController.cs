@@ -101,16 +101,39 @@ namespace WebShop.Controllers
                     }
                 }
 
-                // Hàng cùng loại (Category, trừ sản phẩm hiện tại)
+                //Lấy danh sách khối lượng của sp
+                string sqlVariants = "SELECT * FROM Product_variants WHERE product_id = @id ORDER BY weight ASC";
+
+                using (var cmd = new MySqlCommand(sqlVariants, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            decimal adjustment = Convert.ToDecimal(reader["price_adjustment"]);
+                            decimal basePriceForCalc = (model.SalePrice > 0) ? model.SalePrice.Value : model.Price;
+
+                            model.Variants.Add(new ProductVariantViewModel
+                            {
+                                Id = reader["id"].ToString(),
+                                Weight = Convert.ToDecimal(reader["weight"]),
+                                Stock = Convert.ToInt32(reader["stock_quantity"]),
+                                FinalPrice = basePriceForCalc + adjustment
+                            });
+                        }
+                    }
+                }
+
+                // Hàng cùng loại (category)
                 if (!string.IsNullOrEmpty(model.CategoryId))
                 {
-                    string sqlRelated = @"
-                        SELECT p.id, p.name, p.price, pi.image_url 
-                        FROM Products p
-                        LEFT JOIN Product_Images pi ON p.id = pi.product_id AND pi.is_main = 1
-                        WHERE p.category_id = @catId AND p.id != @currentId
-                        LIMIT 4";
-
+                    // Thêm p.sale_price vào câu SQL
+                    string sqlRelated = @"SELECT p.id, p.name, p.price, p.sale_price, pi.image_url 
+                                            FROM Products p
+                                            LEFT JOIN Product_Images pi ON p.id = pi.product_id AND pi.is_main = 1
+                                            WHERE p.category_id = @catId AND p.id != @currentId
+                                            LIMIT 4";
                     using (var cmd = new MySqlCommand(sqlRelated, conn))
                     {
                         cmd.Parameters.AddWithValue("@catId", model.CategoryId);
@@ -124,6 +147,7 @@ namespace WebShop.Controllers
                                     Id = reader["id"].ToString(),
                                     Name = reader["name"].ToString(),
                                     Price = Convert.ToDecimal(reader["price"]),
+                                    salePrice = reader["sale_price"] != DBNull.Value ? Convert.ToDecimal(reader["sale_price"]) : 0,
                                     MainImage = reader["image_url"] != DBNull.Value ? reader["image_url"].ToString() : "/images/default.png"
                                 });
                             }
@@ -134,9 +158,6 @@ namespace WebShop.Controllers
             return View("ProductDetail", model);
         }
        
-    
-
-
         public IActionResult SearchResult(string q)
         {
             return View("SearchResult"); // Hoặc return View() cũng được vì tên khớp

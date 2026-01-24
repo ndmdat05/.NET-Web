@@ -19,8 +19,16 @@ namespace WebShop.Models
         public List<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
         // Hàng cùng loại
         public List<Product> RelatedProducts { get; set; } = new List<Product>();
+        public List<ProductVariantViewModel> Variants { get; set; } = new List<ProductVariantViewModel>();
     }
 
+    public class ProductVariantViewModel
+    {
+        public string Id { get; set; }
+        public decimal Weight { get; set; }
+        public decimal FinalPrice { get; set; }
+        public int Stock { get; set; }
+    }
     public class ReviewViewModel
     {
         public string UserName { get; set; }
