@@ -28,7 +28,9 @@
             </div>
 
             <div class="product-main-image">
-                <img id="main-img" src="@(Model.Images != null && Model.Images.Count > 0 ? Model.Images[0] : "/images/default.png")" alt="main product">
+                <img id="main-img"
+                     src="@(Model.Images != null && Model.Images.Count > 0 ? Model.Images[0] : "/images/default.png")"
+                     alt="main product">
             </div>
         </div>
 
@@ -104,7 +106,16 @@
                         <i class="fa-solid fa-cart-shopping"></i>
                         Thêm vào giỏ hàng
                     </button>
-                    <button type="button" class="favorite"><i class="fa-regular fa-heart"></i></button>
+
+                    
+                    <button type="button"
+                            class="favorite"
+                            onclick="toggleWishlist(@Model.Id,
+                                                     '@Model.Name',
+                                                     '@Model.MainImage',
+                                                     @Model.Price)">
+                        <i id="heartIcon" class="fa-regular fa-heart"></i>
+                    </button>
                 </div>
             </form>
 
@@ -158,53 +169,40 @@
             }
         </div>
     </div>
-
-    @if (Model.RelatedProducts != null && Model.RelatedProducts.Count > 0)
-    {
-        <div class="related-products" style="margin-top: 30px;">
-            <h3>Sản phẩm cùng loại</h3>
-            <div class="row" style="display: flex; gap: 20px;">
-                @foreach (var item in Model.RelatedProducts)
-                {
-                    <div class="col-md-3" style="border: 1px solid #eee; padding: 10px; border-radius: 8px;">
-                        <a href="/Product/Detail?id=@item.Id" style="text-decoration: none; color: inherit;">
-                            <img src="@item.MainImage" style="width:100%; height: 200px; object-fit: contain;">
-                            <h4 style="font-size: 14px; margin: 10px 0;">@item.Name</h4>
-                            <p style="color: #d0021b; font-weight: bold;">@item.Price.ToString("N0")đ</p>
-                        </a>
-
-                        <p class="review-text" style="font-size: 12px; color: #666; margin-top: 5px;">
-                            Sản phẩm này thật sự rất tốt! Chất lượng vượt xa mong đợi...
-                        </p>
-                        <div class="review-images">
-                            <img src="~/images/fav2.webp" alt="" style="width: 30px;">
-                        </div>
-                        <div class="review-likes">
-                            <i class="fa-regular fa-thumbs-up"></i>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    }
 </div>
 
 @section Scripts {
     <script src="~/js/Product.js"></script>
+
     <script>
-        // Hàm thay đổi ảnh khi click thumbnail
         function changeImage(src) {
             document.getElementById('main-img').src = src;
         }
 
-        // Hàm tăng giảm số lượng
         function updateQty(change) {
             var qtyInput = document.getElementById('qtyInput');
-            var currentQty = parseInt(qtyInput.value);
-            var newQty = currentQty + change;
-            if (newQty >= 1) {
-                qtyInput.value = newQty;
-            }
+            var newQty = parseInt(qtyInput.value) + change;
+            if (newQty >= 1) qtyInput.value = newQty;
+        }
+
+        
+        function toggleWishlist(id, name, image, price) {
+            fetch('/Wishlist/Toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id=${id}&name=${encodeURIComponent(name)}&image=${image}&price=${price}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                const icon = document.getElementById('heartIcon');
+                if (data.liked) {
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                } else {
+                    icon.classList.remove('fa-solid');
+                    icon.classList.add('fa-regular');
+                }
+            });
         }
     </script>
 }
