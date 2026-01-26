@@ -13,6 +13,7 @@
         <div class="product-detail-left">
             <div class="product-thumbnails">
                 <i class="fa-solid fa-chevron-up"></i>
+
                 @if (Model.Images != null && Model.Images.Count > 0)
                 {
                     foreach (var img in Model.Images)
@@ -24,6 +25,7 @@
                 {
                     <img src="/images/default.png" alt="thumb">
                 }
+
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
 
@@ -109,12 +111,12 @@
 
                     
                     <button type="button"
-                            class="favorite"
-                            onclick="toggleWishlist(@Model.Id,
-                                                     '@Model.Name',
-                                                     '@Model.MainImage',
-                                                     @Model.Price)">
-                        <i id="heartIcon" class="fa-regular fa-heart"></i>
+                            class="favorite wishlist-btn"
+                            data-id="@Model.Id"
+                            data-name="@Model.Name"
+                            data-image="@(Model.Images != null && Model.Images.Count > 0 ? Model.Images[0] : "/images/default.png")"
+                            data-price="@(Model.SalePrice != null && Model.SalePrice > 0 ? Model.SalePrice : Model.Price)">
+                        <i class="fa-regular fa-heart"></i>
                     </button>
                 </div>
             </form>
@@ -185,24 +187,40 @@
             if (newQty >= 1) qtyInput.value = newQty;
         }
 
-        
-        function toggleWishlist(id, name, image, price) {
-            fetch('/Wishlist/Toggle', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `id=${id}&name=${encodeURIComponent(name)}&image=${image}&price=${price}`
-            })
-            .then(res => res.json())
-            .then(data => {
-                const icon = document.getElementById('heartIcon');
-                if (data.liked) {
-                    icon.classList.remove('fa-regular');
-                    icon.classList.add('fa-solid');
-                } else {
-                    icon.classList.remove('fa-solid');
-                    icon.classList.add('fa-regular');
-                }
+       
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const icon = this.querySelector('i');
+
+                const data = {
+                    id: this.dataset.id,
+                    name: this.dataset.name,
+                    image: this.dataset.image,
+                    price: this.dataset.price
+                };
+
+                fetch('/Wishlist/Toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams(data)
+                })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.liked) {
+                        icon.classList.remove('fa-regular');
+                        icon.classList.add('fa-solid');
+                        icon.style.color = 'red';
+                    } else {
+                        icon.classList.remove('fa-solid');
+                        icon.classList.add('fa-regular');
+                        icon.style.color = '';
+                    }
+                });
             });
-        }
+        });
     </script>
 }

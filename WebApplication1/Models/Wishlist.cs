@@ -8,13 +8,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebShop.Models
 {
-    public class Wishlist
-    {
-        public int ProductId { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
-        public decimal Price { get; set; }
+    
+        public class Wishlist
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Image { get; set; }
+            public decimal Price { get; set; }
+        }
     }
 
-
-}

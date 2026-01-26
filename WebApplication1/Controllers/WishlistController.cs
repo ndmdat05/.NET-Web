@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebShop.Models;
 using WebShop.Helpers;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebShop.Controllers
 {
@@ -22,7 +24,7 @@ namespace WebShop.Controllers
             var wishlist = HttpContext.Session.Get<List<Wishlist>>(WISHLIST_KEY)
                            ?? new List<Wishlist>();
 
-            var existing = wishlist.FirstOrDefault(x => x.ProductId == id);
+            var existing = wishlist.FirstOrDefault(x => x.Id == id);
 
             if (existing != null)
             {
@@ -33,7 +35,7 @@ namespace WebShop.Controllers
 
             wishlist.Add(new Wishlist
             {
-                ProductId = id,
+                Id = id,
                 Name = name,
                 Image = image,
                 Price = price
