@@ -1,7 +1,6 @@
+@model WebShop.Models.SearchResultViewModel
 @{
-    ViewData["Title"] = "Kết quả tìm kiếm";
-    var searchTerm = "ROYAL-CANIN"; // Sau này sẽ lấy từ Controller
-    var resultCount = 4; // Sau này sẽ lấy từ Controller
+    ViewData["Title"] = "Kết quả tìm kiếm: " + Model.SearchTerm;
 }
 
 @section Styles {
@@ -10,7 +9,7 @@
 
 <div class="search-container">
     <div class="search-top">
-        <h1>TÌM THẤY <span id="result-count">@resultCount</span> KẾT QUẢ CHO “<span id="query-text">@searchTerm</span>”</h1>
+        <h1>TÌM THẤY <span id="result-count">@Model.TotalCount</span> KẾT QUẢ CHO “<span id="query-text">@Model.SearchTerm</span>”</h1>
     </div>
 
     <div class="search-layout">
@@ -19,26 +18,10 @@
                 <h3>CATEGORIES</h3>
                 <div class="line"></div>
                 <ul class="side-list">
-                    <li><a asp-controller="Collections" asp-action="PateMeoCon">Chó</a></li>
-                    <li><a asp-controller="Collections" asp-action="PateMeoCon">Mèo</a></li>
-                    <li><a asp-controller="Collections" asp-action="PateMeoCon">Thiết bị thông minh</a></li>
-                    <li><a asp-controller="Collections" asp-action="PateMeoCon">Hàng mới về</a></li>
-                    <li><a href="#">Thương hiệu</a></li>
-                    <li><a asp-controller="Blog" asp-action="Index">Pagazine chăm Boss</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Khuyến Mãi Mới Nhất</a></li>
+                    <li><a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_CHO">Chó</a></li>
+                    <li><a asp-controller="Collections" asp-action="Index" asp-route-categoryId="CAT_MEO">Mèo</a></li>
+                    <li><a href="#">Hàng mới về</a></li>
                 </ul>
-            </div>
-
-            <div class="side-section">
-                <h3>LOẠI SẢN PHẨM</h3>
-                <div class="line"></div>
-                <div class="filter-list">
-                    <label><input type="checkbox"> Thức Ăn Ướt (48)</label>
-                    <label><input type="checkbox"> Thức Ăn Khô (28)</label>
-                    <label><input type="checkbox"> Pate Mèo (35)</label>
-                    <label><input type="checkbox"> Pate Chó (2)</label>
-                </div>
             </div>
         </div>
 
@@ -49,98 +32,73 @@
                     <select id="sort-select" class="sort-select">
                         <option value="relevance">Phù hợp nhất</option>
                         <option value="price-asc">Giá: thấp → cao</option>
-                        <option value="price-desc">Giá: cao → thấp</option>
-                        <option value="rating">Đánh giá</option>
                     </select>
                 </div>
             </div>
 
             <div class="product-grid" id="product-grid">
-                <div class="product-card">
-                    <div class="img-wrap">
-                        <a asp-controller="Product" asp-action="Detail" asp-route-id="1">
-                            <img src="~/images/fav1.webp" alt="product">
-                        </a>
-                        <i class="fa-regular fa-heart fav-icon" title="Thêm yêu thích"></i>
-                    </div>
-                    <a class="brand" asp-controller="Product" asp-action="Detail" asp-route-id="1">Royal Canin</a>
-                    <a class="product-name" asp-controller="Product" asp-action="Detail" asp-route-id="1">
-                        <h3 class="p-title">Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</h3>
-                    </a>
-                    <div class="rating">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-                        <span class="rating-count">2 đánh giá</span>
-                    </div>
-                    <div class="price">135.000₫</div>
-                </div>
+                @if (Model.Products != null && Model.Products.Count > 0)
+                {
+                    foreach (var item in Model.Products)
+                    {
+                        <div class="product-card">
+                            <div class="img-wrap">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id">
+                                    <img src="@item.ImageUrl" alt="@item.Name" onerror="this.src='/images/default.png'">
+                                </a>
+                                <i class="fa-regular fa-heart fav-icon" title="Thêm yêu thích"></i>
+                            </div>
 
-                <div class="product-card">
-                    <div class="img-wrap">
-                        <a asp-controller="Product" asp-action="Detail" asp-route-id="2">
-                            <img src="~/images/fav1.webp" alt="product">
-                        </a>
-                        <i class="fa-regular fa-heart fav-icon" title="Thêm yêu thích"></i>
-                    </div>
-                    <a class="brand" asp-controller="Product" asp-action="Detail" asp-route-id="2">Royal Canin</a>
-                    <a class="product-name" asp-controller="Product" asp-action="Detail" asp-route-id="2">
-                        <h3 class="p-title">Thức Ăn Hạt Cho Mèo Sỏi Thận Royal Canin Urinary S/O</h3>
-                    </a>
-                    <div class="rating">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        <span class="rating-count">5 đánh giá</span>
-                    </div>
-                    <div class="price">185.000₫</div>
-                </div>
+                            <a class="brand" href="#">@item.Brand</a>
 
-                <div class="product-card">
-                    <div class="img-wrap">
-                        <a asp-controller="Product" asp-action="Detail" asp-route-id="3">
-                            <img src="~/images/fav1.webp" alt="product">
-                        </a>
-                        <i class="fa-regular fa-heart fav-icon" title="Thêm yêu thích"></i>
-                    </div>
-                    <a class="brand" asp-controller="Product" asp-action="Detail" asp-route-id="3">Royal Canin</a>
-                    <a class="product-name" asp-controller="Product" asp-action="Detail" asp-route-id="3">
-                        <h3 class="p-title">Thức Ăn Hạt Cho Mèo Trưởng Thành Royal Canin Indoor</h3>
-                    </a>
-                    <div class="rating">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        <span class="rating-count">5 đánh giá</span>
-                    </div>
-                    <div class="price">132.000₫</div>
-                </div>
+                            <a class="product-name" asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id">
+                                <h3 class="p-title">@item.Name</h3>
+                            </a>
 
-                <div class="product-card">
-                    <div class="img-wrap">
-                        <a asp-controller="Product" asp-action="Detail" asp-route-id="4">
-                            <img src="~/images/fav1.webp" alt="product">
-                        </a>
-                        <i class="fa-regular fa-heart fav-icon" title="Thêm yêu thích"></i>
-                    </div>
-                    <a class="brand" asp-controller="Product" asp-action="Detail" asp-route-id="4">Royal Canin</a>
-                    <a class="product-name" asp-controller="Product" asp-action="Detail" asp-route-id="4">
-                        <h3 class="p-title">Thức Ăn Hạt Cho Chó Con Poodle Royal Canin Puppy</h3>
-                    </a>
-                    <div class="rating">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-                        <span class="rating-count">1 đánh giá</span>
-                    </div>
-                    <div class="price">189.000₫</div>
-                </div>
+                            <div class="rating">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= Math.Round(item.Rating))
+                                    {
+                                        <i class="fa-solid fa-star"></i>
+                                    }
+                                    else
+                                    {
+
+                                        <i class="fa-regular fa-star"></i>
+                                    }
+                                }
+                                <span class="rating-count">@item.ReviewCount đánh giá</span>
+                            </div>
+
+                            @if (item.SalePrice > 0 && item.SalePrice < item.Price)
+                            {
+                                <div class="price">
+                                    <span style="text-decoration: line-through; color: #999; font-size: 14px;">@item.Price.ToString("N0")đ</span>
+                                    <span style="color: #d0021b; font-weight: bold; margin-left: 5px;">@item.SalePrice?.ToString("N0")đ</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="price">@item.Price.ToString("N0")đ</div>
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p style="grid-column: 1/-1; text-align: center; padding: 50px;">
+                        Không tìm thấy sản phẩm nào phù hợp với từ khóa "<strong>@Model.SearchTerm</strong>".
+                    </p>
+                }
             </div>
 
-            <div class="pagination">
-                <button class="page-btn"><</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">></button>
-            </div>
-
+            @if (Model.TotalCount > 20)
+            {
+                <div class="pagination">
+                    <button class="page-btn active">1</button>
+                </div>
+            }
         </main>
     </div>
 </div>
