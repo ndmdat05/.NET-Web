@@ -13,6 +13,7 @@
         <div class="product-detail-left">
             <div class="product-thumbnails">
                 <i class="fa-solid fa-chevron-up"></i>
+
                 @if (Model.Images != null && Model.Images.Count > 0)
                 {
                     foreach (var img in Model.Images)
@@ -24,11 +25,14 @@
                 {
                     <img src="/images/default.png" alt="thumb">
                 }
+
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
 
             <div class="product-main-image">
-                <img id="main-img" src="@(Model.Images != null && Model.Images.Count > 0 ? Model.Images[0] : "/images/default.png")" alt="main product">
+                <img id="main-img"
+                     src="@(Model.Images != null && Model.Images.Count > 0 ? Model.Images[0] : "/images/default.png")"
+                     alt="main product">
             </div>
         </div>
 
@@ -69,7 +73,7 @@
             </div>
 
             <div class="product-size" style="margin-top: 20px;">
-                <p style="font-weight: bold; margin-bottom: 10px;">Chọn Size:</p>
+                <p style="font-weight: bold; margin-bottom: 10px;">Chọn:</p>
                 <div class="size-options" style="display: flex; gap: 10px;">
 
                     <button type="button"
@@ -82,14 +86,22 @@
 
                     @if (Model.Variants != null)
                     {
-                        foreach (var variant in Model.Variants)
+                        @foreach (var variant in Model.Variants)
                         {
                             <button type="button"
                                     class="size-btn"
                                     data-price="@variant.FinalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                                     data-stock="@variant.Stock"
                                     style="padding: 8px 15px; border: 1px solid #ccc; background: #fff; color: #333; border-radius: 5px; cursor: pointer;">
-                                @variant.Weight.ToString("0.#") kg
+
+                                @if (!string.IsNullOrEmpty(variant.VariantName))
+                                {
+                                    @variant.VariantName
+                                }
+                                else
+                                {
+                                    @(variant.Weight.ToString("0.#") + " kg")
+                                }
                             </button>
                         }
                     }
@@ -117,7 +129,16 @@
                         <i class="fa-solid fa-cart-shopping"></i>
                         Thêm vào giỏ hàng
                     </button>
-                    <button type="button" class="favorite"><i class="fa-regular fa-heart"></i></button>
+
+                    
+                    <button type="button"
+                            class="favorite wishlist-btn"
+                            data-id="@Model.Id"
+                            data-name="@Model.Name"
+                            data-image="@(Model.Images != null && Model.Images.Count > 0 ? Model.Images[0] : "/images/default.png")"
+                            data-price="@(Model.SalePrice != null && Model.SalePrice > 0 ? Model.SalePrice : Model.Price)">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
                 </div>
             </form>
 
@@ -171,70 +192,57 @@
             }
         </div>
     </div>
-
-    @if(Model.RelatedProducts != null && Model.RelatedProducts.Count > 0)
-    {
-        <div class="related-products-section" style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee;">
-            <h3 style="font-size: 22px; font-weight: bold; margin-bottom: 20px; text-transform: uppercase;">Sản phẩm cùng loại</h3>
-            
-            <div class="related-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
-                @foreach(var item in Model.RelatedProducts) {
-                    <div class="related-item" style="border: 1px solid #eee; border-radius: 8px; overflow: hidden; background: #fff; transition: box-shadow 0.3s;">
-                        <a href="/Product/Detail?id=@item.Id" style="text-decoration: none; color: inherit; display: block; padding: 10px;">
-                            
-                            <div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 10px;">
-                                <img src="@item.MainImage" 
-                                     alt="@item.Name" 
-                                     style="max-width: 100%; max-height: 100%; object-fit: contain;"
-                                     onerror="this.src='/images/default.png'"> </div>
-
-                            <div class="info" style="text-align: center;">
-                                <h4 style="font-size: 15px; font-weight: 500; margin: 5px 0; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                    @item.Name
-                                </h4>
-                                @if (item.salePrice > 0 && item.salePrice < item.Price)
-                                {
-                                    <div class="price-box" style="margin-top: 5px;">
-                                        <span style="text-decoration: line-through; color: #999; font-size: 14px; margin-right: 5px;">
-                                            @item.Price.ToString("N0")đ
-                                        </span>
-                                        <span style="color: #d0021b; font-weight: bold; font-size: 18px;">
-                                            @item.salePrice.ToString("N0")đ
-                                        </span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <p style="color: #d0021b; font-weight: bold; font-size: 18px; margin-top: 5px;">
-                                        @item.Price.ToString("N0")đ
-                                    </p>
-                                }
-                            </div>
-                        </a>
-                    </div>
-                }
-            </div>
-        </div>
-    }
 </div>
 
 @section Scripts {
     <script src="~/js/Product.js"></script>
+
     <script>
-        // Hàm thay đổi ảnh khi click thumbnail
         function changeImage(src) {
             document.getElementById('main-img').src = src;
         }
 
-        // Hàm tăng giảm số lượng
         function updateQty(change) {
             var qtyInput = document.getElementById('qtyInput');
-            var currentQty = parseInt(qtyInput.value);
-            var newQty = currentQty + change;
-            if (newQty >= 1) {
-                qtyInput.value = newQty;
-            }
+            var newQty = parseInt(qtyInput.value) + change;
+            if (newQty >= 1) qtyInput.value = newQty;
         }
+
+       
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const icon = this.querySelector('i');
+
+                const data = {
+                    id: this.dataset.id,
+                    name: this.dataset.name,
+                    image: this.dataset.image,
+                    price: this.dataset.price
+                };
+
+                fetch('/Wishlist/Toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams(data)
+                })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.liked) {
+                        icon.classList.remove('fa-regular');
+                        icon.classList.add('fa-solid');
+                        icon.style.color = 'red';
+                    } else {
+                        icon.classList.remove('fa-solid');
+                        icon.classList.add('fa-regular');
+                        icon.style.color = '';
+                    }
+                });
+            });
+        });
         document.addEventListener("DOMContentLoaded", function() {
             console.log("Đang khởi tạo sự kiện cho các nút Size...");
 
