@@ -63,27 +63,48 @@
             <p class="product-brand">Thương hiệu: <span>@Model.Brand</span></p>
 
             <div class="product-price">
-                @if (Model.SalePrice != null && Model.SalePrice > 0 && Model.SalePrice < Model.Price)
-                {
-                    <span style="text-decoration: line-through; color: #999; font-size: 18px; margin-right: 10px;">
-                        @Model.Price.ToString("N0")đ
-                    </span>
-                    <span style="color: #d0021b; font-weight: bold; font-size: 24px;">
-                        @Model.SalePrice?.ToString("N0")đ
-                    </span>
-                }
-                else
-                {
-                    <span style="color: #d0021b; font-weight: bold; font-size: 24px;">
-                        @Model.Price.ToString("N0")đ
-                    </span>
-                }
+                <span id="display-old-price" style="text-decoration: line-through; color: #999; font-size: 18px; margin-right: 10px; display: @(Model.SalePrice < Model.Price ? "inline" : "none")">
+                    @Model.Price.ToString("N0")đ
+                </span>
+
+                <span id="display-price" style="color: #d0021b; font-weight: bold; font-size: 24px;">
+                    @(Model.SalePrice > 0 ? Model.SalePrice?.ToString("N0") : Model.Price.ToString("N0"))đ
+                </span>
             </div>
 
-            <div class="product-size">
-                <p>Size:</p>
-                <div class="size-options">
-                    <button class="active">Tiêu chuẩn</button>
+            <div class="product-size" style="margin-top: 20px;">
+                <p style="font-weight: bold; margin-bottom: 10px;">Chọn:</p>
+                <div class="size-options" style="display: flex; gap: 10px;">
+
+                    <button type="button"
+                            class="size-btn active"
+                            data-price="@((Model.SalePrice > 0 ? Model.SalePrice : Model.Price)?.ToString(System.Globalization.CultureInfo.InvariantCulture))"
+                            data-stock="@Model.StockQuantity"
+                            style="padding: 8px 15px; border: 1px solid #d0021b; background: #fff; color: #d0021b; border-radius: 5px; cursor: pointer;">
+                        Tiêu chuẩn
+                    </button>
+
+                    @if (Model.Variants != null)
+                    {
+                        @foreach (var variant in Model.Variants)
+                        {
+                            <button type="button"
+                                    class="size-btn"
+                                    data-price="@variant.FinalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                                    data-stock="@variant.Stock"
+                                    style="padding: 8px 15px; border: 1px solid #ccc; background: #fff; color: #333; border-radius: 5px; cursor: pointer;">
+
+                                @if (!string.IsNullOrEmpty(variant.VariantName))
+                                {
+                                    @variant.VariantName
+                                }
+                                else
+                                {
+                                    @(variant.Weight.ToString("0.#") + " kg")
+                                }
+                            </button>
+                        }
+                    }
                 </div>
             </div>
 
@@ -99,8 +120,8 @@
                     </div>
                 </div>
 
-                <div class="product-total">
-                    Tồn kho: <span>@Model.StockQuantity</span> sản phẩm
+                <div class="product-total" style="margin-top: 10px; color: #666;">
+                    Tồn kho: <span id="display-stock" style="font-weight: bold; color: #333;">@Model.StockQuantity</span> sản phẩm
                 </div>
 
                 <div class="product-buttons">
@@ -222,5 +243,59 @@
                 });
             });
         });
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Đang khởi tạo sự kiện cho các nút Size...");
+
+            var buttons = document.getElementsByClassName('size-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function() {
+                    // Lấy dữ liệu từ data-attribute (An toàn tuyệt đối)
+                    var price = this.getAttribute('data-price');
+                    var stock = this.getAttribute('data-stock');
+
+                    // Gọi hàm xử lý giao diện
+                    handleSizeClick(this, price, stock);
+                });
+            }
+        });
+
+        // --- 2. Hàm xử lý giao diện ---
+        function handleSizeClick(btn, price, stock) {
+            console.log("Đã bấm nút! Giá:", price, "Kho:", stock); // Kiểm tra log
+
+            // Reset màu các nút về bình thường
+            var buttons = document.getElementsByClassName('size-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.borderColor = '#ccc';
+                buttons[i].style.color = '#333';
+                buttons[i].classList.remove('active');
+            }
+
+            // Tô màu nút được chọn
+            btn.classList.add('active');
+            btn.style.borderColor = '#d0021b';
+            btn.style.color = '#d0021b';
+
+            // Cập nhật giá tiền (Dữ liệu đầu vào chuẩn dạng 132000.00 nên parse rất dễ)
+            var priceElem = document.getElementById('display-price');
+            if(priceElem) {
+                var priceNumber = parseFloat(price);
+                priceElem.innerText = priceNumber.toLocaleString('vi-VN') + 'đ';
+            }
+
+            // Cập nhật tồn kho
+            var stockElem = document.getElementById('display-stock');
+            if(stockElem) stockElem.innerText = stock;
+
+            // Ẩn/Hiện giá gốc (chỉ hiện khi chọn Tiêu chuẩn)
+            var oldPriceElem = document.getElementById('display-old-price');
+            if (oldPriceElem) {
+                if (btn.innerText.trim().toLowerCase().includes("tiêu chuẩn")) {
+                    oldPriceElem.style.display = 'inline';
+                } else {
+                    oldPriceElem.style.display = 'none';
+                }
+            }
+        }
     </script>
 }

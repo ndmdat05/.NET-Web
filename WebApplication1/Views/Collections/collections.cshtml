@@ -1,5 +1,6 @@
+@model WebShop.Models.CollectionViewModel
 @{
-    ViewData["Title"] = "Pate cho mèo con";
+    ViewData["Title"] = Model.CurrentCategoryName;
 }
 
 @section Styles {
@@ -10,202 +11,127 @@
     <div class="cs-header">
         <a asp-controller="Home" asp-action="Index">Paddy Pet Shop</a> >
         <a href="#">Collections</a> >
-        <span>Pate cho Mèo Con</span>
+        <span>@Model.CurrentCategoryName</span>
     </div>
 
     <div class="cs-container">
         <div class="cs-title-header">
-            <h2>Pate cho Mèo Con</h2>
+            <h2>@Model.CurrentCategoryName</h2>
         </div>
         <hr>
 
         <div class="cs-layout">
-
             <div class="cs-sidebar">
                 <div class="filter-box">
-                    <h3>Loại Sản Phẩm</h3>
+                    <h3>Danh Mục</h3>
                     <div class="filter-list">
-                        <label>
-                            <input type="checkbox" name="category">
-                            <span>Thức Ăn Ướt (48)</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="category">
-                            <span>Thức Ăn Khô (28)</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="category">
-                            <span>Pate Mèo (35)</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="category">
-                            <span>Pate Chó (2)</span>
-                        </label>
+                        <div style="margin-bottom: 10px;">
+                            <a href="@Url.Action("Index", "Collections", new { categoryId = "CAT_MEO" })"
+                               style="text-decoration: none; color: @(Model.CurrentCategoryId == "CAT_MEO" ? "#d0021b" : "#333"); font-weight: @(Model.CurrentCategoryId == "CAT_MEO" ? "bold" : "normal")">
+                                Thức ăn cho Mèo
+                            </a>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <a href="@Url.Action("Index", "Collections", new { categoryId = "CAT_CHO" })"
+                               style="text-decoration: none; color: @(Model.CurrentCategoryId == "CAT_CHO" ? "#d0021b" : "#333"); font-weight: @(Model.CurrentCategoryId == "CAT_CHO" ? "bold" : "normal")">
+                                Thức ăn cho Chó
+                            </a>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <a href="@Url.Action("Index", "Collections")" style="text-decoration: none; color: #333;">
+                                Xem tất cả
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="cs-main">
-
                 <div class="cs-softbox">
                     <span class="sb-label">SẮP XẾP THEO</span>
-                    <select class="soft-select">
-                        <option value="alpha-asc">Thứ tự bảng chữ cái (từ A-Z)</option>
-                        <option value="alpha-desc">Thứ tự bảng chữ cái (từ Z-A)</option>
-                        <option value="price-asc">Giá giảm dần </option>
-                        <option value="price-desc">Giá tăng dần</option>
-                    </select>
+
+                    <form id="sortForm" method="get" action="@Url.Action("Index", "Collections")">
+                        <input type="hidden" name="categoryId" value="@Model.CurrentCategoryId" />
+
+                        <input type="hidden" name="keyword" value="@Model.CurrentKeyword" />
+
+                        <select name="sort" class="soft-select" onchange="document.getElementById('sortForm').submit()">
+                            <option value="">Mới nhất</option>
+                            <option value="alpha-asc" selected="@(Model.CurrentSort == "alpha-asc")">Thứ tự bảng chữ cái (từ A-Z)</option>
+                            <option value="alpha-desc" selected="@(Model.CurrentSort == "alpha-desc")">Thứ tự bảng chữ cái (từ Z-A)</option>
+                            <option value="price-asc" selected="@(Model.CurrentSort == "price-asc")">Giá tăng dần</option>
+                            <option value="price-desc" selected="@(Model.CurrentSort == "price-desc")">Giá giảm dần</option>
+                        </select>
+                    </form>
                 </div>
 
                 <div class="cs-slider">
-                    <div class="cs-wrapper">
+                    <div class="cs-wrapper" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: flex-start;">
 
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat1.png" alt="The Cat">
-                            <h4>The Cat</h4>
-                            <p>Pate TƯƠI The Pet Cho Chó Mèo Biếng Ăn (1kg) - Ship Now/Grab 2H</p>
-                            <div class="cs-rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <span>(6 đánh giá)</span>
+                        @if (Model.Products != null && Model.Products.Count > 0)
+                        {
+                            foreach (var item in Model.Products)
+                            {
+                                <div class="cs-item" style="width: 23%; min-width: 200px; border: 1px solid #eee; padding: 10px; border-radius: 8px; margin-bottom: 20px; background: #fff;">
+                                    <a href="/Product/Detail?id=@item.Id" style="text-decoration: none; color: inherit; display: block;">
+
+                                        <div style="height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 10px;">
+                                            <img src="@item.ImageUrl" alt="@item.Name"
+                                                 style="max-width: 100%; max-height: 100%; object-fit: contain;"
+                                                 onerror="this.src='/images/default.png'">
+                                        </div>
+
+                                        <h4 style="font-size: 14px; height: 40px; overflow: hidden; margin-bottom: 5px; line-height: 1.3;">@item.Name</h4>
+
+                                        <div class="cs-rating" style="margin-bottom: 5px;">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= Math.Round(item.Rating))
+                                                {
+                                                    <i class="fa-solid fa-star" style="color: #ffc107;"></i>
+                                                }
+                                                else
+                                                {
+
+                                                    <i class="fa-regular fa-star" style="color: #ccc;"></i>
+                                                }
+                                            }
+                                            <span style="font-size: 12px; color: #666;">(@item.ReviewCount)</span>
+                                        </div>
+
+                                        @if (item.SalePrice > 0 && item.SalePrice < item.Price)
+                                        {
+                                            <div>
+                                                <span class="price1" style="text-decoration: line-through; color: #999; font-size: 13px; margin-right: 5px;">@item.Price.ToString("N0")đ</span>
+                                                <span class="price2" style="color: #d0021b; font-weight: bold; font-size: 16px;">@item.SalePrice?.ToString("N0")đ</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <span class="price" style="color: #d0021b; font-weight: bold; font-size: 16px;">@item.Price.ToString("N0")đ</span>
+                                            </div>
+                                        }
+
+                                        <div style="text-align: right; margin-top: 5px;">
+                                            <i class="fa-regular fa-heart cs-icon" style="cursor: pointer;"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div style="width: 100%; text-align: center; padding: 50px;">
+                                <p>Chưa có sản phẩm nào trong danh mục này.</p>
+                                <a href="@Url.Action("Index", "Home")" style="color: #d0021b;">Quay về trang chủ</a>
                             </div>
-                            <span class="price1">120.000₫</span>
-                            <span class="price2">85.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat2.png" alt="Nekko">
-                            <h4>Nekko</h4>
-                            <p>Pate Mèo Dạng Thạch Nekko Jelly 70g</p>
-                            <div class="cs-rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <span>(1 đánh giá)</span>
-                            </div>
-                            <span class="price1">20.000₫</span>
-                            <span class="price2">15.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat3.png" alt="Nekko">
-                            <h4>Nekko</h4>
-                            <p>Pate Mèo Dạng Sốt Nekko Gravy 70g</p>
-                            <span class="price">15.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat4.png" alt="Snappy Tom">
-                            <h4>Snappy Tom</h4>
-                            <p>Pate Mèo Snappy Tom Real Fish - Lon 400g</p>
-                            <div class="cs-rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <span>(4 đánh giá)</span>
-                            </div>
-                            <span class="price1">45.000₫</span>
-                            <span class="price2">27.500₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat5.png" alt="CattyMan">
-                            <h4>CattyMan</h4>
-                            <p>Pate Mèo Joyneco CattyMan Cá Tươi 60g</p>
-                            <div class="cs-rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <span>(1 đánh giá)</span>
-                            </div>
-                            <span class="price">11.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat6.png" alt="Wanpy">
-                            <h4>Wanpy</h4>
-                            <p>Pate Mèo Wanpy Súp Thịt Tươi 80g</p>
-                            <span class="price">11.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat7.png" alt="Catchy">
-                            <h4>Catchy</h4>
-                            <p>Pate Mèo Catchy Nhiều Vị Lon 400g</p>
-                            <div class="cs-rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <span>(2 đánh giá)</span>
-                            </div>
-                            <span class="price">27.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat8.png" alt="Kings Pet">
-                            <h4>Kings Pet</h4>
-                            <p>Pate Cho Chó Mèo Mọi Lứa Tuổi Thịt Tươi Kings Pet (Lon 380g)</p>
-                            <div class="cs-rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <span>(1 đánh giá)</span>
-                            </div>
-                            <span class="price1">45.000₫</span>
-                            <span class="price2">40.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat9.png" alt="Snappy Tom">
-                            <h4>Snappy Tom</h4>
-                            <p>Pate Mèo Snappy Tom Real Fish Nhiều Vị 85g</p>
-                            <div class="cs-rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <span>(2 đánh giá)</span>
-                            </div>
-                            <span class="price">11.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
-                        <div class="cs-item">
-                            <img src="~/images/pate_cat10.png" alt="MeoWow">
-                            <h4>MeoWow</h4>
-                            <p>Pate Cho Mèo Meowow Súp Cá Ngừ Trắng Nguyên Miếng Lon 80g</p>
-                            <span class="price">24.000₫</span>
-                            <i class="fa-regular fa-heart cs-icon"></i>
-                        </div>
-
+                        }
                     </div>
                 </div>
 
                 <div class="cs-see-more">
-                    <span class="sm-span">Trang 1/10</span>
-                    <button class="sm-btn">Xem thêm</button>
+                    <span class="sm-span">Hiển thị @Model.Products.Count sản phẩm</span>
                 </div>
             </div>
         </div>
@@ -214,7 +140,6 @@
         <div class="cs-description">
             <h3>Recently Viewed Products</h3>
             <div class="cs-des-container">
-                <h2>PATE CHO MÈO CON</h2>
                 <h2>Pate Cho Mèo Con | Wet Food For Kitten</h2>
                 <br>
                 <p>
@@ -223,33 +148,6 @@
                     Pate sẽ có dạng ướt, lỏng, có mùi thơm kích thích vị giác của mèo.
                     Cùng <strong>Paddy</strong> giới thiệu về các vai trò của pate dành cho mèo con trong quá trình chăm sóc "Hoàng Thượng" nhé
                 </p>
-                <br>
-                <ul>
-                    <li><h2>Tại sao nên sử dụng pate cho mèo?</h2></li>
-                    <br>
-                    <p>
-                        Pate cho mèo cực kỳ phù hợp đối với những bé mèo lười uống nước, vì 70% thành phần trong pate là nước.
-                        Loại thức ăn này có công thức hàm lượng chất dinh dưỡng cân bằng,
-                        giúp bé mèo nhà bạn phát triển toàn diện hơn.
-                    </p>
-                    <br>
-                    <p>
-                        Nếu như hạt khô không thể mang đủ các dưỡng chất cần thiết thì các loại pate cho mèo sẽ hỗ trợ điều đó.
-                        Đặc biệt đối với những chú mèo con, hoặc mèo đang gặp vấn đề về sức khỏe thì kết cấu mềm
-                        của pate sẽ là sự lựa chọn hợp lý, giúp chúng dễ tiêu hóa.
-                    </p>
-                    <br>
-                    <p>
-                        Việc bổ sung hàm lượng dinh dưỡng cần thiết từ pate sẽ giúp các bé tăng được sức đề kháng,
-                        không bị các bệnh vặt và hệ miễn dịch luôn được bảo vệ.
-                    </p>
-                    <br>
-                    <li>
-                        Các Hãng Pate Dành Cho Mèo Con đang Hot trên thị trường
-                        như <strong>Pate Nekko</strong> , <strong>Pate Whiskas</strong>, <strong>Pate Snappy Tom</strong>
-                        hay <strong>Pate Aatas</strong> , <strong>Pate Royal Canin Mother & Babycat</strong> , <strong>Pate Ciao</strong>.
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

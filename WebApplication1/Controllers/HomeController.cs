@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient; // Thêm thư viện MySQL
+using System.Data.Common;
 using System.Diagnostics;
 using WebApplication1.Models;
+using WebShop.Models;
 
 
 namespace WebShop.Controllers
@@ -9,20 +11,92 @@ namespace WebShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly DatabaseService _databaseService; // Dùng Service thay vì MySqlConnection trực tiếp
+        private readonly IConfiguration _configuration;
+        private readonly DatabaseService _databaseService;
 
-        // Constructor nhận MySqlConnection và ILogger qua Dependency Injection
-        public HomeController(ILogger<HomeController> logger, DatabaseService databaseService)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, DatabaseService databaseService)
         {
             _logger = logger;
+            _configuration = configuration;
             _databaseService = databaseService;
+        }
+
+        //Lấy chuỗi kết nối
+        private string GetConnectionString() => _configuration.GetConnectionString("DefaultConnection");
+
+        //Hàm xử lý dữ liệu
+        private HomeViewModel LoadHomeData()
+        {
+            var model = new HomeViewModel();
+
+            using (var conn = new MySqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+
+                //Sp giảm giá
+                string sqlDiscount = @"
+                    SELECT p.id, p.name, p.price, p.sale_price, pi.image_url
+                    FROM Products p
+                    LEFT JOIN Product_Images pi ON p.id = pi.product_id AND pi.is_main = 1
+                    WHERE p.sale_price > 0 AND p.sale_price < p.price
+                    ORDER BY (p.price - p.sale_price) DESC
+                    LIMIT 8";
+
+                using (var cmd = new MySqlCommand(sqlDiscount, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        model.DiscountedProducts.Add(new ProductViewModel
+                        {
+                            Id = reader["id"].ToString(),
+                            Name = reader["name"].ToString(),
+                            Price = Convert.ToDecimal(reader["price"]),
+                            SalePrice = reader["sale_price"] != DBNull.Value ? Convert.ToDecimal(reader["sale_price"]) : null,
+                            ImageUrl = reader["image_url"] != DBNull.Value ? reader["image_url"].ToString() : "/images/default.png"
+                        });
+                    }
+                }
+
+                //Sp đề xuất
+                string sqlRecommend = @"
+                    SELECT p.id, p.name, p.price, p.sale_price, pi.image_url
+                    FROM Products p
+                    LEFT JOIN Product_Images pi ON p.id = pi.product_id AND pi.is_main = 1
+                    ORDER BY RAND() 
+                    LIMIT 8";
+
+                using (var cmd = new MySqlCommand(sqlRecommend, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        model.RecommendedProducts.Add(new ProductViewModel
+                        {
+                            Id = reader["id"].ToString(),
+                            Name = reader["name"].ToString(),
+                            Price = Convert.ToDecimal(reader["price"]),
+                            SalePrice = reader["sale_price"] != DBNull.Value ? Convert.ToDecimal(reader["sale_price"]) : null,
+                            ImageUrl = reader["image_url"] != DBNull.Value ? reader["image_url"].ToString() : "/images/default.png"
+                        });
+                    }
+                }
+            }
+            return model;
         }
 
         public IActionResult Index()
         {
             string userId = User.Identity.Name ?? "Guest";
             ViewBag.WishlistIds = _databaseService.GetWishlistProductIds(userId);
-            return View();
+            var model = LoadHomeData();
+            return View(model);
+        }
+
+        public IActionResult IndexAfterLogin()
+        {
+            var model = LoadHomeData();
+            return View(model);
         }
 
         public IActionResult Privacy()
