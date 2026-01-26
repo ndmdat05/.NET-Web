@@ -36,7 +36,7 @@ namespace WebShop.Controllers
                 using var conn = new MySql.Data.MySqlClient.MySqlConnection(_connectionString);
                 conn.Open();
 
-                string sql = "SELECT id, email, password, lock, role FROM Users WHERE email = @email LIMIT 1";
+                string sql = "SELECT id, email, password, `lock`, role FROM Users WHERE email = @email LIMIT 1";
 
                 using var cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@email", model.Email);
