@@ -16,9 +16,9 @@ namespace WebShop.Controllers
         {
             var cart = HttpContext.Session.Get<List<Models.CartItem>>("Cart") ?? new List<CartItem>();
             ViewBag.totalAmount = cart.Sum(item => item.Total);
-            return View("Cart");
+            return View(cart);
         }
-        public IActionResult AddToCart(string id, int quantity = 1)
+        public IActionResult AddToCart(String id, int quantity = 1)
         {
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new List<CartItem>();
             var existingItem = cart.FirstOrDefault(x => x.ProductId == id);
@@ -98,7 +98,7 @@ namespace WebShop.Controllers
                                 ProductId = reader["id"].ToString(),
                                 ProductName = reader["name"].ToString(),
                                 Price = Convert.ToDecimal(reader["final_price"]),
-                                imageUrl = reader["image_url"] != DBNull.Value ? reader["image_url"].ToString() : "/images/default.png"
+                                ImageUrl = reader["image_url"] != DBNull.Value ? reader["image_url"].ToString() : "/images/default.png"
                             };
                         }
                     }
@@ -109,11 +109,46 @@ namespace WebShop.Controllers
         
 
         public IActionResult Payment() => View();
-       
+
 
         public IActionResult NotifyPayment()
         {
+            var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
+
+            if (cart != null && cart.Any())
+            {
+                var orders = HttpContext.Session.Get<List<OrderViewModel>>("Orders")
+                             ?? new List<OrderViewModel>();
+
+                var newOrder = new OrderViewModel
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CustomerName = "Guest",
+                    Phone = "000000000",
+                    Address = "Chưa có",
+                    OrderDate = DateTime.Now,
+                    Status = "Shipping",
+                    TotalAmount = cart.Sum(c => c.Total)
+                };
+
+                // Lưu chi tiết đơn (OrderItem)
+                var orderItems = cart.Select(c => new OrderItem
+                {
+                    ProductId = c.ProductId,
+                    ProductName = c.ProductName,
+                    ProductImage = c.ImageUrl,
+                    Quantity = c.Quantity,
+                    UnitPrice = c.Price
+                }).ToList();
+
+                HttpContext.Session.Set("Orders", orders);
+                HttpContext.Session.Set("OrderItems_" + newOrder.Id, orderItems);
+
+                HttpContext.Session.Remove("Cart");
+            }
+
             return View("NotifyPayment");
         }
+
     }
 }

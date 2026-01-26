@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace WebShop.Helpers
 {
-    public static class sessionExtensions
+    public static class SessionExtensions
     {
         public static void Set<T>(this ISession session, string key, T value)
         {

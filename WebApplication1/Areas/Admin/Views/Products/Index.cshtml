@@ -3,61 +3,111 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Danh sách Hàng hóa</h2>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
 
-<a asp-action="Create" class="btn btn-primary mb-3">
-    <i class="fas fa-plus"></i> Thêm Sản phẩm mới
-</a>
+<div class="d-flex justify-content-between align-items-center py-3 mb-4 border-bottom">
+    <h2 class="m-0 font-weight-bold text-primary">Danh sách Hàng hóa</h2>
+</div>
 
-<table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <th>Hình ảnh</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá bán</th>
-            <th>Tồn kho</th>
-            <th>Danh mục</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Count > 0)
-        {
-            foreach (var item in Model)
-            {
+<div class="mb-4">
+    <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Thêm Sản phẩm mới
+    </a>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body p-0">
+        <table class="table table-striped table-hover mb-0 align-middle">
+            <thead class="bg-light text-dark">
                 <tr>
-                    <td>
-                        <img src="@item.MainImage" width="60" height="60" style="object-fit:cover; border: 1px solid #ddd; border-radius: 4px;"
-                             onerror="this.src='/images/default.png'" />
-                    </td>
-                    <td>@item.Name</td>
-                    <td style="color: red; font-weight: bold;">@item.Price.ToString("N0") đ</td>
-                    <td>
-                        @if (item.Quantity < 10)
-                        {
-                            <span class="badge bg-danger">Sắp hết: @item.Quantity</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-success">@item.Quantity</span>
-                        }
-                    </td>
-                    <td>@item.CategoryName</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning" title="Sửa">
-                            <i class="fas fa-edit"></i>
-                        </a>
-
-                        <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
-                    </td>
+                    <th class="py-3 ps-4">Hình ảnh</th>
+                    <th class="py-3">Tên sản phẩm</th>
+                    <th class="py-3">Giá bán</th>
+                    <th class="py-3">Tồn kho</th>
+                    <th class="py-3">Danh mục</th>
+                    <th class="py-3 text-center">Hành động</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="product-img-col py-4 ps-4">
+                                <img src="@item.MainImage" class="product-img"
+                                     onerror="this.src='/images/default.png'" />
+                            </td>
+                            <td class="product-name-cell py-4">
+                                <span class="product-name">@item.Name</span>
+                                <small class="product-cat-small">@item.CategoryName</small>
+                            </td>
+                            <td class="py-4">
+                                <span class="product-price">@item.Price.ToString("N0") đ</span>
+                            </td>
+                            <td class="py-4">
+                                @if (item.Quantity == 0)
+                                {
+                                    <span class="badge-soft badge-soft-danger">Hết hàng</span>
+                                }
+                                else if (item.Quantity < 10)
+                                {
+
+                                    <span class="badge-soft badge-soft-warning">Sắp hết: @item.Quantity</span>
+                                }
+                                else
+                                {
+
+                                    <span class="badge-soft badge-soft-success">Sẵn hàng: @item.Quantity</span>
+                                }
+                            </td>
+                            <td class="py-4">@item.CategoryName</td>
+                            <td class="text-center py-4">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning mx-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="javascript:void(0)" onclick="deleteProduct('@item.Id')" class="btn btn-sm btn-outline-danger mx-1">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteProduct(id) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Sản phẩm sẽ bị xóa vĩnh viễn cùng với hình ảnh!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Vâng, xóa nó!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/Products/Delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.success) {
+                                Swal.fire('Đã xóa!', res.message, 'success')
+                                .then(() => { location.reload(); });
+                            } else {
+                                Swal.fire('Lỗi!', res.message, 'error');
+                            }
+                        }
+                    });
+                }
+            })
         }
-        else
-        {
-            <tr>
-                <td colspan="6" class="text-center">Chưa có sản phẩm nào. Hãy bấm nút Thêm mới!</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    </script>
+}

@@ -1,82 +1,44 @@
-﻿@model WebShop.Models.Product
+﻿@model WebShop.Models.Category
 @{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    // Nhận danh sách danh mục từ Controller
-    var categories = ViewBag.Categories as List<WebShop.Models.Category>;
+    ViewData["Title"] = "Thêm Danh Mục";
 }
 
-<div class="card shadow mb-4">
+<div class="card shadow mb-4" style="max-width: 800px; margin: 0 auto;">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Thêm Sản Phẩm Mới</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Thêm Danh Mục Mới</h6>
     </div>
     <div class="card-body">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <form asp-action="Create" method="post">
 
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group mb-3">
-                        <label>Tên sản phẩm (*)</label>
-                        <input asp-for="Name" class="form-control" required />
-                    </div>
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Tên danh mục (*)</label>
+                <input asp-for="CategoryName" class="form-control" required placeholder="Ví dụ: Thức ăn cho mèo" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label>Giá bán (VNĐ)</label>
-                            <input asp-for="Price" type="number" class="form-control" required />
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label>Số lượng kho</label>
-                            <input asp-for="Quantity" type="number" class="form-control" value="10" />
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label>Danh mục</label>
-                        <select asp-for="CategoryId" class="form-control">
-                            <option value="">-- Chọn danh mục --</option>
-                            @if (categories != null)
-                            {
-                                foreach (var cat in categories)
-                                {
-                                    <option value="@cat.Id">@cat.CategoryName</option>
-                                }
-                            }
-                        </select>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label>Mô tả chi tiết</label>
-                        <textarea asp-for="Desc" class="form-control" rows="4"></textarea>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <label>Ảnh đại diện</label>
-                    <div class="border p-3 text-center" style="border-radius: 5px; border-style: dashed !important;">
-                        <img id="previewImg" src="/images/default.png" style="max-width: 100%; height: auto; margin-bottom: 10px;" />
-
-                        <input type="file" name="ImageFile" id="ImageFile" class="form-control" onchange="previewFile(this);" />
-                        <small class="text-muted">Chọn ảnh .jpg, .png, .webp</small>
-                    </div>
-                </div>
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Mô tả</label>
+                <textarea asp-for="Description" class="form-control" rows="5" placeholder="Nhập mô tả cho loại hàng này..."></textarea>
             </div>
 
             <hr />
-            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Lưu Sản Phẩm</button>
-            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Lưu Danh Mục
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+            </div>
+
         </form>
     </div>
 </div>
 
-<script>
-    function previewFile(input){
-        var file = input.files[0];
-        if(file){
-            var reader = new FileReader();
-            reader.onload = function(){
-                document.getElementById("previewImg").src = reader.result;
-            }
-            reader.readAsDataURL(file);
-        }
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-</script>
+}

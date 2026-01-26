@@ -1,0 +1,67 @@
+﻿@model List<WebShop.Models.UserViewModelAdmin>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Quản lý khách hàng";
+}
+
+<div class="container-fluid p-4">
+    <h2 class="mb-4 text-primary fw-bold">Danh sách Khách hàng</h2>
+
+    <div class="card shadow">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0 align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Email</th>
+                            <th>Họ tên</th>
+                            <th>SĐT / Địa chỉ</th>
+                            <th>Vai trò</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4 fw-bold text-primary">@item.Email</td>
+                                    <td>@item.FullName</td>
+                                    <td>
+                                        <div><i class="fas fa-phone fa-xs text-muted"></i> @item.Phone</div>
+                                        <small class="text-muted"><i class="fas fa-map-marker-alt fa-xs"></i> @item.Address</small>
+                                    </td>
+                                    <td>
+                                        @if (item.Role == "admin")
+                                        {
+                                            <span class="badge bg-danger">Admin</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info text-dark">Khách hàng</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.IsLocked)
+                                        {
+                                            <span class="badge bg-secondary"><i class="fas fa-lock"></i> Đã khóa</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success"><i class="fas fa-check"></i> Hoạt động</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="5" class="text-center py-4">Chưa có khách hàng nào.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
