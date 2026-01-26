@@ -11,14 +11,19 @@ builder.Services.AddControllersWithViews();
 // Chuỗi kết nối
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddScoped<MySqlConnection>(sp => new MySqlConnection(connectionString));
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DatabaseService>();
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+}); 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
-builder.Services.AddTransient<DatabaseService>();
+//builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
+//builder.Services.AddTransient<DatabaseService>();
 
 var app = builder.Build();
 
@@ -30,13 +35,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection(); 
-app.UseSession();
+//app.UseSession();
 app.UseStaticFiles(); // Cho phép load file css, js, images trong wwwroot
 app.UseRouting();
-app.UseAuthorization();
 app.UseSession();
-
 app.UseAuthorization();
+
+
+//app.UseAuthorization();
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
