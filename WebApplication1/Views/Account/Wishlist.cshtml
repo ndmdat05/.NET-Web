@@ -1,3 +1,6 @@
+@using WebShop.Models
+@model List<Wishlist>
+
 @{
     ViewData["Title"] = "Danh sách sản phẩm yêu thích";
 }
@@ -11,74 +14,60 @@
         <div class="wl-header">
             <h2>Danh sách sản phẩm yêu thích</h2>
         </div>
-        <div class="wl-slider">
-            <div class="wl-wrapper">
-                <div class="wl-item">
-                    <a asp-controller="Product" asp-action="Detail" asp-route-id="1">
-                        <img src="~/images/deal1.png" alt="Silver Spoon">
-                    </a>
-                    <h4>Silver Spoon</h4>
-                    <p>Súp Thưởng Cho Mèo Silver Spoon (Túi 8 tuýp*6g)</p>
-                    <span class="price">27.000₫</span>
-                    <i class="fa-solid fa-heart wl-icon" title="Bỏ thích"></i>
-                </div>
 
-                <div class="wl-item">
-                    <a asp-controller="Product" asp-action="Detail" asp-route-id="2">
-                        <img src="~/images/deal2.png" alt="Silver Spoon">
-                    </a>
-                    <h4>Silver Spoon</h4>
-                    <p>Pate Cho Mèo Silver Spoon Dạng Thạch & Sốt 60g</p>
-                    <span class="price">16.000₫</span>
-                    <i class="fa-solid fa-heart wl-icon"></i>
-                </div>
+        @if (Model == null || !Model.Any())
+        {
+            <p style="text-align:center; margin:40px 0;">
+                Chưa có sản phẩm nào trong danh sách yêu thích ❤️
+            </p>
+        }
+        else
+        {
+            <div class="wl-slider">
+                <div class="wl-wrapper">
+                    @foreach (var item in Model)
+                    {
+                        <div class="wl-item">
+                            <a asp-controller="Product"
+                               asp-action="Detail"
+                               asp-route-id="@item.Id">
+                                <img src="@item.Image"
+                                     alt="@item.Name">
+                            </a>
 
-                <div class="wl-item">
-                    <a asp-controller="Product" asp-action="Detail" asp-route-id="3">
-                        <img src="~/images/deal3.png" alt="Silver Spoon">
-                    </a>
-                    <h4>Silver Spoon</h4>
-                    <p>Súp Thưởng Cho Mèo Silver Spoon Dạng Thìa 10g</p>
-                    <span class="price">27.000₫</span>
-                    <i class="fa-solid fa-heart wl-icon"></i>
-                </div>
+                            <h4>@item.Name</h4>
 
-                <div class="wl-item">
-                    <a asp-controller="Product" asp-action="Detail" asp-route-id="4">
-                        <img src="~/images/deal4.png" alt="Silver Spoon">
-                    </a>
-                    <h4>Silver Spoon</h4>
-                    <p>Thức Ăn Hạt Cho Mèo Trưởng Thành Silver Spoon 1kg</p>
-                    <span class="price1">189.000₫</span>
-                    <span class="price2">150.000₫</span>
-                    <i class="fa-solid fa-heart wl-icon"></i>
-                </div>
+                            <span class="price">
+                                @item.Price.ToString("N0")₫
+                            </span>
 
-                <div class="wl-item">
-                    <a asp-controller="Product" asp-action="Detail" asp-route-id="5">
-                        <img src="~/images/fav1.webp" alt="Royal Canin">
-                    </a>
-                    <h4>Royal Canin</h4>
-                    <p>Thức Ăn Hạt Cho Mèo Trưởng Thành Nuôi Trong Nhà Royal Canin Indoor 27</p>
-                    <span class="price">132.000₫</span>
-                    <i class="fa-solid fa-heart wl-icon"></i>
+                            <!-- ❤️ BỎ YÊU THÍCH -->
+                            <i class="fa-solid fa-heart wl-icon"
+                               title="Bỏ thích"
+                               onclick="removeWishlist(@item.Id)">
+                            </i>
+                        </div>
+                    }
                 </div>
-
-                <div class="wl-item">
-                    <a asp-controller="Product" asp-action="Detail" asp-route-id="6">
-                        <img src="~/images/fav2.webp" alt="Royal Canin">
-                    </a>
-                    <h4>Royal Canin</h4>
-                    <p>Thức Ăn Hạt Cho Mèo Con Royal Canin Kitten 36</p>
-                    <span class="price">135.000₫</span>
-                    <i class="fa-solid fa-heart wl-icon"></i>
-                </div>
-
             </div>
-        </div>
+        }
     </div>
 </div>
 
 @section Scripts {
-    <script src="~/js/wishlist.js"></script>
+    <script>
+        function removeWishlist(id) {
+            fetch('/Wishlist/Toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id=${id}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.liked) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
 }
