@@ -310,6 +310,7 @@ namespace WebShop.Controllers
             // Xử lý xóa session/cookie ở đây (sau này)
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home"); // Quay về trang chủ
+            //chịu chết
         }
     }
 }
