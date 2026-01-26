@@ -69,7 +69,7 @@
             </div>
 
             <div class="product-size" style="margin-top: 20px;">
-                <p style="font-weight: bold; margin-bottom: 10px;">Chọn Size:</p>
+                <p style="font-weight: bold; margin-bottom: 10px;">Chọn:</p>
                 <div class="size-options" style="display: flex; gap: 10px;">
 
                     <button type="button"
@@ -82,14 +82,22 @@
 
                     @if (Model.Variants != null)
                     {
-                        foreach (var variant in Model.Variants)
+                        @foreach (var variant in Model.Variants)
                         {
                             <button type="button"
                                     class="size-btn"
                                     data-price="@variant.FinalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                                     data-stock="@variant.Stock"
                                     style="padding: 8px 15px; border: 1px solid #ccc; background: #fff; color: #333; border-radius: 5px; cursor: pointer;">
-                                @variant.Weight.ToString("0.#") kg
+
+                                @if (!string.IsNullOrEmpty(variant.VariantName))
+                                {
+                                    @variant.VariantName
+                                }
+                                else
+                                {
+                                    @(variant.Weight.ToString("0.#") + " kg")
+                                }
                             </button>
                         }
                     }
