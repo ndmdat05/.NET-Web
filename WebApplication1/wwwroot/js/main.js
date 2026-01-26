@@ -1,92 +1,82 @@
-const heartButtons = document.querySelectorAll(".deal-icon, .dp-icon");
-heartButtons.forEach(icon => {
-    icon.addEventListener("click", function () {
-        this.classList.toggle("active");
+// --- PHẦN 1: XỬ LÝ WISHLIST (Thả tim) ---
+// Hàm xử lý thả tim (Dùng chung cho cả Trang chủ và Chi tiết)
+function toggleHomeWishlist(event, element, productId) {
+    // 1. Chặn hành vi mặc định (chặn chuyển trang)
+    event.preventDefault();
+    event.stopPropagation(); // Quan trọng: Chặn sự kiện nổi bọt lên thẻ <a>
 
-        if (this.classList.contains("active")) {
-            alert("Đã thêm sản phẩm vào yêu thích thành công!");
-            this.classList.remove("fa-regular");
-            this.classList.add("fa-solid");
-            this.style.color = "red";
+    // 2. Gửi AJAX
+    $.post('/Wishlist/Toggle', { id: productId }, function (response) {
+        if (response.success) {
+            if (response.liked) {
+                // Đã thích -> Đỏ
+                $(element).removeClass('fa-regular').addClass('fa-solid').css('color', 'red');
+            } else {
+                // Bỏ thích -> Trắng
+                $(element).removeClass('fa-solid').addClass('fa-regular').css('color', '');
+            }
+        } else {
+            alert("Có lỗi xảy ra!");
         }
-        else {
-            alert("Đã xóa sản phẩm khỏi danh sách yêu thích");
-            this.classList.remove("fa-solid");
-            this.classList.add("fa-regular");
-            this.style.color = "";
-        }
+    }).fail(function () {
+        alert("Lỗi kết nối server!");
     });
-});
+}
 
+// --- PHẦN 2: SLIDER (Chạy Banner trang chủ) ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Lấy các phần tử dựa trên class HTML cũ của bạn
-    const sliderTrack = document.querySelector('.slider-item'); // Khung chứa các ảnh
-    const dots = document.querySelectorAll('.dots i'); // Các dấu chấm tròn
-    const container = document.getElementById('slider-container'); // Khung bao ngoài cùng
+    // 1. Lấy các phần tử
+    const sliderTrack = document.querySelector('.slider-item');
+    const dots = document.querySelectorAll('.dots i');
+    const container = document.getElementById('slider-container');
 
-    // Kiểm tra an toàn: Nếu không tìm thấy slider thì dừng code để tránh lỗi
+    // QUAN TRỌNG: Nếu không tìm thấy slider (ví dụ đang ở trang Wishlist),
+    // thì chỉ cần return để dừng code lại, KHÔNG cần báo lỗi console.warn nữa.
     if (!sliderTrack || !container) {
-        console.warn("Không tìm thấy slider trong HTML. Kiểm tra lại class '.slider-item' hoặc id 'slider-container'.");
         return;
     }
 
-    // Đếm số lượng ảnh
+    // --- Code xử lý slider (giữ nguyên logic cũ của bạn) ---
     const slides = sliderTrack.children;
     const totalSlides = slides.length;
-
-    // Nếu không có ảnh nào hoặc số dot không khớp số ảnh, code vẫn chạy nhưng cần lưu ý
     if (totalSlides === 0) return;
 
     let currentIndex = 0;
     let autoPlayInterval;
-    const timeDelay = 3500; // Thời gian chuyển slide (3.5 giây)
+    const timeDelay = 3500;
 
-    // 2. Hàm chuyển Slide
     function goToSlide(index) {
-        // Xử lý vòng lặp: Nếu quá cuối thì về 0, nếu nhỏ hơn 0 thì về cuối
         if (index >= totalSlides) index = 0;
         if (index < 0) index = totalSlides - 1;
-
         currentIndex = index;
-
-        // Di chuyển khung ảnh bằng CSS transform
-        // Lưu ý: CSS của bạn phải có .slider-item { display: flex; transition: transform... }
         sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-        // Cập nhật trạng thái Dot (Dựa trên FontAwesome class cũ của bạn)
         updateDots();
     }
 
-    // 3. Hàm cập nhật giao diện chấm tròn
     function updateDots() {
         dots.forEach((dot, idx) => {
             if (idx === currentIndex) {
-                // Dot đang chọn: Dùng hình tròn đặc (fa-solid)
                 dot.classList.remove('fa-regular');
                 dot.classList.add('fa-solid');
-                dot.style.opacity = '1'; // Làm đậm lên
+                dot.style.opacity = '1';
             } else {
-                // Dot chưa chọn: Dùng viền tròn (fa-regular)
                 dot.classList.remove('fa-solid');
                 dot.classList.add('fa-regular');
-                dot.style.opacity = '0.5'; // Làm mờ đi
+                dot.style.opacity = '0.5';
             }
         });
     }
 
-    // 4. Xử lý sự kiện Click vào Dot
     dots.forEach((dot, index) => {
-        dot.style.cursor = 'pointer'; // Thêm con trỏ tay để biết click được
+        dot.style.cursor = 'pointer';
         dot.addEventListener('click', () => {
-            stopAutoPlay(); // Dừng tự chạy khi người dùng tương tác
-            goToSlide(index); // Chuyển đến slide tương ứng
-            startAutoPlay(); // Chạy lại sau khi click
+            stopAutoPlay();
+            goToSlide(index);
+            startAutoPlay();
         });
     });
 
-    // 5. Tự động chạy (Auto Play)
     function startAutoPlay() {
-        // Xóa interval cũ nếu có để tránh chạy chồng chéo
         stopAutoPlay();
         autoPlayInterval = setInterval(() => {
             goToSlide(currentIndex + 1);
@@ -94,16 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function stopAutoPlay() {
-        if (autoPlayInterval) {
-            clearInterval(autoPlayInterval);
-        }
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
     }
 
-    // 6. Tạm dừng khi rê chuột vào Slider
     container.addEventListener('mouseenter', stopAutoPlay);
     container.addEventListener('mouseleave', startAutoPlay);
 
-    // --- KHỞI CHẠY LẦN ĐẦU ---
-    updateDots(); // Cập nhật dot đầu tiên
-    startAutoPlay(); // Bắt đầu chạy
+    updateDots();
+    startAutoPlay();
 });

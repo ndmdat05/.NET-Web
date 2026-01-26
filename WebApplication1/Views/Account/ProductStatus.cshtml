@@ -1,75 +1,70 @@
-@model List<WebShop.Models.OrderViewModel>
+@model List<WebShop.Models.HistoryOrderViewModel>
 
 @{
-    ViewData["Title"] = "Trạng thái đơn hàng";
+    ViewData["Title"] = "Lịch sử đơn hàng";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/PStatus_Style.css">
-}
-
-<div class="product-status">
-    <div class="ps-container">
-        <div class="ps-header">
-            <h2>Trạng thái đơn hàng đã đặt</h2>
-        </div>
-
-        <div class="ps-content">
-            <table class="ps-table">
-                <thead>
-                    <tr>
-                        <th>ĐƠN HÀNG</th>
-                        <th>TỔNG TIỀN</th>
-                        <th>TRẠNG THÁI</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                @if (Model != null && Model.Any())
-                {
-                    foreach (var order in Model)
-                    {
-                        <tr class="ps-item">
-                            <td class="ps-info">
-                                <div>
-                                    <p class="ps-name">Đơn hàng #@order.Id</p>
-                                    <p class="ps-brand">
-                                        Ngày đặt: @order.OrderDate.ToString("dd/MM/yyyy")
-                                    </p>
-                                </div>
-                            </td>
-
-                            <td class="ps-price">
-                                @order.TotalAmount.ToString("N0")đ
-                            </td>
-
-                            <td class="ps-stt">
-                                @order.Status
-                            </td>
-
-                            <td class="ps-details">
-                                <a asp-controller="Account"
-                                   asp-action="StatusDetails"
-                                   asp-route-id="@order.Id"
-                                   class="ps-button">
-                                    Xem chi tiết
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="4" style="text-align:center">
-                            Chưa có đơn hàng nào
-                        </td>
-                    </tr>
-                }
-                </tbody>
-
-            </table>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h4 class="mb-0 text-primary"><i class="fa-solid fa-box-open me-2"></i>Lịch sử đơn hàng</h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4 py-3">Mã đơn hàng</th>
+                                    <th class="py-3">Ngày đặt</th>
+                                    <th class="py-3">Tổng tiền</th>
+                                    <th class="py-3">Trạng thái</th>
+                                    <th class="py-3 text-end pe-4">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var order in Model)
+                                    {
+                                        <tr>
+                                            <td class="ps-4 fw-bold text-dark">#@order.OrderId</td>
+                                            <td class="text-muted">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td class="fw-bold text-danger">@order.TotalAmount.ToString("N0")đ</td>
+                                            <td>
+                                                @{
+                                                    // Logic tô màu badge trạng thái
+                                                    string badgeClass = "bg-secondary";
+                                                    if (order.Status.Contains("Giao") || order.Status.Contains("Hoàn thành")) badgeClass = "bg-success";
+                                                    else if (order.Status.Contains("Hủy")) badgeClass = "bg-danger";
+                                                    else if (order.Status.Contains("Xử lý") || order.Status.Contains("Chờ")) badgeClass = "bg-warning text-dark";
+                                                }
+                                                <span class="badge rounded-pill @badgeClass">@order.Status</span>
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <a asp-action="StatusDetails" asp-route-id="@order.OrderId" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                                    Xem chi tiết <i class="fa-solid fa-arrow-right ms-1"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center py-5">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/4076/4076432.png" width="80" class="mb-3 opacity-50" alt="Empty">
+                                            <p class="text-muted mb-0">Bạn chưa có đơn hàng nào.</p>
+                                            <a href="/" class="btn btn-primary mt-3">Mua sắm ngay</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

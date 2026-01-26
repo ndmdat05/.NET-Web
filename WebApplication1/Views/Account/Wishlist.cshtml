@@ -1,54 +1,34 @@
-@using WebShop.Models
-@model List<Wishlist>
-
+@model List<WebShop.Models.WishlistViewModel>
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
-    ViewData["Title"] = "Danh sách sản phẩm yêu thích";
-}
-
-@section Styles {
-    <link rel="stylesheet" href="~/css/wishlist_Style.css">
+    ViewData["Title"] = "Sản phẩm yêu thích";
+    var currentUserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 
 <div class="wish-list">
     <div class="wl-container">
-        <div class="wl-header">
-            <h2>Danh sách sản phẩm yêu thích</h2>
-        </div>
+        <h2>Danh sách sản phẩm yêu thích</h2>
 
         @if (Model == null || !Model.Any())
         {
-            <p style="text-align:center; margin:40px 0;">
-                Chưa có sản phẩm nào trong danh sách yêu thích ❤️
-            </p>
+            <p style="text-align:center; margin: 20px;">Chưa có sản phẩm nào ❤️</p>
         }
         else
         {
-            <div class="wl-slider">
-                <div class="wl-wrapper">
-                    @foreach (var item in Model)
-                    {
-                        <div class="wl-item">
-                            <a asp-controller="Product"
-                               asp-action="Detail"
-                               asp-route-id="@item.Id">
-                                <img src="@item.Image"
-                                     alt="@item.Name">
-                            </a>
+            <div class="wl-wrapper" style="display:flex; flex-wrap:wrap; gap:20px;">
+                @foreach (var item in Model)
+                {
+                    <div class="wl-item" style="border:1px solid #ddd; padding:10px; width:200px;">
+                        <img src="@item.ImageUrl" alt="@item.ProductName" style="width:100%; height:auto;">
+                        <h4>@item.ProductName</h4>
+                        <span class="price">@item.Price.ToString("N0")₫</span>
 
-                            <h4>@item.Name</h4>
-
-                            <span class="price">
-                                @item.Price.ToString("N0")₫
-                            </span>
-
-                            <!-- BỎ YÊU THÍCH -->
-                            <i class="fa-solid fa-heart wl-icon"
-                               title="Bỏ thích"
-                               onclick="removeWishlist(@item.Id)">
-                            </i>
-                        </div>
-                    }
-                </div>
+                        <button onclick="removeWishlist('@item.ProductId')" class="btn btn-danger btn-sm" style="margin-top:5px;">
+                            Bỏ thích
+                        </button>
+                    </div>
+                }
             </div>
         }
     </div>
@@ -57,16 +37,8 @@
 @section Scripts {
     <script>
         function removeWishlist(id) {
-            fetch('/Wishlist/Toggle', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `id=${id}`
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (!data.liked) {
-                    location.reload();
-                }
+            $.post("/Wishlist/Toggle", { id: id }, function(data) {
+                location.reload();
             });
         }
     </script>

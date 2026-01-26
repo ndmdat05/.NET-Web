@@ -170,14 +170,13 @@
                     {
                         <a href="/Product/Detail?id=@item.Id" class="di-link">
                             <div class="deal-item">
-                                <img src="@item.ImageUrl" alt="@item.Name" onerror="this.src='/images/default.png'">
-                                <h4>@item.Name</h4>
-                                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@item.Name</p>
-
                                 <span class="price">
                                     @(item.SalePrice > 0 ? item.SalePrice?.ToString("N0") : item.Price.ToString("N0"))đ
                                 </span>
-                                <i class="fa-regular fa-heart deal-icon"></i>
+
+                                <i class="fa-regular fa-heart deal-icon"
+                                   data-id="@item.Id"
+                                   onclick="toggleHomeWishlist(event, this, '@item.Id')"></i>
                             </div>
                         </a>
                     }

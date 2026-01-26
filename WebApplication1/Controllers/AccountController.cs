@@ -13,7 +13,11 @@ namespace WebShop.Controllers
     {
         private readonly string _connectionString =
            "Server=127.0.0.1;Database=DOCNET;User Id=root;Password=123456;Port=3306;";
-
+        private readonly DatabaseService _dbService;
+        public AccountController(DatabaseService dbService)
+        {
+            _dbService = dbService;
+        }
         // 1. Đăng nhập
         // URL: /Account/Login
         [HttpGet]
@@ -277,31 +281,30 @@ namespace WebShop.Controllers
             return View(); // Tự động tìm Views/Account/Wishlist.cshtml
         }
 
-        
-        
-           
-            // 7. DANH SÁCH ĐƠN HÀNG
-            // URL: /Account/ProductStatus
-           
-            public IActionResult ProductStatus()
-            {
-            var orders = HttpContext.Session.Get<List<OrderViewModel>>("Orders");
 
-            if (orders == null)
-                orders = new List<OrderViewModel>(); 
 
-            return View(orders); 
+
+        // 7. DANH SÁCH ĐƠN HÀNG
+        public IActionResult ProductStatus()
+        {
+            string userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login");
+
+            // Lấy từ DB
+            var orders = _dbService.GetUserOrders(userId);
+            return View(orders);
         }
 
         // 8. Chi tiết đơn hàng
-        // URL: /Account/StatusDetails/5
+        // URL: /Account/StatusDetails?id=...
         public IActionResult StatusDetails(string id)
         {
-         var items = HttpContext.Session.Get<List<OrderItem>>("OrderItems_" + id)
-                        ?? new List<OrderItem>();
-                                                // Sau này sẽ dùng id để lấy dữ liệu đơn hàng từ DB
-                                                     // Tự động tìm Views/Account/StatusDetails.cshtml
-            return View(items); 
+            string userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login");
+
+            // Lấy từ DB
+            var items = _dbService.GetOrderDetails(id);
+            return View(items);
         }
 
         // 9. Đăng xuất

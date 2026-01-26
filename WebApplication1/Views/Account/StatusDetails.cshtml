@@ -1,72 +1,79 @@
-@model List<WebShop.Models.OrderItem>
+@model List<WebShop.Models.OrderDetailViewModel>
+
 @{
-    ViewData["Title"] = "Chi tiết trạng thái đơn hàng";
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    decimal grandTotal = Model?.Sum(x => x.TotalPrice) ?? 0;
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/SDetail_Style.css">
-}
-
-<div class="status-detail">
-    <div class="sd-container">
-        <div class="sd-header">
-            <h2>Chi tiết trạng thái đơn hàng</h2>
-        </div>
-        <div class="sd-content">
-            @if (Model != null && Model.Any())
-{
-    foreach (var item in Model)
-    {
-        <div class="sd-info">
-            <img src="@item.ProductImage" class="sd-img">
-
-            <div class="sd-item">
-                <p class="sd-name">@item.ProductName</p>
-                <p class="sd-price">
-                    Giá:
-                    <span class="sd-price-detail">
-                        @item.UnitPrice.ToString("N0")đ
-                    </span>
-                </p>
-                <p>Số lượng: @item.Quantity</p>
-            </div>
-        </div>
-    }
-}
-else
-{
-    <p>Không tìm thấy chi tiết đơn hàng.</p>
-}
-}
-
-            </div>
-
-            <div class="sd-line">
-                <i class="bi bi-dot active"></i>
-                <div class="line-between active"></div>
-
-                <i class="bi bi-dot active"></i>
-                <div class="line-between active"></div>
-
-                <i class="bi bi-dot active"></i>
-                <div class="line-between"></div>
-
-                <i class="bi bi-dot"></i>
-            </div>
-
-            <div class="sd-labels">
-                <span class="label active">Đã đặt hàng</span>
-                <span class="label active">Đang đóng gói</span>
-                <span class="label active">Đang vận chuyển</span>
-                <span class="label">Đã giao</span>
-            </div>
-
-            <div class="sd-return">
-                <a asp-controller="Account"
-                   asp-action="ProductStatus"
-                   class="bt-return">
-                    Trở lại trang "Trạng thái đơn hàng"
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="mb-3">
+                <a href="/Account/ProductStatus" class="text-decoration-none text-muted hover-primary">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Quay lại danh sách
                 </a>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0"><i class="fa-solid fa-receipt me-2"></i>Thông tin đơn hàng</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="text-secondary small text-uppercase">
+                                <tr>
+                                    <th style="width: 40%">Sản phẩm</th>
+                                    <th class="text-center">Đơn giá</th>
+                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-end">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="@item.ImageUrl" alt="@item.ProductName"
+                                                         class="rounded border me-3"
+                                                         style="width: 60px; height: 60px; object-fit: cover;"
+                                                         onerror="this.src='/images/default.png'">
+                                                    <div>
+                                                        <h6 class="mb-0 text-dark">@item.ProductName</h6>
+                                                        <small class="text-muted">Mã: @item.ProductId</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">@item.UnitPrice.ToString("N0")đ</td>
+                                            <td class="text-center">
+                                                <span class="badge bg-light text-dark border px-3 py-2">x@item.Quantity</span>
+                                            </td>
+                                            <td class="text-end fw-bold text-primary">@item.TotalPrice.ToString("N0")đ</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot class="bg-light">
+                                <tr>
+                                    <td colspan="3" class="text-end py-3">
+                                        <span class="text-muted me-3">Tổng cộng:</span>
+                                    </td>
+                                    <td class="text-end py-3">
+                                        <h5 class="mb-0 text-danger fw-bold">@grandTotal.ToString("N0")đ</h5>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-white py-3 text-end">
+                    <button class="btn btn-success" onclick="window.print()">
+                        <i class="fa-solid fa-print me-2"></i>In hóa đơn
+                    </button>
+                </div>
             </div>
         </div>
     </div>

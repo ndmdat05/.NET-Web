@@ -208,41 +208,35 @@
             if (newQty >= 1) qtyInput.value = newQty;
         }
 
-       
-        document.querySelectorAll('.wishlist-btn').forEach(btn => {
-            btn.addEventListener('click', function (e) {
-                e.preventDefault();
 
-                const icon = this.querySelector('i');
+                // --- ĐOẠN CODE MỚI ---
+        $('.wishlist-btn').click(function(e) {
+            e.preventDefault(); // Chặn load lại trang
 
-                const data = {
-                    id: this.dataset.id,
-                    name: this.dataset.name,
-                    image: this.dataset.image,
-                    price: this.dataset.price
-                };
+            var btn = $(this);
+            var icon = btn.find('i');
+            var productId = btn.data('id'); // Lấy ID sản phẩm
 
-                fetch('/Wishlist/Toggle', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams(data)
-                })
-                .then(res => res.json())
-                .then(result => {
-                    if (result.liked) {
-                        icon.classList.remove('fa-regular');
-                        icon.classList.add('fa-solid');
-                        icon.style.color = 'red';
-                    } else {
-                        icon.classList.remove('fa-solid');
-                        icon.classList.add('fa-regular');
-                        icon.style.color = '';
+            // Gửi yêu cầu lên Server
+            $.post('/Wishlist/Toggle', { id: productId }, function(response) {
+                if (response.liked) {
+                    // Đã thích -> Tim đỏ
+                    icon.removeClass('fa-regular').addClass('fa-solid').css('color', 'red');
+                } else {
+                    // Kiểm tra nếu chưa đăng nhập
+                    if (response.message === "Vui lòng đăng nhập") {
+                         alert("Bạn cần đăng nhập để thêm yêu thích!");
+                         window.location.href = "/Account/Login";
+                         return;
                     }
-                });
+                    // Đã bỏ thích -> Tim trắng
+                    icon.removeClass('fa-solid').addClass('fa-regular').css('color', '');
+                }
+            }).fail(function() {
+                alert("Lỗi kết nối server!");
             });
         });
+
         document.addEventListener("DOMContentLoaded", function() {
             console.log("Đang khởi tạo sự kiện cho các nút Size...");
 
