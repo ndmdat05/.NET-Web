@@ -785,3 +785,38 @@ ul {
     font-size: 14px;
     color: #999;
 }
+.account-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Menu ẩn mặc định */
+.account-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 180px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+/* Hiện menu khi hover */
+.account-dropdown:hover .account-menu {
+    display: flex;
+}
+
+/* Style item */
+.account-menu a {
+    padding: 10px 14px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+    .account-menu a:hover {
+        background: #f2f2f2;
+    }
