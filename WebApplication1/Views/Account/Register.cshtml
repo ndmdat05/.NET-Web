@@ -23,9 +23,11 @@
 
         <label for="password">Mật khẩu</label>
         <input asp-for="Password" type="password" id="password" placeholder="Tạo mật khẩu" required>
+            <span asp-validation-for="Password" style="color:red"></span>
 
         <label for="confirm">Nhập lại mật khẩu</label>
         <input asp-for="ConfirmPassword" type="password" id="confirm" placeholder="Nhập lại mật khẩu" required>
+            <span asp-validation-for="ConfirmPassword" style="color:red"></span>
 
         @* <a asp-controller="Home" asp-action="DangNhap" class="btn-register" onclick="registerSuccess()">Đăng ký</a> *@
             <button type="submit" class="btn-register">Đăng ký</button>

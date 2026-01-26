@@ -12,7 +12,7 @@ namespace WebShop.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
-        [MinLength(6, ErrorMessage = "Mật khẩu ít nhất 8 ký tự")]
+        [MinLength(8, ErrorMessage = "Mật khẩu ít nhất 8 ký tự")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập lại mật khẩu")]

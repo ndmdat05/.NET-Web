@@ -105,9 +105,9 @@ namespace WebShop.Controllers
             // Xử lý đăng ký ở đây (sau này)
             // Hiện tại chỉ giả lập thành công và chuyển hướng về trang đăng nhập
             if(!ModelState.IsValid) return View(model);
-            if (model.Password.Equals(model.ConfirmPassword))
+            if (!model.Password.Equals(model.ConfirmPassword))
             {
-                ModelState.AddModelError("Password", "Mật khẩu nhập lại không khớp với");
+                ModelState.AddModelError("ConfirmPassword", "Mật khẩu nhập lại không khớp với");
                 return View(model);
             }
             if (!IsStrongPassword(model.Password))
