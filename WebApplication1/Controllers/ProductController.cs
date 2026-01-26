@@ -160,10 +160,11 @@ namespace WebShop.Controllers
             return View("ProductDetail", model);
         }
 
-        public IActionResult SearchResult(string q)
+        public IActionResult SearchResult(string q, string sort)
         {
             var model = new SearchResultViewModel();
             model.SearchTerm = string.IsNullOrEmpty(q) ? "" : q;
+            model.CurrentSort = sort;
 
             if (string.IsNullOrEmpty(q))
             {
@@ -174,13 +175,20 @@ namespace WebShop.Controllers
             {
                 conn.Open();
                 string sql = @"
-            SELECT p.id, p.name, p.price, p.sale_price, pi.image_url, 
-                   (SELECT AVG(rating) FROM Reviews WHERE product_id = p.id) as avg_rating,
-                   (SELECT COUNT(*) FROM Reviews WHERE product_id = p.id) as total_reviews
-            FROM Products p
-            LEFT JOIN Product_Images pi ON p.id = pi.product_id AND pi.is_main = 1
-            WHERE p.name LIKE @keyword
-            ORDER BY p.created_time DESC";
+                    SELECT p.id, p.name, p.price, p.sale_price, pi.image_url, 
+                           (SELECT AVG(rating) FROM Reviews WHERE product_id = p.id) as avg_rating,
+                           (SELECT COUNT(*) FROM Reviews WHERE product_id = p.id) as total_reviews
+                    FROM Products p
+                    LEFT JOIN Product_Images pi ON p.id = pi.product_id AND pi.is_main = 1
+                    WHERE p.name LIKE @keyword";
+                if (sort == "price-asc")
+                {
+                    sql += " ORDER BY p.price ASC";
+                }
+                else
+                {
+                    sql += " ORDER BY p.created_time DESC";
+                }
 
                 using (var cmd = new MySqlCommand(sql, conn))
                 {

@@ -6,6 +6,7 @@ namespace WebShop.Models
     {
         public string SearchTerm { get; set; }
         public int TotalCount { get; set; }
+        public string CurrentSort { get; set; }
         public List<SearchProductItem> Products { get; set; } = new List<SearchProductItem>();
     }
 
