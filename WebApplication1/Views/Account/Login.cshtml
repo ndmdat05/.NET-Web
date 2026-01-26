@@ -17,18 +17,18 @@
         <h2>Đăng nhập</h2>
 
         <label for="username">Tên đăng nhập</label>
-        <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+        <input asp-for="Email" type="text" id="username" placeholder="Nhập email đăng nhập" required>
         <span asp-validation-for="Email" class="text-danger"></span>
 
         <label for="password">Mật khẩu</label>
-        <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+        <input asp-for="Password" type="password" id="password" placeholder="Nhập mật khẩu" required>
         <span asp-validation-for="Password" class="text-danger"></span>
 
         <div class="text-danger">
             @Html.ValidationSummary()
         </div>
-        <a asp-controller="Home" asp-action="Index" class="btn-login" onclick="goToIndex()">Đăng nhập</a>
-
+        @* <a asp-controller="Home" asp-action="Index" class="btn-login" onclick="goToIndex()">Đăng nhập</a> *@
+        <button type="submit" class="btn-login">Đăng nhập</button>
         <p class="login-link">
             Chưa có tài khoản?
             <a asp-controller="Account" asp-action="Register">Đăng ký</a>

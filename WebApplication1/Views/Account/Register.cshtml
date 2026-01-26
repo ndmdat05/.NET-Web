@@ -1,3 +1,4 @@
+@model WebShop.Models.RegisterViewModel
 @{
     Layout = null;
     ViewData["Title"] = "Đăng ký tài khoản";
@@ -13,24 +14,22 @@
 <body>
     <div class="register-box">
         <h2>Đăng ký tài khoản</h2>
-
+        <form asp-action="Register" method="post">
         <label for="fullname">Họ và tên</label>
-        <input type="text" id="fullname" placeholder="Nhập họ và tên" required>
+        <input asp-for="FullName" type="text" id="fullname" placeholder="Nhập họ và tên" required>
 
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Nhập email" required>
-
-        <label for="username">Tên đăng nhập</label>
-        <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+        <input asp-for="Email" type="email" id="email" placeholder="Nhập email" required>
 
         <label for="password">Mật khẩu</label>
-        <input type="password" id="password" placeholder="Tạo mật khẩu" required>
+        <input asp-for="Password" type="password" id="password" placeholder="Tạo mật khẩu" required>
 
         <label for="confirm">Nhập lại mật khẩu</label>
-        <input type="password" id="confirm" placeholder="Nhập lại mật khẩu" required>
+        <input asp-for="ConfirmPassword" type="password" id="confirm" placeholder="Nhập lại mật khẩu" required>
 
-        <a asp-controller="Home" asp-action="DangNhap" class="btn-register" onclick="registerSuccess()">Đăng ký</a>
-
+        @* <a asp-controller="Home" asp-action="DangNhap" class="btn-register" onclick="registerSuccess()">Đăng ký</a> *@
+            <button type="submit" class="btn-register">Đăng ký</button>
+        </form>
         <p class="login-link">
             Đã có tài khoản?
             <a asp-controller="Home" asp-action="DangNhap">Đăng nhập</a>
