@@ -4,10 +4,10 @@ namespace WebShop.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email format")]
+        [Required(ErrorMessage = "Vui lòng nhập email")]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng")]
         public string Email{ get; set; }
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
         public string Password { get; set; }
     }
 }

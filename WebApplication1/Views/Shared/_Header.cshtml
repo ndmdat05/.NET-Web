@@ -1,4 +1,10 @@
-﻿<header class="header-top">
+﻿@{
+    var userId = Context.Session.GetString("UserId");
+    var userEmail = Context.Session.GetString("UserEmail");
+    var role = Context.Session.GetString("UserRole");
+}
+
+<header class="header-top">
     <div class="logo">
         <a asp-controller="Home" asp-action="Index">
             <img src="~/images/logo.jpg" alt="Paddy.vn" />
@@ -16,15 +22,49 @@
             <strong>086 767 7891</strong>
         </div>
         <div class="icons">
-            <a asp-controller="Account" asp-action="Wishlist" class="icon-item">
-                <i class="fa fa-heart"></i>
-                <p>Wishlist</p>
-            </a>
+            @if (userId == null)
+            {
+                <a asp-controller="Account" asp-action="Login" class="icon-item">
+                    <i class="fa fa-heart"></i>
+                    <p>Wishlist</p>
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Wishlist" class="icon-item">
+                    <i class="fa fa-heart"></i>
+                    <p>Wishlist</p>
+                </a>
+            }
 
-            <a asp-controller="Account" asp-action="Login" class="icon-item">
-                <i class="fa fa-user"></i>
-                <p>Tài Khoản</p>
-            </a>
+
+            @if (userId == null)
+            {
+                <a asp-controller="Account" asp-action="Login" class="icon-item">
+                    <i class="fa fa-user"></i>
+                    <p>Đăng nhập</p>
+                </a>
+            }
+            else
+            {
+                <div class="icon-item account-dropdown">
+                    <i class="fa fa-user"></i>
+                    <p>@userEmail</p>
+
+                    <div class="account-menu">
+                        <a asp-controller="Account" asp-action="Profile">Hồ sơ</a>
+                        <a asp-controller="Account" asp-action="Wishlist">Wishlist</a>
+
+                        @if (role == "ADMIN")
+                        {
+                            <a asp-controller="Admin" asp-action="Index">Trang Admin</a>
+                        }
+
+                        <a asp-controller="Account" asp-action="Logout">Đăng xuất</a>
+                    </div>
+                </div>
+            }
+
 
             <a asp-controller="Cart" asp-action="Index" class="icon-item">
                 <i class="fa fa-cart-arrow-down"></i>
