@@ -28,6 +28,7 @@ namespace WebShop.Models
         public decimal Weight { get; set; }
         public decimal FinalPrice { get; set; }
         public int Stock { get; set; }
+        public string VariantName { get; set; }
     }
     public class ReviewViewModel
     {

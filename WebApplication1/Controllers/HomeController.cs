@@ -87,6 +87,8 @@ namespace WebShop.Controllers
 
         public IActionResult Index()
         {
+            string userId = User.Identity.Name ?? "Guest";
+            ViewBag.WishlistIds = _databaseService.GetWishlistProductIds(userId);
             var model = LoadHomeData();
             return View(model);
         }
