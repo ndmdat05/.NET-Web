@@ -1,70 +1,62 @@
 @model List<WebShop.Models.HistoryOrderViewModel>
-
 @{
     ViewData["Title"] = "Lịch sử đơn hàng";
 }
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white border-bottom py-3">
-                    <h4 class="mb-0 text-primary"><i class="fa-solid fa-box-open me-2"></i>Lịch sử đơn hàng</h4>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th class="ps-4 py-3">Mã đơn hàng</th>
-                                    <th class="py-3">Ngày đặt</th>
-                                    <th class="py-3">Tổng tiền</th>
-                                    <th class="py-3">Trạng thái</th>
-                                    <th class="py-3 text-end pe-4">Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model != null && Model.Any())
-                                {
-                                    foreach (var order in Model)
-                                    {
-                                        <tr>
-                                            <td class="ps-4 fw-bold text-dark">#@order.OrderId</td>
-                                            <td class="text-muted">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-                                            <td class="fw-bold text-danger">@order.TotalAmount.ToString("N0")đ</td>
-                                            <td>
-                                                @{
-                                                    // Logic tô màu badge trạng thái
-                                                    string badgeClass = "bg-secondary";
-                                                    if (order.Status.Contains("Giao") || order.Status.Contains("Hoàn thành")) badgeClass = "bg-success";
-                                                    else if (order.Status.Contains("Hủy")) badgeClass = "bg-danger";
-                                                    else if (order.Status.Contains("Xử lý") || order.Status.Contains("Chờ")) badgeClass = "bg-warning text-dark";
-                                                }
-                                                <span class="badge rounded-pill @badgeClass">@order.Status</span>
-                                            </td>
-                                            <td class="text-end pe-4">
-                                                <a asp-action="StatusDetails" asp-route-id="@order.OrderId" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                                                    Xem chi tiết <i class="fa-solid fa-arrow-right ms-1"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+<link rel="stylesheet" href="~/css/PStatus_Style.css" />
+
+<div class="ps-container">
+    <div class="order-card">
+        <div class="card-header">
+            <i class="fa-solid fa-box-open" style="margin-right: 10px;"></i> Lịch sử đơn hàng
+        </div>
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th class="text-right">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var order in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold">#@order.OrderId</td>
+                                <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="text-danger">@order.TotalAmount.ToString("N0")đ</td>
+                                <td>
+                                    @{
+                                        string badgeClass = "bg-secondary";
+                                        if (order.Status.Contains("Giao") || order.Status.Contains("Hoàn")) badgeClass = "bg-success";
+                                        else if (order.Status.Contains("Hủy")) badgeClass = "bg-danger";
+                                        else if (order.Status.Contains("Xử lý") || order.Status.Contains("Chờ")) badgeClass = "bg-warning";
                                     }
-                                }
-                                else
-                                {
-                                    <tr>
-                                        <td colspan="5" class="text-center py-5">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/4076/4076432.png" width="80" class="mb-3 opacity-50" alt="Empty">
-                                            <p class="text-muted mb-0">Bạn chưa có đơn hàng nào.</p>
-                                            <a href="/" class="btn btn-primary mt-3">Mua sắm ngay</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                                    <span class="status-badge @badgeClass">@order.Status</span>
+                                </td>
+                                <td class="text-right">
+                                    <a asp-action="StatusDetails" asp-route-id="@order.OrderId" class="btn-detail">
+                                        Xem chi tiết <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" style="text-align:center; padding: 40px;">
+                                <p>Bạn chưa có đơn hàng nào.</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

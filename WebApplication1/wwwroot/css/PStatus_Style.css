@@ -1,75 +1,136 @@
-.ps-container{
-    width: 1310px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.ps-header h2{
-    font-size: 25px;
-    font-weight: bold;
-    margin: 20px 0;
-}
-.ps-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+﻿/* --- CSS RIÊNG CHO TRANG ORDER (Không ảnh hưởng trang khác) --- */
+
+/* 1. Container & Layout */
+.ps-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.ps-table th {
-    text-align: left;
-    border-bottom: 2px solid #ddd;
-    padding: 10px 0;
-    font-size: 14px;
+/* 2. Card (Khung bao ngoài) */
+.order-card {
+    background: #fff;
+    border: 1px solid #e3e6f0;
+    border-radius: 8px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 16px 20px;
+    font-size: 18px;
     font-weight: 600;
-}
-
-.ps-item td {
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    vertical-align: middle;
-}
-
-.ps-info {
+    color: #4e73df; /* Màu xanh chủ đạo */
     display: flex;
-    gap: 15px;
     align-items: center;
 }
 
-.ps-img {
-    width: 70px;
-    border-radius: 8px;
+/* 3. Table (Bảng) */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
 }
 
-.ps-name {
-    font-weight: bold;
-    color: #222;
-    font-size: 15px;
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
 }
 
-.ps-weight, .ps-brand {
-    color: #777;
-    font-size: 13px;
-}
-.ps-stt-shipping{
-    color: dodgerblue;
-}
-.ps-stt-shipped{
-    color: lawngreen;
-}
-.ps-stt{
-    color: red;
-}
-.ps-button {
-    padding: 8px 15px;
-    color: white;
-    background: #0d57e4;
-    border: 1px solid #333333;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
+    .custom-table th {
+        background-color: #eaecf4;
+        color: #5a5c69;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 12px;
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 2px solid #e3e6f0;
+    }
+
+    .custom-table td {
+        padding: 12px 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #e3e6f0;
+        color: #333;
+    }
+
+    .custom-table tr:hover {
+        background-color: #fafafa;
+    }
+
+/* 4. Badge (Trạng thái) */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
     display: inline-block;
-    cursor: pointer;
-    text-align: center;
 }
-.ps-button:hover{
-    background: #18358b;
+
+.bg-success {
+    background-color: #1cc88a;
+    color: white;
+}
+
+.bg-warning {
+    background-color: #f6c23e;
+    color: #333;
+}
+
+.bg-danger {
+    background-color: #e74a3b;
+    color: white;
+}
+
+.bg-secondary {
+    background-color: #858796;
+    color: white;
+}
+
+/* 5. Buttons & Links */
+.btn-detail {
+    text-decoration: none;
+    padding: 6px 16px;
+    border: 1px solid #4e73df;
+    color: #4e73df;
+    border-radius: 50px;
+    font-size: 13px;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+    .btn-detail:hover {
+        background-color: #4e73df;
+        color: white;
+    }
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    color: #666;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+    .btn-back:hover {
+        color: #4e73df;
+    }
+
+/* 6. Text Utilities */
+.text-danger {
+    color: #e74a3b !important;
+    font-weight: bold;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.fw-bold {
+    font-weight: 700;
 }

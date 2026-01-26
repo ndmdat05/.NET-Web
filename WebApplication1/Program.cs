@@ -15,6 +15,7 @@ builder.Services.AddScoped<MySqlConnection>(sp => new MySqlConnection(connection
 builder.Services.AddScoped<DatabaseService>();
 
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);

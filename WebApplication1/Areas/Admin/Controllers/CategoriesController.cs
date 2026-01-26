@@ -118,9 +118,8 @@ namespace WebShop.Areas.Admin.Controllers
             finally { _conn.Close(); }
         }
 
-        // --- 6. XÓA DANH MỤC (Code đã sửa lỗi) ---
         [HttpPost]
-        [IgnoreAntiforgeryToken] // <--- Dòng này cực kỳ quan trọng để Ajax chạy được
+        [IgnoreAntiforgeryToken]
         public IActionResult Delete(string id)
         {
             if (_conn.State == System.Data.ConnectionState.Closed) _conn.Open();
