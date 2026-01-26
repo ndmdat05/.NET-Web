@@ -1,27 +1,31 @@
-// --- PHẦN 1: XỬ LÝ WISHLIST (Thả tim) ---
-// Hàm xử lý thả tim (Dùng chung cho cả Trang chủ và Chi tiết)
-function toggleHomeWishlist(event, element, productId) {
-    // 1. Chặn hành vi mặc định (chặn chuyển trang)
-    event.preventDefault();
-    event.stopPropagation(); // Quan trọng: Chặn sự kiện nổi bọt lên thẻ <a>
+$(document).ready(function () {
+    // --- XỬ LÝ WISHLIST (CÁCH MỚI: EVENT DELEGATION) ---
+    // Bắt sự kiện click vào bất kỳ phần tử nào có class '.btn-add-wishlist'
+    $(document).on('click', '.btn-add-wishlist', function (e) {
+        e.preventDefault();      // Ngăn chặn hành vi mặc định (nếu có)
+        e.stopPropagation();     // Ngăn chặn sự kiện nổi bọt lên thẻ cha (thẻ <a>)
 
-    // 2. Gửi AJAX
-    $.post('/Wishlist/Toggle', { id: productId }, function (response) {
-        if (response.success) {
-            if (response.liked) {
-                // Đã thích -> Đỏ
-                $(element).removeClass('fa-regular').addClass('fa-solid').css('color', 'red');
+        const icon = $(this);           // Lấy chính icon đang được click
+        const productId = icon.data('id'); // Lấy ID sản phẩm từ data-id
+
+        // Gửi yêu cầu AJAX về Server
+        $.post('/Wishlist/Toggle', { id: productId }, function (response) {
+            if (response.success) {
+                if (response.liked) {
+                    // Nếu server báo Đã thích -> Đổi sang icon đặc, màu đỏ
+                    icon.removeClass('fa-regular').addClass('fa-solid').css('color', 'red');
+                } else {
+                    // Nếu server báo Bỏ thích -> Đổi sang icon rỗng, màu thường
+                    icon.removeClass('fa-solid').addClass('fa-regular').css('color', '');
+                }
             } else {
-                // Bỏ thích -> Trắng
-                $(element).removeClass('fa-solid').addClass('fa-regular').css('color', '');
+                alert("Có lỗi khi thao tác!");
             }
-        } else {
-            alert("Có lỗi xảy ra!");
-        }
-    }).fail(function () {
-        alert("Lỗi kết nối server!");
+        }).fail(function () {
+            alert("Lỗi kết nối tới server!");
+        });
     });
-}
+});
 
 // --- PHẦN 2: SLIDER (Chạy Banner trang chủ) ---
 document.addEventListener('DOMContentLoaded', () => {
