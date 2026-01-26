@@ -29,10 +29,13 @@
             <div class="search-controls">
                 <div class="sort-left">
                     <label class="label-results">Sắp xếp theo:</label>
-                    <select id="sort-select" class="sort-select">
-                        <option value="relevance">Phù hợp nhất</option>
-                        <option value="price-asc">Giá: thấp → cao</option>
-                    </select>
+                    <form id="sortForm" method="get" action="@Url.Action("SearchResult", "Product")" style="display:inline-block;">
+                        <input type="hidden" name="q" value="@Model.SearchTerm" />
+                        <select name="sort" class="sort-select" onchange="document.getElementById('sortForm').submit()">
+                            <option value="">Phù hợp nhất</option>
+                            <option value="price-asc" selected="@(Model.CurrentSort == "price-asc")">Giá: thấp → cao</option>
+                        </select>
+                    </form>
                 </div>
             </div>
 
