@@ -15,7 +15,6 @@ namespace WebShop.Areas.Admin.Controllers
             _conn = conn;
         }
 
-        // --- 1. TRANG DANH SÁCH (Index) ---
         public IActionResult Index()
         {
             List<OrderViewModel> list = new List<OrderViewModel>();
@@ -59,7 +58,6 @@ namespace WebShop.Areas.Admin.Controllers
             return View(list);
         }
 
-        // --- 2. TRANG CHI TIẾT (Detail) ---
         public IActionResult Detail(string id)
         {
             if (string.IsNullOrEmpty(id)) return NotFound();
@@ -70,7 +68,7 @@ namespace WebShop.Areas.Admin.Controllers
 
             try
             {
-                // A. Lấy thông tin đơn hàng
+
                 string sqlOrder = @"
                     SELECT o.id, u.email, o.total_amount, o.order_status, o.order_date,
                            ui.name as receiver_name, ui.phone_num, ui.location
@@ -102,7 +100,6 @@ namespace WebShop.Areas.Admin.Controllers
 
                 if (order == null) return NotFound();
 
-                // B. Lấy danh sách sản phẩm
                 string sqlItems = @"
                     SELECT oi.quantity, oi.unit_price, p.name, pi.image_url
                     FROM Order_items oi
@@ -135,7 +132,6 @@ namespace WebShop.Areas.Admin.Controllers
             return View(order);
         }
 
-        // --- 3. CẬP NHẬT TRẠNG THÁI (UpdateStatus) ---
         [HttpPost]
         public IActionResult UpdateStatus(string id, string status)
         {
