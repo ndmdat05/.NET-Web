@@ -17,7 +17,6 @@ namespace WebShop.Controllers
         }
         private string GetConnectionString() => _configuration.GetConnectionString("DefaultConnection");
 
-        // Giả sử Action bạn đặt tên là Detail hoặc ProductDetail
         public IActionResult Detail(String id)
         {
             if (string.IsNullOrEmpty(id)) return RedirectToAction("Index", "Home");
@@ -29,7 +28,6 @@ namespace WebShop.Controllers
             {
                 conn.Open();
 
-                // Lấy thông tin sản phẩm + đánh giá
                 string sqlProduct = @"
                     SELECT p.*, 
                            (SELECT AVG(rating) FROM Reviews WHERE product_id = p.id) as avg_rating,
@@ -51,18 +49,15 @@ namespace WebShop.Controllers
                             model.StockQuantity = Convert.ToInt32(reader["quantity"]);
                             model.CategoryId = reader["category_id"].ToString();
 
-                            //Rating
                             model.AverageRating = reader["avg_rating"] != DBNull.Value ? Convert.ToDecimal(reader["avg_rating"]) : 0;
                             model.ReviewCount = Convert.ToInt32(reader["total_reviews"]);
                         }
                         else
                         {
-                            return NotFound(); // Không tìm thấy sp
+                            return NotFound();
                         }
                     }
                 }
-
-                //Lấy hình ảnh
                 string sqlImages = "SELECT image_url FROM Product_Images WHERE product_id = @id ORDER BY is_main DESC";
                 using (var cmd = new MySqlCommand(sqlImages, conn))
                 {
@@ -76,7 +71,6 @@ namespace WebShop.Controllers
                     }
                 }
 
-                // Lấy danh sách Review
                 string sqlReviews = @"
                     SELECT r.rating, r.comment, u.email 
                     FROM Reviews r
@@ -101,7 +95,6 @@ namespace WebShop.Controllers
                     }
                 }
 
-                // Lấy danh sách khối lượng của sp
                 string sqlVariants = "SELECT * FROM Product_variants WHERE product_id = @id ORDER BY weight ASC";
 
                 using (var cmd = new MySqlCommand(sqlVariants, conn))
@@ -127,10 +120,8 @@ namespace WebShop.Controllers
                     }
                 }
 
-                // Hàng cùng loại (category)
                 if (!string.IsNullOrEmpty(model.CategoryId))
                 {
-                    // Thêm p.sale_price vào câu SQL
                     string sqlRelated = @"SELECT p.id, p.name, p.price, p.sale_price, pi.image_url 
                                             FROM Products p
                                             LEFT JOIN Product_Images pi ON p.id = pi.product_id AND pi.is_main = 1

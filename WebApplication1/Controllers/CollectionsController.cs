@@ -16,8 +16,6 @@ namespace WebShop.Controllers
         }
 
         private string GetConnectionString() => _configuration.GetConnectionString("DefaultConnection");
-
-        // Action nhận thêm tham số 'keyword' để lọc tên sản phẩm
         public IActionResult Index(string categoryId, string sort, string keyword)
         {
             var model = new CollectionViewModel();
@@ -25,9 +23,8 @@ namespace WebShop.Controllers
             model.CurrentSort = sort;
             model.CurrentKeyword = keyword;
 
-            // Cập nhật tên tiêu đề nếu có từ khóa
             if (!string.IsNullOrEmpty(keyword))
-                model.CurrentCategoryName = "Tìm kiếm: " + keyword;
+                model.CurrentCategoryName = "Danh mục: " + keyword;
             else
                 model.CurrentCategoryName = "Tất cả sản phẩm";
 
@@ -44,19 +41,16 @@ namespace WebShop.Controllers
                     LEFT JOIN P_category c ON p.category_id = c.id
                     WHERE 1=1";
 
-                // 1. Lọc theo danh mục
                 if (!string.IsNullOrEmpty(categoryId))
                 {
                     sql += " AND p.category_id = @catId";
                 }
 
-                // 2. Lọc theo tên (Keyword) - QUAN TRỌNG CHO 8 MỤC BỘ SƯU TẬP
                 if (!string.IsNullOrEmpty(keyword))
                 {
                     sql += " AND p.name LIKE @keyword";
                 }
 
-                // 3. Sắp xếp
                 switch (sort)
                 {
                     case "alpha-asc": sql += " ORDER BY p.name ASC"; break;

@@ -208,28 +208,22 @@
             if (newQty >= 1) qtyInput.value = newQty;
         }
 
-
-                // --- ĐOẠN CODE MỚI ---
         $('.wishlist-btn').click(function(e) {
-            e.preventDefault(); // Chặn load lại trang
+            e.preventDefault();
 
             var btn = $(this);
             var icon = btn.find('i');
-            var productId = btn.data('id'); // Lấy ID sản phẩm
+            var productId = btn.data('id');
 
-            // Gửi yêu cầu lên Server
             $.post('/Wishlist/Toggle', { id: productId }, function(response) {
                 if (response.liked) {
-                    // Đã thích -> Tim đỏ
                     icon.removeClass('fa-regular').addClass('fa-solid').css('color', 'red');
                 } else {
-                    // Kiểm tra nếu chưa đăng nhập
                     if (response.message === "Vui lòng đăng nhập") {
                          alert("Bạn cần đăng nhập để thêm yêu thích!");
                          window.location.href = "/Account/Login";
                          return;
                     }
-                    // Đã bỏ thích -> Tim trắng
                     icon.removeClass('fa-solid').addClass('fa-regular').css('color', '');
                 }
             }).fail(function() {
@@ -238,26 +232,19 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            console.log("Đang khởi tạo sự kiện cho các nút Size...");
 
             var buttons = document.getElementsByClassName('size-btn');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].addEventListener('click', function() {
-                    // Lấy dữ liệu từ data-attribute (An toàn tuyệt đối)
                     var price = this.getAttribute('data-price');
                     var stock = this.getAttribute('data-stock');
 
-                    // Gọi hàm xử lý giao diện
                     handleSizeClick(this, price, stock);
                 });
             }
         });
 
-        // --- 2. Hàm xử lý giao diện ---
         function handleSizeClick(btn, price, stock) {
-            console.log("Đã bấm nút! Giá:", price, "Kho:", stock); // Kiểm tra log
-
-            // Reset màu các nút về bình thường
             var buttons = document.getElementsByClassName('size-btn');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].style.borderColor = '#ccc';
@@ -265,23 +252,19 @@
                 buttons[i].classList.remove('active');
             }
 
-            // Tô màu nút được chọn
             btn.classList.add('active');
             btn.style.borderColor = '#d0021b';
             btn.style.color = '#d0021b';
 
-            // Cập nhật giá tiền (Dữ liệu đầu vào chuẩn dạng 132000.00 nên parse rất dễ)
             var priceElem = document.getElementById('display-price');
             if(priceElem) {
                 var priceNumber = parseFloat(price);
                 priceElem.innerText = priceNumber.toLocaleString('vi-VN') + 'đ';
             }
 
-            // Cập nhật tồn kho
             var stockElem = document.getElementById('display-stock');
             if(stockElem) stockElem.innerText = stock;
 
-            // Ẩn/Hiện giá gốc (chỉ hiện khi chọn Tiêu chuẩn)
             var oldPriceElem = document.getElementById('display-old-price');
             if (oldPriceElem) {
                 if (btn.innerText.trim().toLowerCase().includes("tiêu chuẩn")) {
