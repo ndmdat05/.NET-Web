@@ -27,26 +27,26 @@ namespace WebShop.Areas.Admin.Controllers
 
             try
             {
-                // 1. Đếm User
+
                 using (var cmd = new MySqlCommand("SELECT COUNT(*) FROM Users", _conn))
                     totalUsers = Convert.ToInt32(cmd.ExecuteScalar());
 
-                // 2. Đếm Sản phẩm
+                
                 using (var cmd = new MySqlCommand("SELECT COUNT(*) FROM Products", _conn))
                     totalProducts = Convert.ToInt32(cmd.ExecuteScalar());
 
-                // 3. Đếm Đơn hàng
+                
                 using (var cmd = new MySqlCommand("SELECT COUNT(*) FROM Orders", _conn))
                     totalOrders = Convert.ToInt32(cmd.ExecuteScalar());
 
-                // 4. Tính Doanh thu
+                
                 using (var cmd = new MySqlCommand("SELECT SUM(total_amount) FROM Orders WHERE order_status != 'Cancelled'", _conn))
                 {
                     var res = cmd.ExecuteScalar();
                     totalRevenue = res != DBNull.Value ? Convert.ToDecimal(res) : 0;
                 }
 
-                // 5. Lấy đơn mới nhất
+                
                 string sqlRecent = @"SELECT o.id, u.email, o.total_amount, o.order_status, o.order_date 
                                      FROM Orders o LEFT JOIN Users u ON o.user_id = u.id 
                                      ORDER BY o.order_date DESC LIMIT 5";
@@ -66,7 +66,7 @@ namespace WebShop.Areas.Admin.Controllers
                     }
                 }
             }
-            catch { } // Bỏ qua lỗi dashboard để không chặn trang chính
+            catch { } 
             finally { _conn.Close(); }
 
             ViewBag.TotalUsers = totalUsers;

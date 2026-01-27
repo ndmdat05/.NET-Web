@@ -46,7 +46,6 @@ namespace WebShop.Areas.Admin.Controllers
             try
             {
                 if (_conn.State == ConnectionState.Closed) _conn.Open();
-                // Tự sinh ID ngẫu nhiên
                 string newId = Guid.NewGuid().ToString();
                 string sql = "INSERT INTO P_category (id, category_name, description) VALUES (@id, @name, @desc)";
                 using (var cmd = new MySqlCommand(sql, _conn))
@@ -65,7 +64,6 @@ namespace WebShop.Areas.Admin.Controllers
             }
             finally { _conn.Close(); }
         }
-        // --- 4. TRANG SỬA (GET) ---
         public IActionResult Edit(string id)
         {
             if (_conn.State == ConnectionState.Closed) _conn.Open();
@@ -93,7 +91,6 @@ namespace WebShop.Areas.Admin.Controllers
             return View(cat);
         }
 
-        // --- 5. LƯU SỬA (POST) ---
         [HttpPost]
         public IActionResult Edit(Category model)
         {
@@ -125,8 +122,7 @@ namespace WebShop.Areas.Admin.Controllers
             if (_conn.State == System.Data.ConnectionState.Closed) _conn.Open();
             try
             {
-                // 1. Kiểm tra xem có sản phẩm nào thuộc danh mục này không
-                // Nếu còn sản phẩm thì KHÔNG ĐƯỢC XÓA để tránh lỗi dữ liệu
+
                 string sqlCheck = "SELECT COUNT(*) FROM Products WHERE category_id = @id";
                 using (var cmdCheck = new MySqlCommand(sqlCheck, _conn))
                 {
@@ -139,7 +135,6 @@ namespace WebShop.Areas.Admin.Controllers
                     }
                 }
 
-                // 2. Nếu không có sản phẩm -> Thực hiện xóa
                 string sqlDel = "DELETE FROM P_category WHERE id = @id";
                 using (var cmdDel = new MySqlCommand(sqlDel, _conn))
                 {
@@ -154,7 +149,6 @@ namespace WebShop.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                // Ghi lại lỗi
                 return Json(new { success = false, message = "Lỗi Server: " + ex.Message });
             }
             finally

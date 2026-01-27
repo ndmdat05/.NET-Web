@@ -19,12 +19,11 @@ namespace WebShop.Areas.Admin.Controllers
         {
             List<UserViewModelAdmin> list = new List<UserViewModelAdmin>();
 
-            // Mở kết nối an toàn
             if (_conn.State == ConnectionState.Closed) _conn.Open();
 
             try
             {
-                // Truy vấn lấy tất cả user (LEFT JOIN để không mất user nếu thiếu info)
+
                 string sql = @"
                             SELECT u.id, u.email, u.role, u.`lock`, 
                                    ui.name, ui.phone_num, ui.location
@@ -52,7 +51,7 @@ namespace WebShop.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                // Ghi lỗi ra TempData để bạn thấy trên web nếu có sự cố SQL
+
                 TempData["Error"] = "Lỗi: " + ex.Message;
             }
             finally { _conn.Close(); }
