@@ -21,10 +21,7 @@ namespace WebShop.Controllers
             _databaseService = databaseService;
         }
 
-        //Lấy chuỗi kết nối
         private string GetConnectionString() => _configuration.GetConnectionString("DefaultConnection");
-
-        //Hàm xử lý dữ liệu
         private HomeViewModel LoadHomeData()
         {
             var model = new HomeViewModel();
@@ -104,8 +101,6 @@ namespace WebShop.Controllers
             return View();
         }
 
-        // Các action khác vẫn giữ nguyên
-
         public IActionResult Blog()
         {
             return View();
@@ -139,7 +134,6 @@ namespace WebShop.Controllers
         // Kiểm tra kết nối MySQL
         public IActionResult TestDatabase()
         {
-            // Gọi hàm TestConnection có sẵn trong DatabaseService.cs
             bool isConnected = _databaseService.TestConnection();
 
             if (isConnected)
