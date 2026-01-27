@@ -9,7 +9,7 @@ namespace WebShop.Controllers
     {
         private readonly string _connectionString = "Server=127.0.0.1;Database=DOCNET;User Id=root;Password=123456;Port=3306;";
 
-        // Hiển thị giỏ hàng
+        // cart
         public IActionResult Index()
         {
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new List<CartItem>();
@@ -17,7 +17,7 @@ namespace WebShop.Controllers
             return View(cart);
         }
 
-        // ✅ THÊM METHOD NÀY - GET request để test bằng URL
+        
         public IActionResult Add(string id, int quantity = 1)
         {
             if (string.IsNullOrEmpty(id))
@@ -46,7 +46,7 @@ namespace WebShop.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST - Từ form trong ProductDetail.cshtml
+        
         [HttpPost]
         public IActionResult AddToCart(string id, int quantity = 1)
         {
@@ -76,7 +76,7 @@ namespace WebShop.Controllers
             return RedirectToAction("Index");
         }
 
-        // Cập nhật số lượng
+        
         [HttpPost]
         public IActionResult Update(string id, int quantity)
         {
@@ -93,7 +93,7 @@ namespace WebShop.Controllers
             return RedirectToAction("Index");
         }
 
-        // Xóa sản phẩm
+       
         public IActionResult Remove(string id)
         {
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
@@ -109,7 +109,7 @@ namespace WebShop.Controllers
             return RedirectToAction("Index");
         }
 
-        // Lấy sản phẩm từ DB
+        
         private CartItem GetProductFromDb(string id)
         {
             CartItem item = null;

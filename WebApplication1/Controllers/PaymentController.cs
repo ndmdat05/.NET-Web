@@ -43,7 +43,7 @@ namespace WebShop.Controllers
                     {
                         try
                         {
-                            // INSERT Orders
+                            // thêm đơn hàng
                             string sqlOrder = @"INSERT INTO Orders (id, user_id, order_status, subtotal, total_amount, order_date)
                                                VALUES (@id, @userId, @status, @subtotal, @total, @orderDate)";
                             using (var cmd = new MySqlCommand(sqlOrder, conn, transaction))
@@ -57,7 +57,7 @@ namespace WebShop.Controllers
                                 cmd.ExecuteNonQuery();
                             }
 
-                            // INSERT Order_items
+                            //thêm item đơn hàng
                             foreach (var item in cart)
                             {
                                 string sqlItem = @"INSERT INTO Order_items (id, product_id, order_id, quantity, unit_price)

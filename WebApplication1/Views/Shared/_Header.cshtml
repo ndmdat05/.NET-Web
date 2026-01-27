@@ -40,7 +40,7 @@
 
             @if (userId == null)
             {
-                <a asp-controller="Account" asp-action="Login" class="icon-item">
+                <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" class="icon-item">
                     <i class="fa fa-user"></i>
                     <p>Đăng nhập</p>
                 </a>

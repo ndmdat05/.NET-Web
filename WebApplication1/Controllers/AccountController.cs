@@ -20,21 +20,34 @@ namespace WebShop.Controllers
         }
         // 1. Đăng nhập
         // URL: /Account/Login
+        //[HttpGet]
+        //public IActionResult Login()
+        //{
+        //    if(HttpContext.Session.GetString("UserId") != null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    return View(); // Tự động tìm Views/Account/Login.cshtml
+        //}
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string? returnUrl = null)
         {
-            if(HttpContext.Session.GetString("UserId") != null)
+            // Đã đăng nhập → không cho vào login nữa
+            if (HttpContext.Session.GetString("UserId") != null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View(); // Tự động tìm Views/Account/Login.cshtml
+
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
         }
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public IActionResult Login(LoginViewModel model, string? returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             // Xử lý đăng nhập ở đây (sau này)
             // Hiện tại chỉ giả lập thành công và chuyển hướng về trang chủ
-            if(!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(model);
             try
             {
                 using var conn = new MySql.Data.MySqlClient.MySqlConnection(_connectionString);
@@ -78,7 +91,10 @@ namespace WebShop.Controllers
                 HttpContext.Session.SetString("UserId", userId);
                 HttpContext.Session.SetString("UserEmail", reader["email"].ToString());
                 HttpContext.Session.SetString("UserRole", role);
-
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
                 // 5. Phân quyền redirect
                 if (role == "ADMIN")
                 {
